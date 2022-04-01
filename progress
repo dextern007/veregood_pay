@@ -1,0 +1,34 @@
+Models
+    - User ( Completed )
+    - Wallet ( In Progress )
+    - Transcation ( In Progress )
+    - Payment ( Completed )
+    - Settings ( In Progress )
+    - Blockchain ( Completed )
+    - Services ( In Progress )
+    - Promtions (In Progress )
+
+
+API's
+    - User ( CURD -Completed )
+    - Wallet ( CURD - Completed )
+    - Transaction ( In Progress ) (send , recieve , request )
+      Individual History (In Progress )
+      All History ( Completed )
+    - Services ( In Progress )
+    - Deposit ( Direct Deposit , Crypto Deposit - In progress )
+      Payment Gateway Integration
+      Crypto Integration ( PaxFul )
+    - Withdraw ( In Progress )
+    - Account ( In Progress )
+      - Bank Account
+      - Kyc
+      - Crypto Wallet
+
+
+Mobile App
+    - UI/UX (Services & Promotion in progress)
+    - API Integration with backend ( In Progress)
+
+
+
