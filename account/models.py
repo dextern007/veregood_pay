@@ -1,7 +1,13 @@
+from operator import mod
 from django.db import models
 from setting.models import Crytpo
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
+
+class User(AbstractUser):
+    is_google_auth = models.BooleanField(default=False)
+    google_id      = models.TextField(max_length=1500,blank=True,null=True)
 
 class BANKDETAIL(models.Model):
     user                = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
@@ -82,3 +88,7 @@ class Contact(models.Model):
 
     def __unicode__(self):
         return self.id
+
+
+
+

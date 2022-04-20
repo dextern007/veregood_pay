@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'job',
     'forum', #funding , ask funs , list funds , donate , create projects
 
-    # additional
+    # # additional
     'savings',
     'promotion',
     'electricity',
@@ -56,7 +56,17 @@ INSTALLED_APPS = [
     'dth',
     'recharge',
     'bill_payment',
+
+    # restframework
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', 
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,7 +105,7 @@ WSGI_APPLICATION = 'veregood_pay.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db6.sqlite3',
+        'NAME': BASE_DIR / 'db3.sqlite3',
     }
 }
 
@@ -153,3 +163,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# AUTH USER MODEL 
+# https://docs.djangoproject.com/en/4.0/topics/auth/customizing/
+
+AUTH_USER_MODEL = 'account.User'
