@@ -8,6 +8,11 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_google_auth = models.BooleanField(default=False)
     google_id      = models.TextField(max_length=1500,blank=True,null=True)
+    mobile_number = models.CharField(max_length=255,blank=True,null=True,unique=True)
+    country_code  = models.CharField(max_length=255,blank=True,null=True)
+    kyc_verified   = models.BooleanField(default=False)
+    image = models.ImageField(upload_to="profile/images", blank=True, null=True)
+
 
 class BANKDETAIL(models.Model):
     user                = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
@@ -89,6 +94,11 @@ class Contact(models.Model):
     def __unicode__(self):
         return self.id
 
+
+class DeviceVerification(models.Model):
+    mobile_number = models.CharField(max_length=255,blank=True,null=True)
+    ip_address = models.CharField(max_length=255,blank=True,null=True)
+    otp = models.CharField(max_length=255,blank=True,null=True)
 
 
 

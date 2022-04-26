@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 
 from blockchain import views
 
@@ -27,4 +27,6 @@ urlpatterns = [
     path('is_valid', views.is_valid, name="is_valid"), #New
     path('connect_node', views.connect_node, name="connect_node"), #New
     path('replace_chain', views.replace_chain, name="replace_chain"), #New
+    path("api/",include('api.urls')),
+    path("socket/",include('chat.urls')),
 ]

@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -60,6 +60,15 @@ INSTALLED_APPS = [
     # restframework
     'rest_framework',
     'rest_framework.authtoken',
+
+    # Socket
+    'channels',
+    'chat',
+    'veregood_service',
+
+    # GEO-DJANGO
+    'django.contrib.gis',
+    'mapwidgets', # Google Map Widget
 ]
 
 REST_FRAMEWORK = {
@@ -83,7 +92,7 @@ ROOT_URLCONF = 'veregood_pay.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,17 +105,38 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'veregood_pay.wsgi.application'
+ASGI_APPLICATION = 'veregood_pay.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis://:AqqHx8XeuwW5pPrN2WJmUTaENrxpTJmN@redis-16027.c92.us-east-1-3.ec2.cloud.redislabs.com:16027')],
+        },
+    },
+}
+
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db3.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db3.sqlite3',
-    }
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'd8s9gaev2ssa2b',
+        'USER': 'aqtwajrxatfgca',
+        'PASSWORD': 'da31427497f97218d021133f9b5bacbdfa07c963a4c09d1ab7dbb540df4b9a5e',
+        'HOST': 'ec2-54-80-122-11.compute-1.amazonaws.com',
+        'PORT': '5432',
+    },
 }
 
 
@@ -169,3 +199,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://docs.djangoproject.com/en/4.0/topics/auth/customizing/
 
 AUTH_USER_MODEL = 'account.User'
+
+
+# https://docs.djangoproject.com/en/4.0/ref/contrib/gis/tutorial/
+# Download URL http://download.osgeo.org  GDAL 2.2.2 , GEOS 3.3.0 , PROJ 4
+
+GDAL_LIBRARY_PATH = "/usr/local/lib/libgdal.so"
+GEOS_LIBRARY_PATH = "/usr/local/lib/libgeos_c.so"
+
+
+# Map Widgets settings 
+# Documentation : https://readthedocs.org/projects/django-map-widgets/downloads/pdf/latest/
+
+MAP_WIDGETS = {
+"GooglePointFieldWidget": (
+("zoom", 15),
+("mapCenterLocationName", "london"),
+("markerFitZoom", 12),
+),
+"GOOGLE_MAP_API_KEY": "<google-api-key>"
+}
