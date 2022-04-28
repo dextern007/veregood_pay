@@ -14,11 +14,31 @@ from api.serializer import *
 class ChatConsumer(WebsocketConsumer):
 
     # Returns ther services surounded by the passed latitude & longtitude 
-    def get_services(latitude,longitude,radius=5):
+    def get_services(self,data):
+        radius = 5
+        coordinates = json.loads(data["message"])
+        latitude  = coordinates['latitude']
+        longitude = coordinates['longitude']
+        
         point = Point(longitude,latitude)    
         services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)))
         serializers = VereGoodServiceListing(services,many=True)
-        return serializers.data
+        content = {
+            'message': json.dumps(serializers.data)
+        }
+        self.send_message(content)
+
+    def ack(self,data):
+        pass
+
+
+    commands={
+
+        'veregood_get_services' : get_services,
+        'veregood_ack' : ack,
+
+    }
+    
 
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -41,8 +61,13 @@ class ChatConsumer(WebsocketConsumer):
 
     # Receive message from WebSocket
     def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+        data = json.loads(text_data)
+        self.commands[data['command']](self,data)
+       
+       
+    def send_message(self,data):  
+       
+        message = data['message']
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
