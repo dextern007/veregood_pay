@@ -2,8 +2,24 @@
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import Distance  
+from veregood_service.models import VendorService
+from api.serializer import *
+
+
+
+
 
 class ChatConsumer(WebsocketConsumer):
+
+    # Returns ther services surounded by the passed latitude & longtitude 
+    def get_services(latitude,longitude,radius=5):
+        point = Point(longitude,latitude)    
+        services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)))
+        serializers = VereGoodServiceListing(services,many=True)
+        return serializers.data
+
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name

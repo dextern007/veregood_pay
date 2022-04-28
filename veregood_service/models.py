@@ -34,19 +34,19 @@ class VendorService(models.Model):
     name              =   models.CharField(max_length=255,blank=True,null=True)
     description       =   models.TextField(max_length=2500,blank=True,null=True)
     profile_image     =   models.ImageField(upload_to="vendor/profile/images/",blank=True,null=True)
-    location          =   models.PointField(srid=4326,blank=True,null=True)
+    location          =   models.PointField(blank=True,null=True)
     available         =   models.BooleanField(default=False)
     rating            =   models.IntegerField(default=0)
 
 
 class Review(models.Model):
     user              =   models.CharField(max_length=255,blank=True,null=True)
-    vendor_service    =   models.ForeignKey(VendorService,blank=True,null=True,on_delete=models.CASCADE)
+    vendor_service    =   models.ForeignKey(VendorService,blank=True,null=True,on_delete=models.CASCADE,related_name="review")
     stars             =   models.IntegerField(default=0)
     description       =   models.TextField(max_length=2500,blank=True,null=True)
 
 class Portfolio(models.Model):
-    vendor_service    =   models.ForeignKey(VendorService,blank=True,null=True,on_delete=models.CASCADE)
+    vendor_service    =   models.ForeignKey(VendorService,blank=True,null=True,on_delete=models.CASCADE,related_name="portfolio")
     image             =   models.ImageField(upload_to="vendor/service/images/",blank=True,null=True)
 
 

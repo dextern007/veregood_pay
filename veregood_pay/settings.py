@@ -217,5 +217,5 @@ MAP_WIDGETS = {
 ("mapCenterLocationName", "london"),
 ("markerFitZoom", 12),
 ),
-"GOOGLE_MAP_API_KEY": "<google-api-key>"
+"GOOGLE_MAP_API_KEY": "AIzaSyAxW6RMgpC8nTMAmcYGcKsnd74PtT3QEh0"
 }
