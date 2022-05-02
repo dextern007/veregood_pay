@@ -131,10 +131,10 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'd8s9gaev2ssa2b',
-        'USER': 'aqtwajrxatfgca',
-        'PASSWORD': 'da31427497f97218d021133f9b5bacbdfa07c963a4c09d1ab7dbb540df4b9a5e',
-        'HOST': 'ec2-54-80-122-11.compute-1.amazonaws.com',
+        'NAME': 'geo',
+        'USER': 'dextern',
+        'PASSWORD': 'Welcome123',
+        'HOST': 'localhost',
         'PORT': '5432',
     },
 }

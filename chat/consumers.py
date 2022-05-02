@@ -24,7 +24,7 @@ class ChatConsumer(WebsocketConsumer):
         services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)))
         serializers = VereGoodServiceListing(services,many=True)
         content = {
-            'message': json.dumps(serializers.data)
+            'message': serializers.data
         }
         self.send_message(content)
 

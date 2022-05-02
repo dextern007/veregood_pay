@@ -103,3 +103,11 @@ class AuthView(APIView):
         except:
             return Response({"message": "Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+class VendorServiceView(APIView):
+    def get(self,request):
+        id= self.request.query_params.get("id")
+        vendor_service = VendorService.objects.get(id=id)
+        vendor_service_serializer = VendorServiceSerializer(vendor_service)
+        return Response( vendor_service_serializer.data, status=status.HTTP_200_OK)

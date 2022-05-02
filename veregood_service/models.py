@@ -37,6 +37,7 @@ class VendorService(models.Model):
     location          =   models.PointField(blank=True,null=True)
     available         =   models.BooleanField(default=False)
     rating            =   models.IntegerField(default=0)
+    charge            =   models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 
 class Review(models.Model):

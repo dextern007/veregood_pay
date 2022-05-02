@@ -1,5 +1,3 @@
-from pyexpat import model
-from attr import fields
 from rest_framework import serializers
 from account.models import User
 from veregood_service.models import *
@@ -17,4 +15,26 @@ class VereGoodServiceListing(serializers.ModelSerializer):
     class Meta():
         model = VendorService
         fields = "__all__"
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Review
+        fields = "__all__"
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Booking
+        fields = "__all__"
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Portfolio
+        fields = "__all__"
         
+class VendorServiceSerializer(serializers.ModelSerializer):
+    review= ReviewSerializer(many=True)
+    portfolio= ReviewSerializer(many=True)
+    class Meta():
+        model = VendorService
+        fields = "__all__"
