@@ -106,8 +106,71 @@ class AuthView(APIView):
 
 
 class VendorServiceView(APIView):
-    def get(self,request):
+    def get(self,request,format=None):
         id= self.request.query_params.get("id")
         vendor_service = VendorService.objects.get(id=id)
         vendor_service_serializer = VendorServiceSerializer(vendor_service)
         return Response( vendor_service_serializer.data, status=status.HTTP_200_OK)
+
+
+class BookingView(APIView):
+
+    def put(self,request,format=None):
+        data=request.data
+        booking_id = data["booking_id"]
+        payment_id = data["payment_id"]
+        booking = Booking.objects.get(id=booking_id)
+        booking.payment_id = payment_id
+        booking.payment_completed = True
+        booking.save()
+        return Response({"message":"Booked Successfully"}, status=status.HTTP_200_OK)
+
+    def post(self,request,format=None):
+
+
+        from datetime import datetime
+        data=request.data
+        from_date = data["from_date"]
+        to_date   = data["to_date"]
+        service_id = data["service_id"]
+        user_id = data["user_id"]
+        vendor_service = VendorService.objects.get(id=service_id)
+        charge = vendor_service.charge
+        date_format = "%m/%d/%Y"
+        a = datetime.strptime(from_date, date_format)
+        b = datetime.strptime(to_date, date_format)
+        delta = b - a
+        days = delta.days
+
+        fee_calculation = charge*days
+        total_charges   = str(fee_calculation*100)
+        booking = Booking(user_id=user_id,service=vendor_service,from_date=from_date,to_date=to_date,total_amount=total_charges)
+        booking.save()
+        return Response({"message":"Booking initiated"}, status=status.HTTP_200_OK)
+
+
+
+
+
+
+    def get(self,request,format=None):
+        id= self.request.query_params.get("id")
+        bookings = Booking.objects.filter(user_id=id)
+        booking_service_serializer = BookingSerializer(bookings,many=True)
+        return Response( booking_service_serializer.data, status=status.HTTP_200_OK)
+
+
+class RatingView(APIView):
+
+    def post(self,request,format=None):
+        serializer= ReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response( serializer.data, status=status.HTTP_200_OK)
+
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+
