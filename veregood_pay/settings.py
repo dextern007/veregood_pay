@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+LIVE_MODE = True
 
 # Application definition
 
@@ -127,18 +128,38 @@ CHANNEL_LAYERS = {
 #     }
 # }
 
+if LIVE_MODE == False:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'geo',
+            'USER': 'dextern',
+            'PASSWORD': 'Welcome123',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        },
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'goodepay',
+            'USER': 'dextern',
+            'PASSWORD': 'Welcome123',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        },
+    }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'geo',
-        'USER': 'dextern',
-        'PASSWORD': 'Welcome123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    },
-}
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8100', 'http://localhost',  'capacitor://localhost'
+]  # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:8100', 'http://localhost', '*', 'capacitor://localhost'
+]
 
 # DATABASES = {
 #     'default': {
