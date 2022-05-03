@@ -21,7 +21,7 @@ class ChatConsumer(WebsocketConsumer):
         longitude = coordinates['longitude']
         
         point = Point(longitude,latitude)    
-        services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)))
+        services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)),available=True)
         serializers = VereGoodServiceListing(services,many=True)
         content = {
             'message': serializers.data

@@ -26,7 +26,7 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta():
         model = Booking
         fields = "__all__"
-        depth = 1
+        depth = 2
 
 class PortfolioSerializer(serializers.ModelSerializer):
     class Meta():
