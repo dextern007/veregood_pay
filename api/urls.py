@@ -12,5 +12,6 @@ urlpatterns = [
     path('vendors/', VendorServiceView.as_view()),
     path('booking/', BookingView.as_view()),
     path('rating/', RatingView.as_view()),
+    path('register-vendor/', CreateVendor.as_view()),
 
 ]

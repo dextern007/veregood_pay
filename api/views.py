@@ -178,5 +178,57 @@ class RatingView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
+from rest_framework.parsers import MultiPartParser ,FormParser
+
+def modify_input_for_multiple_files(property_id, image):
+    dict = {}
+    dict['service_id'] = property_id
+    dict['image'] = image
+    return dict
+
+class CreateVendor(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    def post(self,request,format=None):
+        
+        data = request.data
+        try:
+            vendor = Vendor.objects.create(
+                first_name = data["first_name"],
+                last_name  = data["last_name"],
+                nick_name  = data["nick_name"],
+                email      = data["email"],
+                mobile_number      = data["mobile_number"],
+                proof_one  = data["proof_one"],
+                proof_two  = data["proof_two"],
+            )
+
+            service = VereGoodService.objects.get(service_name=data["service_name"])
+            from django.contrib.gis.geos import Point
+            vendor_service = VendorService.objects.create(
+                vendor            =   vendor,
+                service_type      =   service,
+                name              =   data["first_name"],
+                description       =   data["description"],
+                profile_image     =   data["profile_picture"],
+                location          =   Point(float(data["longitude"]),float(data["latitude"])),
+                charge            =   data["charge"],
+            )
+            images = dict((request.data).lists())['portfolio_images']
+            
+            arr = []
+            for img_name in images:
+                modified_data = modify_input_for_multiple_files(vendor_service.id,
+                                                                img_name)
+                file_serializer = PortfolioSerializer(data=modified_data)
+                if file_serializer.is_valid():
+                    file_serializer.save()
+                    arr.append(file_serializer.data)
+                else:
+                    return Response({"message": "Invalid Immage Data"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+            return Response({"message": "Vendor Registered Sucessfully","uploaded_images":arr}, status=status.HTTP_200_OK)
+
+        except:
+            return Response({"message": "Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
