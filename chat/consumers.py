@@ -30,12 +30,20 @@ class ChatConsumer(WebsocketConsumer):
 
     def ack(self,data):
         pass
+    
+    def text_message(self,data):
+        content = {
+            'message': data["message"]
+        }
+        self.send_message(content)
+
 
 
     commands={
 
         'veregood_get_services' : get_services,
         'veregood_ack' : ack,
+        'text_message' : text_message,
 
     }
     

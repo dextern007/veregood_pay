@@ -26,15 +26,16 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta():
         model = Booking
         fields = "__all__"
+        depth = 1
 
-class ReviewSerializer(serializers.ModelSerializer):
+class PortfolioSerializer(serializers.ModelSerializer):
     class Meta():
         model = Portfolio
         fields = "__all__"
         
 class VendorServiceSerializer(serializers.ModelSerializer):
     review= ReviewSerializer(many=True)
-    portfolio= ReviewSerializer(many=True)
+    portfolio= PortfolioSerializer(many=True)
     class Meta():
         model = VendorService
         fields = "__all__"

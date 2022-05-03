@@ -126,9 +126,9 @@ class BookingView(APIView):
         return Response({"message":"Booked Successfully"}, status=status.HTTP_200_OK)
 
     def post(self,request,format=None):
+        from datetime import datetime as dt
+        from dateutil import parser
 
-
-        from datetime import datetime
         data=request.data
         from_date = data["from_date"]
         to_date   = data["to_date"]
@@ -136,17 +136,17 @@ class BookingView(APIView):
         user_id = data["user_id"]
         vendor_service = VendorService.objects.get(id=service_id)
         charge = vendor_service.charge
-        date_format = "%m/%d/%Y"
-        a = datetime.strptime(from_date, date_format)
-        b = datetime.strptime(to_date, date_format)
-        delta = b - a
-        days = delta.days
+        
+        ds1 = parser.parse(from_date)
+        ds2 = parser.parse(to_date)
+        days=(ds2-ds1).days
 
         fee_calculation = charge*days
         total_charges   = str(fee_calculation*100)
-        booking = Booking(user_id=user_id,service=vendor_service,from_date=from_date,to_date=to_date,total_amount=total_charges)
-        booking.save()
-        return Response({"message":"Booking initiated"}, status=status.HTTP_200_OK)
+
+        booking = Booking.objects.create(user_id=user_id,service=vendor_service,from_date=ds1,to_date=ds2,total_amount=total_charges)
+        
+        return Response({"message":"Booking initiated","fees": fee_calculation,"booking_id":booking.id}, status=status.HTTP_200_OK)
 
 
 
@@ -155,9 +155,15 @@ class BookingView(APIView):
 
     def get(self,request,format=None):
         id= self.request.query_params.get("id")
-        bookings = Booking.objects.filter(user_id=id)
-        booking_service_serializer = BookingSerializer(bookings,many=True)
-        return Response( booking_service_serializer.data, status=status.HTTP_200_OK)
+        detail= self.request.query_params.get("detail")
+        if detail== "false":
+            bookings = Booking.objects.filter(user_id=id)
+            booking_service_serializer = BookingSerializer(bookings,many=True)
+            return Response( booking_service_serializer.data, status=status.HTTP_200_OK)
+        else:
+            booking = Booking.objects.get(id=id)
+            booking_service_serializer = BookingSerializer(booking)
+            return Response( booking_service_serializer.data, status=status.HTTP_200_OK)
 
 
 class RatingView(APIView):
