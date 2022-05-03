@@ -1,4 +1,5 @@
 
+from distutils.command.upload import upload
 from statistics import mode
 from django.contrib.gis.db import models
 
@@ -21,6 +22,8 @@ class Vendor(models.Model):
     email      = models.CharField(max_length=255,blank=True,null=True)
     mobile_number      = models.CharField(max_length=255,blank=True,null=True)
     rating     = models.IntegerField(default=0)
+    proof_one  = models.ImageField(upload_to="vendor/proof1/",blank=True,null=True)
+    proof_two  = models.ImageField(upload_to="vendor/proof2/",blank=True,null=True)
 
 
     def __str__(self):
