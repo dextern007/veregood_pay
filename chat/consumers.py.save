@@ -1,5 +1,4 @@
 
-
 # chat/consumers.py
 import json
 from asgiref.sync import async_to_sync
@@ -18,12 +17,12 @@ class ChatConsumer(WebsocketConsumer):
     # Returns ther services surounded by the passed latitude & longtitude 
     def get_services(self,data):
         radius = 5
-        coordinates = json.loads(data["message"])
+        coordinates = json.loaddata["message"])
         latitude  = coordinates['latitude']
         longitude = coordinates['longitude']
         
         point = Point(longitude,latitude)    
-        services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)))
+        services = VendorService.objects.filter(location__distance_lt=(point, Distance(km=radius)),available=True)
         serializers = VereGoodServiceListing(services,many=True)
         content = {
             'message': serializers.data
@@ -71,7 +70,7 @@ class ChatConsumer(WebsocketConsumer):
 
     # Receive message from WebSocket
     def receive(self, text_data):
-        data = json.loads(text_data)
+        data = text_data
         print(data)
        # print(dict(data))
         self.commands[data['command']](self,data)
