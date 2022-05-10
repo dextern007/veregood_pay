@@ -18,6 +18,7 @@ from django.urls import path,include
 from django.conf.urls.static import static
 from blockchain import views
 from django.conf import settings
+from veregood.views import stripe_webhook
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +30,7 @@ urlpatterns = [
     path('replace_chain', views.replace_chain, name="replace_chain"), #New
     path("api/",include('api.urls')),
     path("socket/",include('chat.urls')),
+
+    path("stripe/end-point",stripe_webhook,name="stripe_webhook")
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
