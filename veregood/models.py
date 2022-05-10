@@ -29,7 +29,7 @@ class Product(models.Model):
     price             =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     rating            =  models.DecimalField(decimal_places=1,max_digits=3,default=0.0)
     has_color         =  models.BooleanField(default=False)
-    has_weight        =  models.BooleanField(default=False)
+    has_variation     =  models.BooleanField(default=False)
     product_type      =  models.CharField(choices=PRODUCT_TYPE,default="simple",max_length=255)
     is_active         =  models.BooleanField(default=False)
 
@@ -123,6 +123,6 @@ class Payment(models.Model):
     payment_id  = models.CharField(uuid.uuid4,primary_key=True,unique=True,max_length=255)
     status      = models.CharField(max_length=255)
 
-# we_1KxuqWHx0vNusgVBUqGAEUXm
+# 
 # pk_test_51HRl3PHx0vNusgVB3hNqHisqtao9aquG13JrIs2NLaLOg2RvJSqjAwk6fbp1H3OFm7FRWsCWN1QjiN4i63TZAJTX00Fqftv4j2
-# sk_test_51HRl3PHx0vNusgVBAUxH7TOXeDy0lYT6UzJRzMXQvfEm3KaHSFTyjNFCzxoUyYsjHbPQAtNQKbm6B4vsSz0wCsgh00UjXo7Cwj
+# 
