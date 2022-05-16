@@ -21,6 +21,8 @@ from django.conf import settings
 from veregood.views import stripe_webhook
 
 urlpatterns = [
+
+    
     path('admin/', admin.site.urls),
     path('get_chain', views.get_chain, name="get_chain"),
     path('mine_block', views.mine_block, name="mine_block"),

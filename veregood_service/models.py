@@ -1,8 +1,5 @@
-
-from distutils.command.upload import upload
-from statistics import mode
 from django.contrib.gis.db import models
-
+from account.models import *
 # Create your models here.
 
 class VereGoodService(models.Model):
@@ -15,19 +12,7 @@ class VereGoodService(models.Model):
 
 
 
-class Vendor(models.Model):
-    first_name = models.CharField(max_length=255,blank=True,null=True)
-    last_name  = models.CharField(max_length=255,blank=True,null=True)
-    nick_name  = models.CharField(max_length=255,blank=True,null=True)
-    email      = models.CharField(max_length=255,blank=True,null=True)
-    mobile_number      = models.CharField(max_length=255,blank=True,null=True)
-    rating     = models.IntegerField(default=0)
-    proof_one  = models.ImageField(upload_to="vendor/proof1/",blank=True,null=True)
-    proof_two  = models.ImageField(upload_to="vendor/proof2/",blank=True,null=True)
 
-
-    def __str__(self):
-        return self.nick_name
 
 
 

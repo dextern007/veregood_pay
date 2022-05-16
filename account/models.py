@@ -1,8 +1,8 @@
-from operator import mod
-from django.db import models
+from django.contrib.gis.db import models
 from setting.models import Crytpo
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+import uuid
 # Create your models here.
 
 class User(AbstractUser):
@@ -102,3 +102,27 @@ class DeviceVerification(models.Model):
 
 
 
+class Vendor(models.Model):
+    user                    = models.OneToOneField(settings.AUTH_USER_MODEL,blank=True,null=True,on_delete=models.CASCADE)
+    vendor_id               = models.CharField(default=uuid.uuid4,unique=True,max_length=255)
+    address                 = models.TextField(max_length=1000,blank=True,null=True)
+    state                   = models.CharField(max_length=100,blank=True,null=True)
+    city                    = models.CharField(max_length=100,blank=True,null=True)
+    location                = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
+    location_name           = models.CharField(max_length=100,blank=True,null=True)
+    gst_number              = models.CharField(max_length=100,blank=True,null=True)
+    upi_id                  = models.CharField(max_length=100,blank=True,null=True)
+    rating                  = models.DecimalField(default=0.0,max_digits=10,decimal_places=1)
+    commision_percentage    = models.DecimalField(default=0.00,max_digits=10,decimal_places=2)
+    profile_picture         = models.ImageField(upload_to="profile/",blank=True,null=True)
+    logo                    = models.ImageField(upload_to="logo/",blank=True,null=True)
+    dob                     = models.DateField(blank=True,null=True)
+    age                     = models.IntegerField(default=18)
+    aadhar_number           = models.CharField(max_length=100,blank=True,null=True)
+    pan_number              = models.CharField(max_length=100,blank=True,null=True)
+    store_name              = models.CharField(max_length=255,blank=True,null=True)
+    store_describtion       = models.CharField(max_length=255,blank=True,null=True)
+    contact_mobile_number   = models.CharField(max_length=255,blank=True,null=True)
+    contact_email           = models.CharField(max_length=255,blank=True,null=True)
+    closed                  = models.BooleanField(default=False)
+    is_active               = models.BooleanField(default=False)
