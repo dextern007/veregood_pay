@@ -157,7 +157,7 @@ class WishListItemSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class WishListSerializer(serializers.ModelSerializer):
-    wishitem = WishListItemSerializer(many=True,read_only=true)
+    wishitem = WishListItemSerializer(many=True,read_only=True)
     class Meta():
         model = Wishlist
         fields = "__all__"
