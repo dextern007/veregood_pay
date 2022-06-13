@@ -1,6 +1,4 @@
-from email import message
-import re
-from django.conf.urls import url
+
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.shortcuts import render
