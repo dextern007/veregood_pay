@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from account.models import User,Vendor
+from account.models import User
+from veregood_service.models import Vendor
 from veregood_service.models import *
 from rest_framework_gis.serializers import GeometryField,GeoFeatureModelSerializer
 
@@ -19,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
-# Veregood
+# Veregood Service
 
 class VereGoodServiceListing(serializers.ModelSerializer):
     class Meta():

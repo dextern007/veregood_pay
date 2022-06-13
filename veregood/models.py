@@ -5,14 +5,68 @@ from django.conf import settings
 from django.contrib.gis.db import models
 
 from mptt.models import MPTTModel, TreeForeignKey
-from account.models import *
+
 
 # Create your models here.
+DELIVERY_TYPE =(
+    ('self','self'),
+    ('veregood','veregood'),
+)
+
+
+# Vendor
+class Store(models.Model):
+    user                    = models.OneToOneField(settings.AUTH_USER_MODEL,blank=True,null=True,on_delete=models.CASCADE)
+    vendor_id               = models.CharField(default=uuid.uuid4,unique=True,max_length=255)
+    logo                    = models.ImageField(upload_to="logo/",blank=True,null=True)
+    store_name              = models.CharField(max_length=255,blank=True,null=True)
+    store_describtion       = models.CharField(max_length=255,blank=True,null=True)
+    contact_mobile_number   = models.CharField(max_length=255,blank=True,null=True)
+    contact_email           = models.CharField(max_length=255,blank=True,null=True)
+    address                 = models.TextField(max_length=1000,blank=True,null=True)
+    state                   = models.CharField(max_length=100,blank=True,null=True)
+    city                    = models.CharField(max_length=100,blank=True,null=True)
+    country                 = models.CharField(max_length=100,blank=True,null=True)
+    location                = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
+    location_name           = models.CharField(max_length=100,blank=True,null=True)
+    gst_number              = models.CharField(max_length=100,blank=True,null=True)
+    upi_id                  = models.CharField(max_length=100,blank=True,null=True)
+    rating                  = models.DecimalField(default=0.0,max_digits=10,decimal_places=1)
+    delivery_type           = models.CharField(max_length=100,choices=DELIVERY_TYPE,default="self")
+
+    # others
+    commision_percentage    = models.DecimalField(default=0.00,max_digits=10,decimal_places=2)
+    profile_picture         = models.ImageField(upload_to="profile/",blank=True,null=True)
+    dob                     = models.DateField(blank=True,null=True)
+    age                     = models.IntegerField(default=18)
+    aadhar_number           = models.CharField(max_length=100,blank=True,null=True)
+    pan_number              = models.CharField(max_length=100,blank=True,null=True)
+    closed                  = models.BooleanField(default=False)
+    is_active               = models.BooleanField(default=False)
+
+class STOREBANKACCOUNT(models.Model):
+    account_name            = models.CharField(max_length=255,blank=True,null=True)
+    account_number	        = models.CharField(max_length=255,blank=True,null=True)
+    bank_name	            = models.CharField(max_length=255,blank=True,null=True)
+    bank_address	        = models.CharField(max_length=255,blank=True,null=True)
+    routing_number	        = models.CharField(max_length=255,blank=True,null=True)
+    iban	                = models.CharField(max_length=255,blank=True,null=True)
+    swift_code              = models.CharField(max_length=255,blank=True,null=True)
+    ifsc_code               = models.CharField(max_length=255,blank=True,null=True)
+
+
+class STOREKYC(models.Model):
+    vendor_name             = models.CharField(max_length=255,blank=True,null=True)
+    vendor_proof_number     = models.CharField(max_length=255,blank=True,null=True)
+    vendor_proof            = models.ImageField(upload_to="profile/",blank=True,null=True)
+
 
 class Banner(models.Model):
     # product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_image",blank=True,null=True)
     image                   =  models.ImageField(upload_to="veregood/banner/image/",blank=True,null=True)
     is_active               =  models.BooleanField(default=False)
+    mobile                  =  models.BooleanField(default=False)
+    web                     =  models.BooleanField(default=False)
 
     
 class Address(models.Model):
@@ -44,9 +98,10 @@ PRODUCT_TYPE = (
 
 
 class Product(models.Model):
-    vendor                  =  models.ForeignKey(Vendor,on_delete=models.CASCADE,blank=True,null=True)
-    title                   =  models.CharField(max_length=255,blank=True,null=True)
-    category                =  models.ForeignKey('Category',blank=True,null=True,on_delete=models.CASCADE)
+    store                   =  models.ForeignKey(Store,on_delete=models.CASCADE,blank=True,null=True)
+    title                   =  models.TextField(max_length=1500,blank=True,null=True)
+    sku                     =  models.CharField(max_length=255,blank=True,null=True,unique=True)
+    category                =  models.ForeignKey('Category',blank=True,null=True,on_delete=models.CASCADE,related_name="category_product")
     brand                   =  models.ForeignKey('Brand',blank=True,null=True,on_delete=models.CASCADE)
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/thumnail/",blank=True,null=True)
@@ -58,6 +113,8 @@ class Product(models.Model):
     has_variation           =  models.BooleanField(default=False)
     product_type            =  models.CharField(choices=PRODUCT_TYPE,default="simple",max_length=255)
     is_active               =  models.BooleanField(default=False)
+    in_stock                =  models.BooleanField(default=False)
+    quantity                =  models.BigIntegerField(default=0)
 
 
 class ProductReview(models.Model):
@@ -74,29 +131,36 @@ class ProductImage(models.Model):
     is_active               =  models.BooleanField(default=False)
 
 class Variation(models.Model):
-    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True,related_name="variation")
-    variation_type          =  models.ForeignKey('VariationType',on_delete=models.CASCADE,blank=True,null=True)
+    group                   =  models.ForeignKey('VariationGroup',on_delete = models.CASCADE,blank=True,null=True,related_name="varation")
+    image                   =  models.ImageField(upload_to="veregood/product/variation/image/",blank=True,null=True)
+    thumbnail               =  models.ImageField(upload_to="veregood/product/image/variation/thumnail/",blank=True,null=True)
     text                    =  models.CharField(max_length=255,blank=True,null=True)
     value                   =  models.CharField(max_length=255,blank=True,null=True)
     sub_text                =  models.CharField(max_length=255,blank=True,null=True)
     has_price               =  models.BooleanField(default=False)
     addon_price             =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     is_active               =  models.BooleanField(default=False)
+    in_stock                =  models.BooleanField(default=False)
+    quantity                =  models.BigIntegerField(default=0)
 
 
-class VariationType(models.Model):
-    title                   =  models.CharField(max_length=255,blank=True,null=True,unique=True)
+VARIATION_GROUP =(
+    ('none'  ,'none'),
+    ('size'  ,'size'),
+    ('weight','weight'),
+    ('color' ,'color'),
+)
+
+class VariationGroup(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete = models.CASCADE,blank=True,null=True,related_name="variation_group")
+    group                   =  models.CharField(choices=VARIATION_GROUP,blank=True,null=True,max_length=255)
     is_active               =  models.BooleanField(default=False)
 
 
-#####
-
-
-
-#####
 
 class Collection(models.Model):
-    title                   =  models.CharField(max_length=255,blank=True,null=True,unique=True)
+    title                   =  models.CharField(max_length=255,blank=True,null=True)
+    slug                    =  models.CharField(max_length=255,blank=True,null=True,unique=True)
     icon                    =  models.ImageField(upload_to="veregood/brands/icon",blank=True,null=True)
     image                   =  models.ImageField(upload_to="veregood/brands/image",blank=True,null=True)
     is_active               =  models.BooleanField(default=False)
@@ -118,10 +182,10 @@ class ProductListing(models.Model):
 class Category(MPTTModel):
     icon                    =  models.ImageField(upload_to="veregood/brands/icon",blank=True,null=True)
     image                   =  models.ImageField(upload_to="veregood/brands/image",blank=True,null=True)
-    is_active               =  models.BooleanField(default=False)
-    name                    = models.CharField(max_length=200)
-    slug                    = models.SlugField(unique=True)
-    parent                  = TreeForeignKey(
+    is_active               =  models.BooleanField(default=False)              
+    name                    =  models.CharField(max_length=200)
+    slug                    =  models.SlugField(unique=True)
+    parent                  =  TreeForeignKey(
         'self',
         blank=True,
         null=True,
@@ -154,10 +218,9 @@ class Cart(models.Model):
     total                   = models.BigIntegerField(default=0)
 
 
-class CartItems(models.Model):
-    cart                    = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True,related_name="cartitem")
+class CartItem(models.Model):
+    cart                    = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True,related_name="cart_item")
     product                 = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
-    variation               = models.ForeignKey(Variation,on_delete=models.CASCADE,blank=True,null=True)
     quantity                = models.IntegerField(default=0)
     line_total              = models.IntegerField(default=0)
 
@@ -214,14 +277,15 @@ class Order(models.Model):
     payment_id          = models.CharField(max_length=255,blank=True,null=True,unique=True)
     cart                = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True)
     location            = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
-    total               = models.IntegerField(default=0)
-    coupoun_discount    = models.IntegerField(default=0)
-    delivery_charge     = models.IntegerField(default=0)
-    final_total         = models.IntegerField(default=0)
+    total               = models.BigIntegerField(default=0)
+    coupoun_discount    = models.BigIntegerField(default=0)
+    delivery_charge     = models.BigIntegerField(default=0)
+    tax                 = models.BigIntegerField(default=0)
+    final_total         = models.BigIntegerField(default=0)
     status              = models.CharField(choices=PROCESS,max_length=100,default="onprocess")
     payment_type        = models.CharField(choices=PAYMENT_TYPE,max_length=100,default="onprocess")
     coupun_applied      = models.BooleanField(default=False)
-    address             = models.TextField(max_length=100,blank=True,null=True)
+    address             = models.TextField(max_length=1500,blank=True,null=True)
     # vendor_otp          = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     customer_otp        = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     delivery_status_notes = models.CharField(max_length=255,blank=True,null=True)
@@ -235,6 +299,8 @@ class Payment(models.Model):
     amount_paid         = models.IntegerField(default=0)
     paid                = models.BooleanField(default=False)
     captured            = models.BooleanField(default=False)
+
+
 
 # 
 # pk_test_51HRl3PHx0vNusgVB3hNqHisqtao9aquG13JrIs2NLaLOg2RvJSqjAwk6fbp1H3OFm7FRWsCWN1QjiN4i63TZAJTX00Fqftv4j2

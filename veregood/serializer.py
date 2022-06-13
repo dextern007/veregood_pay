@@ -1,37 +1,164 @@
+from asyncore import read
+from pyexpat import model
 from rest_framework import serializers
-from account.models import Vendor
+from sqlalchemy import true
 from veregood.models import *
-from rest_framework_gis.serializers import GeometryField,GeoFeatureModelSerializer
 
+
+# Promotion and Branding
+
+class BannerSerilaizer(serializers.ModelSerializer):
+    class Meta():
+        model = Banner
+        fields = "__all__"
+
+
+
+
+class BrandSerilaizer(serializers.ModelSerializer):
+    class Meta():
+        model = Brand
+        fields = "__all__"
 
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta():
-        model = Vendor
+        model = Store
         fields = "__all__"
 
 
-class CategorySerializer(serializers.ModelSerializer):
+
+class AddressSerilaizer(serializers.ModelSerializer):
     class Meta():
-        model = Vendor
+        model = Address
+        fields = "__all__"
+
+# Cart
+
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = CartItem
         fields = "__all__"
 
 class CartSerializer(serializers.ModelSerializer):
+    cart_item = CartItemSerializer(many=True)
     class Meta():
         model = Cart
         fields = "__all__"
 
-class WishListSerializer(serializers.ModelSerializer):
+
+
+
+
+
+
+
+
+
+
+# Product and Product Listing
+
+class ProductReviewSerializer(serializers.ModelSerializer):
     class Meta():
-        model = Wishlist
+        model = ProductReview
+        exclude = ["user"]
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = ProductImage
         fields = "__all__"
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = Order
-        fields = "__all__"
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta():
         model = Product
+        fields = "__all__"
+
+
+class ListingSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    class Meta():
+        model = ProductListing
+        fields = "__all__"
+
+
+class CollectionSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Collection
+        fields = "__all__"
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Category
+        fields = "__all__"
+
+class CategoryProductSerializer(serializers.ModelSerializer):
+    category_product = ProductSerializer(many=True)
+    class Meta():
+        model = Category
+        fields = "__all__"
+
+
+
+
+
+
+
+class VariationSerailizer(serializers.ModelSerializer):
+    class Meta():
+        model = Variation
+        fields = "__all__"
+
+class VariationGroupSerializer(serializers.ModelSerializer):
+    varation = VariationSerailizer(many=True,read_only=True)
+    class Meta():
+        model = VariationGroup
+        fields = "__all__"
+
+class ProductDetail(serializers.ModelSerializer):
+    category  = CategorySerializer()
+    brand     = BrandSerilaizer()
+    store    = VendorSerializer()
+    variation_group = VariationGroupSerializer(many=True)
+    product_image = ProductImageSerializer(many=True)
+    class Meta():
+        model = Product
+        fields = "__all__"
+
+
+
+# Order and Payment
+
+class PaymentSerilaizer(serializers.ModelSerializer):
+    class Meta():
+        model = Payment
+        fields = "__all__"
+
+class OrderSerializer(serializers.ModelSerializer):
+    cart     = CartSerializer()
+    payment  = PaymentSerilaizer()
+    class Meta():
+        model = Order
+        fields = "__all__"
+
+
+
+
+
+
+
+
+
+# WishList
+
+class WishListItemSerializer(serializers.ModelSerializer):
+    product   = ProductSerializer()
+    class Meta():
+        model = WishlistItem
+        fields = "__all__"
+
+class WishListSerializer(serializers.ModelSerializer):
+    wishitem = WishListItemSerializer(many=True,read_only=true)
+    class Meta():
+        model = Wishlist
         fields = "__all__"

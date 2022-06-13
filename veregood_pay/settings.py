@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-LIVE_MODE = True
+LIVE_MODE = False
 
 # Application definition
 
@@ -38,25 +38,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'setting',
-    'service',
-    'wallet',
-    'payment',
+    # 'setting',
+    # 'service',
+    # 'wallet',
+    # 'payment',
     'account', # smart_card ( qr code )
-    'finance', # banks (bank official website) ,
-    'health',
-    'job',
-    'forum', #funding , ask funs , list funds , donate , create projects
+    # 'finance', # banks (bank official website) ,
+    # 'health',
+    # 'job',
+    # 'forum', #funding , ask funs , list funds , donate , create projects
 
-    # # additional
-    'savings',
-    'promotion',
-    'electricity',
-    'mobile_recharge',
-    'trade',
-    'dth',
-    'recharge',
-    'bill_payment',
+    # # # additional
+    # 'savings',
+    # 'promotion',
+    # 'electricity',
+    # 'mobile_recharge',
+    # 'trade',
+    # 'dth',
+    # 'recharge',
+    # 'bill_payment',
 
     # restframework
     'rest_framework',
@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     # Socket
     'channels',
     'chat',
-    'veregood_service',
+    
 
     # GEO-DJANGO
     'django.contrib.gis',
@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     # Veregood 
     'mptt',
     'veregood',
+    'veregood_service',
 ]
 
 REST_FRAMEWORK = {
@@ -143,8 +144,8 @@ if LIVE_MODE == False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'geo',
-            'USER': 'dextern',
+            'NAME': 'test1',
+            'USER': 'dexternorman',
             'PASSWORD': 'Welcome123',
             'HOST': 'localhost',
             'PORT': '5432',
@@ -220,6 +221,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,"static")
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
+
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 # Default primary key field type
@@ -256,3 +261,4 @@ MAP_WIDGETS = {
 
 STRIPE_WEBHOOK_SECRECT = "we_1KyIhtSHEdoMqgR5RzBYz8M5"
 STRIPE_SECRECT         = "sk_test_51KPDPESHEdoMqgR5GfM94tXGSv1d09rc4KURnLDF3ETL0hZtYJbp89D1JMMd6jSEgQew29j6j7pj2vYKnuioVbb4004nbAp1vm"
+
