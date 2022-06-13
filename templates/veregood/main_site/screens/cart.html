@@ -1,0 +1,49 @@
+{% extends 'veregood/main_site/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Cart</title>
+{% endblock %}
+
+{% block style %}
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'main_site/assets/images/icons/favicon.png' %}">
+
+
+    <script>
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700,800', 'Oswald:300,400,500,600,700,800', 'Lato:300,400,500,600,700,800' ] }
+        };
+        ( function ( d ) {
+            var wf = d.createElement( 'script' ), s = d.scripts[ 0 ];
+            wf.src = 'assets/js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore( wf, s );
+        } )( document );
+    </script>
+
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="{% static 'main_site/assets/css/bootstrap.min.css' %}">
+
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'main_site/assets/css/demo37.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_site/assets/vendor/fontawesome-free/css/all.min.css' %}">
+{% endblock %}
+
+{% block header %}
+{% include 'veregood/main_site/screens/header.html' %}
+{% endblock %}
+
+
+{% block js %}
+<!-- Plugins JS File -->
+    <script src="{% static 'main_site/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'main_site/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'main_site/assets/js/optional/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'main_site/assets/js/plugins.min.js' %}"></script>
+    <script src="{% static 'main_site/assets/js/jquery.appear.min.js' %}"></script>
+
+    <!-- Main JS File -->
+    <script src="{% static 'main_site/assets/js/main.min.js' %}"></script>
+
+{% endblock %}
