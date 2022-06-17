@@ -11,6 +11,14 @@
         .auth .brand-logo img {
         width: 180px;
     }
+    
+    select.form-control{
+      color: black;
+    }
+
+    .auth .auth-form-light select {
+        color: black;
+    }
     </style>
     
 {% endblock %}
@@ -41,29 +49,24 @@
               <form method="post" enctype="multipart/form-data" class="pt-3">
                   {% csrf_token %}
 
-                <div class="form-group">
-                  <label>Enter Your Mobile Number</label>
-                  <input type="text" class="form-control form-control-lg" name="mobile_number" placeholder="Enter mobile number with country code">
-                </div>
-                <div class="form-group">
-                  <label>Enter Your Password</label>
-                  <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
-                </div>
-                <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                </div>
-                <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      Keep me signed in
-                    </label>
+                  {% for field in form %}
+                  <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    <label style="color:blue">{{ field.help_text }}</label>
+                   
                   </div>
-                  <a href="{% url 'veregood_vendor:check-user' %}" class="auth-link text-black">Forgot password?</a>
+                  {% endfor %}
+                
+                <div class="mt-3">
+                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Register as Vendor</button>
                 </div>
+
+
+            
           
                 <div class="mb-2">
-                  <p style="color: red;">{{ data.message }}</p>
+                  <p style="color: red;">{{ form.errors }}</p>
                 </div>
               
                 <div class="text-center mt-4 fw-light">

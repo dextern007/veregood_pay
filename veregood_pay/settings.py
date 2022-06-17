@@ -77,6 +77,10 @@ INSTALLED_APPS = [
     'mptt',
     'veregood',
     'veregood_service',
+
+    # TextEditor
+    'tinymce',
+    'pages',
 ]
 
 REST_FRAMEWORK = {

@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from veregood.views import stripe_webhook
 
+
 urlpatterns = [
 
     
@@ -30,5 +31,7 @@ urlpatterns = [
     path('veregood/vendor/', include('veregood.vendor.urls'),name="vendor"),
 
     # path("stripe/end-point",stripe_webhook,name="stripe_webhook")
+
+    path('tinymce/', include('tinymce.urls')),
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

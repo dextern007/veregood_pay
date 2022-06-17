@@ -1,0 +1,33 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ page.meta.title }}</title>
+{% endblock %}
+
+{% block meta %}
+<meta name="keywords" content="{{ page.meta.keyword }}" />
+<meta name="description" content="{{ page.meta.description }}">
+{% endblock %}
+
+
+{% block header %}
+{% include 'main_site/screens/header.html' %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+
+{% autoescape off %}
+{{ page.content }}
+{% endautoescape %}
+
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'main_site/screens/footer.html' %}
+{% endblock %}
+
+

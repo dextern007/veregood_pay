@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.gis.db import models
 
 from mptt.models import MPTTModel, TreeForeignKey
-
+from tinymce.models import HTMLField
 
 # Create your models here.
 DELIVERY_TYPE =(
@@ -60,6 +60,8 @@ class STOREKYC(models.Model):
     vendor_proof_number     = models.CharField(max_length=255,blank=True,null=True)
     vendor_proof            = models.ImageField(upload_to="profile/",blank=True,null=True)
 
+HTMLField
+
 
 class Banner(models.Model):
     # product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_image",blank=True,null=True)
@@ -105,7 +107,7 @@ class Product(models.Model):
     brand                   =  models.ForeignKey('Brand',blank=True,null=True,on_delete=models.CASCADE)
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/thumnail/",blank=True,null=True)
-    description             =  models.TextField(max_length=5500,blank=True,null=True)
+    description             =  HTMLField()
     short_description       =  models.TextField(max_length=5500,blank=True,null=True)
     price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     rating                  =  models.DecimalField(decimal_places=1,max_digits=3,default=0.0)
@@ -115,6 +117,7 @@ class Product(models.Model):
     is_active               =  models.BooleanField(default=False)
     in_stock                =  models.BooleanField(default=False)
     quantity                =  models.BigIntegerField(default=0)
+    is_approved             =  models.BooleanField(default=False)
 
 
 class ProductReview(models.Model):
@@ -130,31 +133,22 @@ class ProductImage(models.Model):
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
     is_active               =  models.BooleanField(default=False)
 
+
+
 class Variation(models.Model):
-    group                   =  models.ForeignKey('VariationGroup',on_delete = models.CASCADE,blank=True,null=True,related_name="varation")
+    product                   =  models.ForeignKey('Product',on_delete = models.CASCADE,blank=True,null=True,related_name="varation")
     image                   =  models.ImageField(upload_to="veregood/product/variation/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/variation/thumnail/",blank=True,null=True)
     text                    =  models.CharField(max_length=255,blank=True,null=True)
     value                   =  models.CharField(max_length=255,blank=True,null=True)
     sub_text                =  models.CharField(max_length=255,blank=True,null=True)
-    has_price               =  models.BooleanField(default=False)
-    addon_price             =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
+    # has_price               =  models.BooleanField(default=False)
+    price                    =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     is_active               =  models.BooleanField(default=False)
     in_stock                =  models.BooleanField(default=False)
     quantity                =  models.BigIntegerField(default=0)
 
 
-VARIATION_GROUP =(
-    ('none'  ,'none'),
-    ('size'  ,'size'),
-    ('weight','weight'),
-    ('color' ,'color'),
-)
-
-class VariationGroup(models.Model):
-    product                 =  models.ForeignKey(Product,on_delete = models.CASCADE,blank=True,null=True,related_name="variation_group")
-    group                   =  models.CharField(choices=VARIATION_GROUP,blank=True,null=True,max_length=255)
-    is_active               =  models.BooleanField(default=False)
 
 
 
@@ -221,6 +215,8 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart                    = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True,related_name="cart_item")
     product                 = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    variation               = models.ForeignKey(Variation,on_delete=models.CASCADE,blank=True,null=True)
+    has_variation           = models.BooleanField(default=False)
     quantity                = models.IntegerField(default=0)
     line_total              = models.IntegerField(default=0)
 
@@ -234,7 +230,6 @@ class Wishlist(models.Model):
     user                    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     timestamp               = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated                 = models.DateTimeField(auto_now_add=False, auto_now=True)
-
     def __unicode__(self):
         return self.id
 

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}{% endblock %}
+    {% block title %}{% endblock %}
+
+    <link rel="stylesheet" href="{% static 'veregood/admin/vendors/feather/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'veregood/admin/vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'veregood/admin/vendors/ti-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'veregood/admin/vendors/typicons/typicons.css' %}">
+    <link rel="stylesheet" href="{% static 'veregood/admin/vendors/simple-line-icons/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'veregood/admin/vendors/css/vendor.bundle.base.css' %}">
+    <link rel="stylesheet" href="{% static 'veregood/admin/css/vertical-layout-light/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    {% block css %}{% endblock %}
+    {% block favicon %}{% endblock %}
+</head>
+
+<body>
+
+    {% block pre-loader %}{% endblock %}
+    {% block header %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
+
+
+    <script src="{% static 'veregood/admin/js/off-canvas.js' %}"></script>
+    <script src="{% static 'veregood/admin/js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'veregood/admin/js/template.js' %}"></script>
+    <script src="{% static 'veregood/admin/js/settings.js' %}"></script>
+    <script src="{% static 'veregood/admin/js/todolist.js' %}"></script>
+    {% block js %}{% endblock %}
+
+</body>
+
+
+</html>

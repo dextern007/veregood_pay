@@ -2209,11 +2209,11 @@ aside .banner {
 }
 .btn {
     transition: all 0.3s;
-    text-transform: uppercase;
+    text-transform: capitalize;
     padding: 1em 1.6em;
     border-radius: 0;
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 500;
     font-family: Poppins, sans-serif;
     line-height: 1.429;
 }
@@ -2357,6 +2357,29 @@ a.btn.disabled {
     background-color: #ff7272;
     color: #fff;
 }
+.btn-blue {
+    border-color: #245eab;
+    background-color: #245eab;
+    color: #fff;
+    box-shadow: none;
+}
+.btn-blue.focus, .btn-blue:focus, .btn-blue:hover {
+    border-color: #34393f;
+    background-color: #34393f;
+    color: #fff;
+    box-shadow: none; opacity: 0.9;
+}
+.btn-blue.disabled, .btn-blue:disabled {
+    border-color: #222529;
+    background-color: #222529;
+    color: #fff;
+}
+.btn-blue:not(:disabled):not(.disabled).active, .btn-blue:not(:disabled):not(.disabled):active, .show>.btn-blue.dropdown-toggle {
+    border-color: #050606;
+    background-color: #0b0c0d;
+    color: #fff;
+}
+
 .btn-dark {
     border-color: #222529;
     background-color: #222529;
@@ -2367,7 +2390,7 @@ a.btn.disabled {
     border-color: #34393f;
     background-color: #34393f;
     color: #fff;
-    box-shadow: none;
+    box-shadow: none;opacity: 0.9;
 }
 .btn-dark.disabled, .btn-dark:disabled {
     border-color: #222529;
@@ -2386,10 +2409,10 @@ a.btn.disabled {
     box-shadow: none;
 }
 .btn-gray.focus, .btn-gray:focus, .btn-gray:hover {
-    border-color: #245eab;
-    background-color: #245eab;
-    color: #fff;
-    box-shadow: none;
+    border-color: #f4f4f4;
+    background-color: #f4f4f4;
+    color: #000;
+    box-shadow: none;opacity: 0.9;
 }
 .btn-gray.disabled, .btn-gray:disabled {
     border-color: #f4f4f4;
@@ -3887,7 +3910,7 @@ to {
 .icon-arrow-forward-right:before {
     content: ""}
 form {
-    margin-bottom: 3.5rem;
+    margin-bottom: 1rem;
 }
 form h2 {
     margin-top: 3.4rem;
@@ -3953,7 +3976,7 @@ textarea.form-control {
     display: flex;
     -ms-flex-align: center;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 0rem;
     margin-bottom: 3.5rem;
     font-size: 1.2rem;
     vertical-align: middle;
@@ -3976,7 +3999,7 @@ label {
     color: #222529;
     font-family: Poppins, sans-serif;
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 600;
 }
 .required-field>label:after {
     margin: 0 0 0 0.45rem;
@@ -4052,7 +4075,7 @@ label {
 }
 .custom-control {
     position: relative;
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 3rem;
     padding-left: 3rem;
 }
@@ -4130,22 +4153,22 @@ label {
     color: #555;
 }
 .form-input {
-    padding: 1rem 1.2rem;
+        padding: 0.6rem 1.2rem;;
     border: 1px solid #ddd;
-    border-radius: 2px;
+    border-radius: 2px;margin-bottom: 1rem;
 }
 .form-wide {
     width: 100%}
 @media (min-width:768px) {
-    .form-footer, form {
+    .form-footer {
     margin-bottom: 4rem;
 }
 form h2 {
     margin-top: 4.4rem;
 }
 }@media (min-width:992px) {
-    .form-footer, form {
-    margin-bottom: 5rem;
+    .form-footer {
+    margin-bottom: 2rem;
 }
 }.info-box {
     display: flex;
@@ -7899,7 +7922,7 @@ to {
 }.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1.8rem;
     color: #222529;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.1;
     font-family: Poppins, sans-serif;
 }
@@ -10047,7 +10070,7 @@ footer a {
 }
 .footer-bottom {
     color: #555;
-    background: #d0d5e0;
+    background: #f4f4f4;
     padding-bottom: 2rem;
     padding-top: 2rem;
 }
@@ -13784,7 +13807,7 @@ footer .social-icons {
 }
 footer .payment-icons .payment-icon {
     filter: none;
-    background-color: #f4f4f4;
+    background-color: #d8dce5;
     border-radius: 0;
 }
 .form-control {
@@ -14398,4 +14421,44 @@ footer .payment-icons .payment-icon {
     .abt-home{
         padding: 0 2rem 0 5rem!important;
     }
-    }
+}
+.login-signup {padding: 1rem 0; max-width: 160px;}
+.form-bg{
+    padding: 1.8rem 2rem;
+    border-radius: 4px; 
+    border-radius: 4px;
+    border: 1px #ddd solid;
+    background-color: #fff;    display: block; margin-bottom: 2rem;}
+.btn-sign-in{padding: 0.6em 1.2em;}
+.btn-create, .btn-create:hover{ margin-bottom: 2.6rem; border: 1px solid #e0e0e0;}
+.signin-divider{
+    text-align: center;
+    position: relative;
+    top: 2px;
+    padding-top: 1px;
+    margin-bottom: 5px;
+    line-height: 0;
+}
+.signin-divider h5{
+    line-height: 1;
+    font-size: 12px;
+    color: #767676;
+    font-weight: 400;
+    z-index: 2;
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    padding: 0 8px 0 7px;
+}
+.signin-divider::after{
+    content: "";
+    width: 100%;
+    background-color: transparent;
+    display: block;
+    height: 1px;
+    border-top: 1px solid #e7e7e7;
+    position: absolute;
+    top: 28%;
+    margin-top: -1px;
+    z-index: 1;
+}

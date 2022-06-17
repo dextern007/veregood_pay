@@ -108,18 +108,16 @@ class VariationSerailizer(serializers.ModelSerializer):
         model = Variation
         fields = "__all__"
 
-class VariationGroupSerializer(serializers.ModelSerializer):
-    varation = VariationSerailizer(many=True,read_only=True)
-    class Meta():
-        model = VariationGroup
-        fields = "__all__"
+
 
 class ProductDetail(serializers.ModelSerializer):
+    
     category  = CategorySerializer()
     brand     = BrandSerilaizer()
     store    = VendorSerializer()
-    variation_group = VariationGroupSerializer(many=True)
+    variation = VariationSerailizer(many=True)
     product_image = ProductImageSerializer(many=True)
+    
     class Meta():
         model = Product
         fields = "__all__"
