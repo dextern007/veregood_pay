@@ -4,7 +4,8 @@ from tinymce.models import HTMLField
 class Page(models.Model):
     title    = models.CharField(max_length=255,blank=True,null=True)
     page_key = models.CharField(max_length=255,blank=True,null=True,unique=True)
-    content  = HTMLField()
+    body  = HTMLField()
+    content = models.CharField(max_length=255,blank=True,null=True)
 
     def __str__(self):
         return self.page_key

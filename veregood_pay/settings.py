@@ -79,9 +79,39 @@ INSTALLED_APPS = [
     'veregood_service',
 
     # TextEditor
-    'tinymce',
+    "tinymce",
+    "grappelli",
+    "filebrowser",
     'pages',
 ]
+
+# TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
+TINYMCE_DEFAULT_CONFIG = {
+
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
+    "fullscreen insertdatetime media table paste code help wordcount spellchecker",
+    "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+    "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
+    "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
+    "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
+    "a11ycheck ltr rtl | showcomments addcomment code",
+    "custom_undo_redo_levels": 10,
+    # "language": "es_ES",  # To force a specific language instead of the Django current language.
+}
+# TINYMCE_SPELLCHECKER = True
+# TINYMCE_COMPRESSOR = True
+# TINYMCE_EXTRA_MEDIA = {
+#     'css': {
+#         'all': [
+#             ...
+#         ],
+#     },
+#     'js': [
+#         ...
+#     ],
+# }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -266,3 +296,4 @@ MAP_WIDGETS = {
 STRIPE_WEBHOOK_SECRECT = "we_1KyIhtSHEdoMqgR5RzBYz8M5"
 STRIPE_SECRECT         = "sk_test_51KPDPESHEdoMqgR5GfM94tXGSv1d09rc4KURnLDF3ETL0hZtYJbp89D1JMMd6jSEgQew29j6j7pj2vYKnuioVbb4004nbAp1vm"
 
+TINYMCE_JS_ROOT = os.path.join(os.path.join(BASE_DIR,"static"), "tinymce")

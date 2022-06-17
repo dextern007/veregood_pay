@@ -60,7 +60,7 @@ class STOREKYC(models.Model):
     vendor_proof_number     = models.CharField(max_length=255,blank=True,null=True)
     vendor_proof            = models.ImageField(upload_to="profile/",blank=True,null=True)
 
-HTMLField
+
 
 
 class Banner(models.Model):
