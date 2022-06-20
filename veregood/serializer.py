@@ -1,4 +1,5 @@
 
+from pickletools import read_long1
 from rest_framework import serializers
 
 from veregood.models import *
@@ -108,6 +109,11 @@ class VariationSerailizer(serializers.ModelSerializer):
         model = Variation
         fields = "__all__"
 
+class VariationGroupSerailizer(serializers.ModelSerializer):
+    group_variation = VariationSerailizer(many=True)
+    class Meta():
+        model = VariationGroup
+        fields = "__all__"
 
 
 class ProductDetail(serializers.ModelSerializer):
@@ -115,7 +121,7 @@ class ProductDetail(serializers.ModelSerializer):
     category  = CategorySerializer()
     brand     = BrandSerilaizer()
     store    = VendorSerializer()
-    variation = VariationSerailizer(many=True)
+    varation_group = VariationGroupSerailizer(many=True)
     product_image = ProductImageSerializer(many=True)
     
     class Meta():

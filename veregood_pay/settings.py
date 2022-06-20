@@ -32,33 +32,23 @@ LIVE_MODE = False
 # Application definition
 
 INSTALLED_APPS = [
+    # 'jazzmin',
+    'grappelli',
+    'nested_admin',
+    # "filebrowser",
+    
+    # 'super_inlines',
+    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'setting',
-    # 'service',
-    # 'wallet',
-    # 'payment',
+
     'account', # smart_card ( qr code )
-    # 'finance', # banks (bank official website) ,
-    # 'health',
-    # 'job',
-    # 'forum', #funding , ask funs , list funds , donate , create projects
 
-    # # # additional
-    # 'savings',
-    # 'promotion',
-    # 'electricity',
-    # 'mobile_recharge',
-    # 'trade',
-    # 'dth',
-    # 'recharge',
-    # 'bill_payment',
-
-    # restframework
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -80,8 +70,6 @@ INSTALLED_APPS = [
 
     # TextEditor
     "tinymce",
-    "grappelli",
-    "filebrowser",
     'pages',
 ]
 
@@ -297,3 +285,5 @@ STRIPE_WEBHOOK_SECRECT = "we_1KyIhtSHEdoMqgR5RzBYz8M5"
 STRIPE_SECRECT         = "sk_test_51KPDPESHEdoMqgR5GfM94tXGSv1d09rc4KURnLDF3ETL0hZtYJbp89D1JMMd6jSEgQew29j6j7pj2vYKnuioVbb4004nbAp1vm"
 
 TINYMCE_JS_ROOT = os.path.join(os.path.join(BASE_DIR,"static"), "tinymce")
+
+

@@ -10,6 +10,13 @@
 <meta name="description" content="">
 {% endblock %}
 
+{% block internalstyle %}
+<style type="text/css">
+    footer {background: transparent;}
+   .footer-bottom{background: linear-gradient(to bottom,rgba(0,0,0,.14),rgba(0,0,0,.03) 3px,transparent);}
+</style>
+{% endblock %}
+
 {% block content %}
 <main class="main">
             <div class="container d-flex flex-column align-items-center">
@@ -43,7 +50,7 @@
                                             me</label>
                                     </div>
 
-                                    <a href="forgot-password.html"
+                                    <a href="#"
                                         class="forget-password text-dark form-footer-right">Forgot
                                         Password?</a>
                                 </div>
@@ -55,7 +62,7 @@
                         <div class="signin-divider">
                             <h5>New to VereGood?</h5>
                         </div>
-                        <a href="#" class="btn btn-gray btn-create btn-sign-in w-100">
+                        <a href="{% url 'veregood:register' %}" class="btn btn-gray btn-create btn-sign-in w-100">
                                     Create your VereGood account
                         </a>
                     </div>

@@ -8,7 +8,14 @@
 {% block meta %}
 <meta name="keywords" content="" />
 <meta name="description" content="">
+{% endblock %}
+
+{% block internalstyle %}
 <link rel="stylesheet" href="{% static 'main_site/assets/phone-code/css/intlTelInput.css' %}">
+<style type="text/css">
+    footer {background: transparent;}
+   .footer-bottom{background: linear-gradient(to bottom,rgba(0,0,0,.14),rgba(0,0,0,.03) 3px,transparent);}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -50,7 +57,7 @@
                                 <p class=" mt-2 form-footer">We will send you a text to verify your phone. Message and Data rates may apply.</p>
 
                                 <div class="form-footer">
-                                    <p>Already have an account? <a href="forgot-password.html"
+                                    <p>Already have an account? <a href="#"
                                         class="forget-password text-primary form-footer-left">Forgot
                                         Password?</a>
                                     </p>
@@ -63,7 +70,7 @@
                         <div class="signin-divider">
                             <h5>Buying for work?</h5>
                         </div>
-                        <a href="#" class="btn btn-gray btn-create btn-sign-in w-100">
+                        <a href="{% url 'veregood:login' %}" class="btn btn-gray btn-create btn-sign-in w-100">
                                     Create a free business account
                         </a>
 

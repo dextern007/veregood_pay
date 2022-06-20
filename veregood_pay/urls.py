@@ -19,12 +19,14 @@ from django.conf.urls.static import static
 
 from django.conf import settings
 from veregood.views import stripe_webhook
+from veregood.admin import vendor_admin_site
 
 
 urlpatterns = [
 
     
     path('admin/', admin.site.urls),
+    path('vendor-panel/', vendor_admin_site.urls),
     path("api/",include('api.urls')),
     path("socket/",include('chat.urls')),
     path("",include('veregood.main_site.urls')),
@@ -33,5 +35,7 @@ urlpatterns = [
     # path("stripe/end-point",stripe_webhook,name="stripe_webhook")
 
     path('tinymce/', include('tinymce.urls')),
+    path('_nested_admin/', include('nested_admin.urls')),
+    path('grappelli/', include('grappelli.urls')),
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

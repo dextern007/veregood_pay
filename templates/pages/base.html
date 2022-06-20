@@ -11,6 +11,7 @@
    
     {% block title %}{% endblock %}
     {% block meta %}{% endblock %}
+    {% block extra-style %}{% endblock %}
     {% block style %}
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'main_site/assets/images/icons/favicon.png' %}">
@@ -44,7 +45,9 @@
 
     {% block header %}{% endblock %}
     {% block loader %}{% endblock %}
+
     {% block content %}{% endblock %}
+    
     {% block footer %}{% endblock %}
     {% block js %}
     <!-- Plugins JS File -->

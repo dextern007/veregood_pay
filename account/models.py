@@ -258,6 +258,8 @@ phone_codes = (
 # sort by code
 sorted_phone_codes = sorted(phone_codes, key=lambda tup: tup[0])
 
+
+
 class User(AbstractUser):
     is_google_auth      = models.BooleanField(default=False)
     google_id           = models.TextField(max_length=1500,blank=True,null=True)
@@ -267,10 +269,7 @@ class User(AbstractUser):
 
     # Veregood
     is_vendor           = models.BooleanField(default=False)
-    store_setup         = models.BooleanField(default=False)
     
-
-
     # Goode Pay
     kyc_verified    = models.BooleanField(default=False)
 

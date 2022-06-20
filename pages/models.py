@@ -6,6 +6,7 @@ class Page(models.Model):
     page_key = models.CharField(max_length=255,blank=True,null=True,unique=True)
     body  = HTMLField()
     content = models.CharField(max_length=255,blank=True,null=True)
+    style = models.TextField(blank=True,null=True)
 
     def __str__(self):
         return self.page_key

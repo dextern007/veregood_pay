@@ -11,9 +11,12 @@ urlpatterns = [
 
     # API VERSION 1.0 DIWAHAR
     path('', index,name="index"),
-    path('home/', index,name="index"),
+    path('home/',index,name="home"),
     path('login/',login,name="login"),
     path('register/',signup,name="register"),
-    path('cart/',cart,name="cart"),
+    path('otp-verification/',verification,name="otp-verification"),
+    path('cart/',cart,name="shopping-cart"),
+    path('dashboard/',dashboard,name="my-account"),
+    path('category/',category,name="product-listing"),
     path('page/<str:page_key>/',page_view,name="page"),
 ]

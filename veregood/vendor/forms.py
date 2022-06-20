@@ -3,6 +3,10 @@ from account.models import User
 from veregood.models import *
 from mapwidgets.widgets import GooglePointFieldWidget
 
+
+
+
+
 # To Register Vendor
 class VendorForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

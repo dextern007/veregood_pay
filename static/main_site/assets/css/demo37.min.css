@@ -437,7 +437,7 @@
     background-color: #2f3946!important;
 }
 .bg-primary {
-    background-color: #08c!important;
+    background-color: #245eab!important;
 }
 .bg-secondary {
     background-color: #ec1b3f!important;
@@ -2187,7 +2187,7 @@ aside .banner {
     font-size: 12px;
     letter-spacing: -0.01em;
     line-height: 24px;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 .breadcrumb-item+.breadcrumb-item {
     padding-left: 1.5rem;
@@ -2656,12 +2656,12 @@ to {
     margin: 0;
 }
 .feature-box h3 {
-    margin-bottom: 2rem;
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
     line-height: 1.1;
-    letter-spacing: 0;
+    letter-spacing: 0.04rem;
 }
 .feature-box p {
     margin-bottom: 0;
@@ -3981,6 +3981,13 @@ textarea.form-control {
     font-size: 1.2rem;
     vertical-align: middle;
 }
+.form-footer-center{
+   justify-content: center;
+    margin-top: 1.7rem;
+}
+.form-footer-btn{
+    margin-top: 1rem;
+}
 .form-footer .form-footer-right {
     margin-right: 0;
     margin-left: auto;
@@ -4434,10 +4441,10 @@ form h2 {
     padding-right: 0!important;
 }
 }.page-header {
-    padding: 5.5rem 0;
+    padding: 2rem 0;
     color: #222529;
     background-color: #f4f4f4;
-    text-align: center;
+    text-align: left;
 }
 .page-header .breadcrumb {
     padding-top: 0.5rem;
@@ -4458,8 +4465,8 @@ form h2 {
 .page-header h1, .page-title {
     margin-bottom: 0.4rem;
     font-size: 2.8rem;
-    font-weight: 700;
-    letter-spacing: -0.05em;
+    font-weight: 500;
+    letter-spacing: -0.04em;
     color: #222529;
 }
 @media (min-width:768px) {
@@ -5159,7 +5166,7 @@ figure .porto-loading-icon {
     background-color: #ec1b3f;
 }
 .product-default .product-label.label-sale {
-    background-color: #da5555;
+    background-color: #4caf50;
 }
 .product-default .product-label.label-number {
     display: flex;
@@ -5235,7 +5242,7 @@ figure .porto-loading-icon {
 .product-default .btn-add-cart, .product-default .btn-icon-wish, .product-default .btn-quickview {
     border: 1px solid #f4f4f4;
     background: #f4f4f4;
-    color: #6f6e6b;
+    color: #000000;
     line-height: 34px;
 }
 .product-default .btn-icon-wish, .product-default .btn-quickview {
@@ -5276,7 +5283,7 @@ figure .porto-loading-icon {
     display: inline-block;
     padding: 0 1.4rem;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
     font-family: Poppins, sans-serif;
     text-align: center;
     vertical-align: top;
@@ -5317,8 +5324,8 @@ figure .porto-loading-icon {
     transition: opacity 0.3s ease-in-out;
 }
 .product-default:hover .btn-add-cart {
-    background: #2b2b2d;
-    border-color: #2b2b2d;
+    background: #245eab;
+    border-color: #245eab;
     color: #fff;
 }
 .product-default:hover .btn-add-cart.product-type-simple i {
@@ -5357,7 +5364,7 @@ figure .porto-loading-icon {
 }
 .price-box {
     margin-bottom: 1.4rem;
-    font-weight: 600;
+    font-weight: 500;
     font-family: "Open Sans", sans-serif;
     line-height: 1;
 }
@@ -5544,8 +5551,8 @@ figure .porto-loading-icon {
 .config-swatch-list li a {
     position: relative;
     display: block;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 1.8rem;
+    height: 1.8rem;
     margin: 3px 6px 3px 0;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
@@ -8001,7 +8008,7 @@ a:focus, a:hover {
     font-size: 5rem;
 }
 .h2, h2 {
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 .heading {
     margin-bottom: 5rem;
@@ -8019,7 +8026,7 @@ a:focus, a:hover {
     margin-right: -10px;
 }
 [class*=col-] {
-    padding-left: 10px!important;
+    padding-left: 10px;
     padding-right: 10px;
 }
 .row-sparse {
@@ -8626,7 +8633,7 @@ header a {
     margin-left: auto;
 }
 .header-bottom .header-center {
-    width: 98%}
+    width: 100%}
 .header-bottom:not(.fixed) .header-left, .header-bottom:not(.fixed) .header-right {
     display: none;
 }
@@ -9315,7 +9322,7 @@ header .separator {
     box-sizing: content-box;
     height: 40px;
     border-radius: 5rem;
-    border: 5px solid #08c;
+    border: 5px solid #245eab;
 }
 .header-search-wrapper:after {
     display: block;
@@ -10066,7 +10073,7 @@ footer a {
     color: inherit;
 }
 .footer-middle {
-    padding: 6rem 3rem 4rem 3rem;
+    padding: 6rem 0rem 4rem 0rem;
 }
 .footer-bottom {
     color: #555;
@@ -10220,16 +10227,16 @@ footer .contact-info-label {
     visibility: visible;
     color: #FFF;
     width: 49px;
-    height: 48px;
+    height: 44px;
     right: 10px;
     text-align: center;
     text-decoration: none;
     z-index: 996;
     transition: background 0.3s ease-out;
-    background: rgba(64, 64, 64, 0.75);
+        background: rgb(36 94 171 / 82%);
 }
 #scroll-top.fixed:hover {
-    color: #245eab;
+    color: #fff;
 }
 @media (max-width:575px) {
     footer {
@@ -11844,7 +11851,7 @@ main .sticky-header .product-ratings:before {
     background-color: #da5555;
 }
 .product-single-gallery .product-label.label-new {
-    background-color: #08c;
+    background-color: #245eab;
 }
 .prod-thumbnail {
     display: flex;
@@ -13071,7 +13078,7 @@ to {
     display: block;
     padding: 1.1rem 0.2rem;
     background-color: #f4f4f4;
-    color: #08c;
+    color: #245eab;
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 1.375;
@@ -13080,7 +13087,7 @@ to {
     display: block;
     padding: 0.4rem 0.2rem 0.7rem;
     border-radius: 0 0 0.2rem 0.2rem;
-    background-color: #08c;
+    background-color: #245eab;
     color: #fff;
     font-size: 1.2rem;
     line-height: 1.33;

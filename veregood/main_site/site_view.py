@@ -11,5 +11,14 @@ def login(request):
 def signup(request):
     return HttpResponse(render(request,'main_site/screens/register.html'))
 
+def verification(request):
+    return HttpResponse(render(request,'main_site/screens/otp-verification.html'))
+
 def cart(request):
     return HttpResponse(render(request,'main_site/screens/cart.html'))
+
+def dashboard(request):
+    return HttpResponse(render(request,'main_site/screens/dashboard.html'))
+
+def category(request):
+    return HttpResponse(render(request,'main_site/screens/category.html'))

@@ -1,41 +1,60 @@
+from attr import field
 from django.contrib import admin
 from veregood.models import *
 # Register your models here.
-from django import forms
-from django.conf import settings
-from django.utils.safestring import mark_safe
+from django.contrib.admin import AdminSite
+import nested_admin
+from account.models import User
+from django.contrib.auth.admin import UserAdmin
+
+class VendorAdminSite(AdminSite):
+    site_header = "VereGood | Seller Portal"
+    site_title  = "VereGood | Seller Portal"
+    index_title = "VereGood | Seller Portal"
+
+vendor_admin_site = VendorAdminSite(name='vendor_admin')
 
 
-
-class VariationInline(admin.StackedInline):
+class VariationInline(nested_admin.NestedStackedInline):
     model = Variation
-    extra = 1
+    extra = 0
 
-class ImageInline(admin.TabularInline):
-    model = ProductImage
-    extra = 1
-        
+
+class VariationGroupInline(nested_admin.NestedTabularInline):
+    model = VariationGroup
+    inlines = [VariationInline]
+    extra = 0
+  
     
+class ImageInline(nested_admin.NestedTabularInline):
+    model = ProductImage
+    extra = 0
+        
+class DescriptionInline(admin.StackedInline):
+    model = ProductDescription
 
-class ProductAdmin(admin.ModelAdmin):
-    inlines       = [VariationInline,ImageInline]
+class GuideInline(admin.StackedInline):
+    model = ProductGuide
+
+class MetaInline(admin.StackedInline):
+    model = ProductMeta
+
+class ProductAdmin(nested_admin.NestedModelAdmin):
+    inlines       = [DescriptionInline,GuideInline,VariationGroupInline,ImageInline,MetaInline]
     list_display  = ["sku","title","short_description","in_stock","is_approved"]
     list_filter   = ["is_approved"]
     search_fields = ["sku"]
+    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand","category", "price","quantity","in_stock","has_variation","page_layout",]
+
     class Meta:
         model = Product
-
-
-
+        
 
 
 admin.site.register(Product,ProductAdmin)
-
-
 admin.site.register(Address)
 admin.site.register(Store)
 admin.site.register(Brand)
-
 admin.site.register(ProductReview)
 admin.site.register(ProductImage)
 admin.site.register(Variation)
@@ -50,3 +69,31 @@ admin.site.register(Banner)
 admin.site.register(Order)
 admin.site.register(Payment)
 
+
+from django.urls import reverse
+from django.shortcuts import redirect
+class VendorProductAdmin(nested_admin.NestedModelAdmin):
+    inlines       = [DescriptionInline,GuideInline,VariationGroupInline,ImageInline,MetaInline]
+    list_display  = ["sku","title","short_description","in_stock","is_approved"]
+    list_filter   = ["is_approved"]
+    search_fields = ["sku"]
+    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand","category", "price","quantity","in_stock","has_variation","page_layout",]
+    view_on_site = False
+    class Meta:
+        model = Product
+
+
+    # Demo Site
+    def view_on_site(self, obj):
+        return 'https://example.com'
+
+    def response_add(self, request, obj, post_url_continue=None):
+        return redirect('/veregood/vendor/dashboard')
+
+    def response_change(self, request, obj):
+        return redirect('/veregood/vendor/dashboard')    
+
+
+
+vendor_admin_site.register(Store)
+vendor_admin_site.register(Product,VendorProductAdmin)

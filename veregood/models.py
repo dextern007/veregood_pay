@@ -42,7 +42,15 @@ class Store(models.Model):
     aadhar_number           = models.CharField(max_length=100,blank=True,null=True)
     pan_number              = models.CharField(max_length=100,blank=True,null=True)
     closed                  = models.BooleanField(default=False)
+    
     is_active               = models.BooleanField(default=False)
+    store_setup             = models.BooleanField(default=False)
+    is_approved             = models.BooleanField(default=False)
+    kyc_verified            = models.BooleanField(default=False)
+    payment_method_added    = models.BooleanField(default=False)
+
+
+
 
 class STOREBANKACCOUNT(models.Model):
     account_name            = models.CharField(max_length=255,blank=True,null=True)
@@ -99,15 +107,24 @@ PRODUCT_TYPE = (
 )
 
 
+LAYOUT = (
+    ("layout_1","Layout 1 - Supports 3D Sliders"),
+    ("layout_2","Layout 2"),
+    ("layout_3","Layout 3"),
+    ("layout_4","Layout 4"),
+    ("layout_5","Layout 5"),
+
+)
+
 class Product(models.Model):
     store                   =  models.ForeignKey(Store,on_delete=models.CASCADE,blank=True,null=True)
     title                   =  models.TextField(max_length=1500,blank=True,null=True)
     sku                     =  models.CharField(max_length=255,blank=True,null=True,unique=True)
+    main_category           =  models.ForeignKey('MainCategory',blank=True,null=True,on_delete=models.CASCADE,related_name="main_category_product")
     category                =  models.ForeignKey('Category',blank=True,null=True,on_delete=models.CASCADE,related_name="category_product")
     brand                   =  models.ForeignKey('Brand',blank=True,null=True,on_delete=models.CASCADE)
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/thumnail/",blank=True,null=True)
-    description             =  HTMLField()
     short_description       =  models.TextField(max_length=5500,blank=True,null=True)
     price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     rating                  =  models.DecimalField(decimal_places=1,max_digits=3,default=0.0)
@@ -117,6 +134,7 @@ class Product(models.Model):
     is_active               =  models.BooleanField(default=False)
     in_stock                =  models.BooleanField(default=False)
     quantity                =  models.BigIntegerField(default=0)
+    page_layout             =  models.CharField(choices=LAYOUT,default="layout_1",max_length=100)
     is_approved             =  models.BooleanField(default=False)
 
 
@@ -126,29 +144,89 @@ class ProductReview(models.Model):
     rating                  =  models.DecimalField(decimal_places=1,max_digits=3,default=0.0)
     description             =  models.TextField(max_length=1500,blank=True,null=True)
 
-
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Review'
 
 class ProductImage(models.Model):
     product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_image",blank=True,null=True)
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
     is_active               =  models.BooleanField(default=False)
 
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Image'
 
+class ProductDescription(models.Model):
+    product                 =  models.OneToOneField(Product,on_delete=models.CASCADE,blank=True,null=True)
+    content                 =  HTMLField()
+
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Description'
+
+class ProductGuide(models.Model):
+    product                 =  models.OneToOneField(Product,on_delete=models.CASCADE,blank=True,null=True)
+    content                 =  HTMLField()
+
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Guide'
+
+class ProductMeta(models.Model):
+    product                 =  models.OneToOneField(Product,on_delete=models.CASCADE,blank=True,null=True)
+    title                   = models.CharField(max_length=255,blank=True,null=True)
+    keyword                 = models.TextField(max_length=5500,blank=True,null=True)
+    description             = models.TextField(max_length=5500,blank=True,null=True)
+
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Meta'
+
+class ProductQuote(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    user                    =  models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    content                 =  models.TextField()
+
+class ProductBid(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    user                    =  models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    bid_amount              =  models.BigIntegerField(default=0)
+
+
+VARIATION_TITLE = (
+    ('color','color'),
+    ('size','size'),
+    ('weight','weight'),
+)
+
+class VariationGroup(models.Model):
+    product                 =  models.ForeignKey('Product',on_delete = models.CASCADE,blank=True,null=True,related_name="varation_group")
+    has_price               =  models.BooleanField(default=False)
+    title                   =  models.CharField(choices=VARIATION_TITLE,default="simple",max_length=100)
+    suffix                  =  models.CharField(max_length=100,blank=True,null=True)
+
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Variation Group'
 
 class Variation(models.Model):
-    product                   =  models.ForeignKey('Product',on_delete = models.CASCADE,blank=True,null=True,related_name="varation")
+    variation_group         =  models.ForeignKey('VariationGroup',on_delete = models.CASCADE,blank=True,null=True,related_name="group_varation")
+    # product                 =  models.ForeignKey('Product',on_delete = models.CASCADE,blank=True,null=True,related_name="varation")
     image                   =  models.ImageField(upload_to="veregood/product/variation/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/variation/thumnail/",blank=True,null=True)
     text                    =  models.CharField(max_length=255,blank=True,null=True)
     value                   =  models.CharField(max_length=255,blank=True,null=True)
     sub_text                =  models.CharField(max_length=255,blank=True,null=True)
     # has_price               =  models.BooleanField(default=False)
-    price                    =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
+    price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     is_active               =  models.BooleanField(default=False)
     in_stock                =  models.BooleanField(default=False)
     quantity                =  models.BigIntegerField(default=0)
 
-
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Variation'
 
 
 
@@ -170,12 +248,18 @@ class ProductListing(models.Model):
 
 
 
-
-
 #######
+class MainCategory(MPTTModel):
+    icon                    =  models.ImageField(upload_to="veregood/category/icon",blank=True,null=True)
+    image                   =  models.ImageField(upload_to="veregood/category/image",blank=True,null=True)
+    is_active               =  models.BooleanField(default=False)              
+    name                    =  models.CharField(max_length=200)
+    slug                    =  models.SlugField(unique=True)
+
+
 class Category(MPTTModel):
-    icon                    =  models.ImageField(upload_to="veregood/brands/icon",blank=True,null=True)
-    image                   =  models.ImageField(upload_to="veregood/brands/image",blank=True,null=True)
+    icon                    =  models.ImageField(upload_to="veregood/sub_category/icon",blank=True,null=True)
+    image                   =  models.ImageField(upload_to="veregood/sub_category/image",blank=True,null=True)
     is_active               =  models.BooleanField(default=False)              
     name                    =  models.CharField(max_length=200)
     slug                    =  models.SlugField(unique=True)

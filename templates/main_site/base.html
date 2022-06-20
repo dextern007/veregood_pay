@@ -6,14 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/icons/favicon.png">
+    <link rel="icon" type="image/x-icon" href="{% static 'main_site/assets/images/icons/favicon.png' %}">
     <!-- Favicon End -->
    
     {% block title %}{% endblock %}
     {% block meta %}{% endblock %}
+    
     {% block style %}
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% static 'main_site/assets/images/icons/favicon.png' %}">
     <script>
         WebFontConfig = {
             google: { families: [ 'Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700,800', 'Oswald:300,400,500,600,700,800', 'Lato:300,400,500,600,700,800' ] }
@@ -33,20 +32,20 @@
     <link rel="stylesheet" type="text/css" href="{% static 'main_site/assets/vendor/fontawesome-free/css/all.min.css' %}">
     {% endblock %}
 
+    {% block internalstyle %}{% endblock %}
+
 </head>
 
 <body class="custom-scrollbar">
     <div class="page-wrapper">
-        {% block pre-header %}
-
-        
-        {% endblock %}
+    {% block pre-header %}{% endblock %}
 
     {% block header %}{% endblock %}
     {% block loader %}{% endblock %}
     {% block content %}{% endblock %}
     {% block footer %}{% endblock %}
     {% block js %}
+    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
     <!-- Plugins JS File -->
     <script src="{% static 'main_site/assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'main_site/assets/js/bootstrap.bundle.min.js' %}"></script>

@@ -1,8 +1,6 @@
-
-import email
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -43,7 +41,11 @@ def login_vendor(request):
                     request.session['mobile_number'] = mobile_number
                     request.session['password'] = password
                     request.session['country_code'] = "+"+obj.country_code
-                    return HttpResponseRedirect(reverse("veregood_vendor:otp-verification"))
+
+                    # return HttpResponseRedirect(reverse("veregood_vendor:otp-verification"))
+
+                    # Direct access
+                    return HttpResponseRedirect(reverse("veregood_vendor:dashboard"))
                 
                 else:
 
@@ -59,7 +61,7 @@ def login_vendor(request):
     
     else:
         if request.user.is_vendor:
-            logout(request)
+            # logout(request)
             return HttpResponseRedirect(reverse("veregood_vendor:dashboard"))
 
         else:
@@ -70,6 +72,7 @@ def login_vendor(request):
 
 
 
+# OTP Verification #######
 def google_otp_verification(request):
     
     if request.method == "POST":
@@ -95,9 +98,6 @@ def google_otp_verification(request):
 
     return HttpResponse(render(request,'veregood/vendor/screens/otp-verification.html'))
   
-
-
-
 def forgot_password_otp_verification(request):
     message = ""
     if request.method == "POST":
@@ -105,10 +105,13 @@ def forgot_password_otp_verification(request):
         
 
     return HttpResponse(render(request,'veregood/vendor/screens/forgot-password.html',{"message":message}))
-
+# OTP Verification #######
 
 
 def update_password(request):
+    """
+    The Functions lets to update the password of current user with session datas after otp verification done.
+    """
 
     if request.method == "POST":
         obj = User.objects.get(username=request.session["mobile_number"])
@@ -143,6 +146,11 @@ def verify_vendor_availabilty(request):
 
 
 def register(request):
+    """
+        This Function will Register a user as vendor
+    """
+
+
     from veregood.vendor.forms import VendorForm
     form = VendorForm()
     if request.method == 'POST':
@@ -154,13 +162,40 @@ def register(request):
             request.session['email'] = request.POST['email']
             request.session['password'] = request.POST['password']
             request.session['first_name'] = request.POST['first_name']
-            return HttpResponseRedirect(reverse('veregood_vendor:user_verification',kwargs={'redirect':'complete_profile'}))
+
+
+            # return HttpResponseRedirect(reverse('veregood_vendor:user_verification',kwargs={'redirect':'complete_profile'}))
+
+
+
+            # Direct Access
+            user = User(
+                        username=request.session['mobile_number'],
+                        email=request.session['email'],
+                        country_code=request.session['country_code'][1:],
+                        first_name=request.session['first_name'],
+                        is_vendor=True,
+                        is_staff  = True,
+                        
+                    )
+            # user.has_perm('veregood.add_product')
+            # user.has_perm('veregood.change_product')
+            # user.has_perm('veregood.view_product')
+            user.set_password(request.session['password'])
+            user.save()
+            
+            
+            login(request,user)
+            return HttpResponseRedirect(reverse('veregood_vendor:complete_profile'))
+
+
 
  
     return HttpResponse(render(request,'veregood/vendor/screens/register.html',{'form':form}))
 
 
 
+# OTP VERIFICATION
 def user_verification(request,redirect):
 
     if request.method == 'POST':
@@ -170,8 +205,10 @@ def user_verification(request,redirect):
                         email=request.session['email'],
                         country_code=request.session['country_code'][1:],
                         first_name=request.session['first_name'],
-                        is_vendor=True,
+                        is_vendor = True,
+                        is_staff  = True,
                     )
+            
             user.set_password(request.session['password'])
             user.save()
             login(request,user)
@@ -180,11 +217,17 @@ def user_verification(request,redirect):
     
     
     return HttpResponse(render(request,'veregood/vendor/screens/auth/otp-verification.html',{'redirect':redirect}))
-
+# OTP VERIFICATION
 
 
 @login_required
 def complete_profile(request):
+    """
+    This Function used to create a vendor profile and add permissions to the vendor
+
+    Arguments : Vendor Inofrmations
+    """
+    
     form = VendorProfileForm()
 
     if request.user.is_vendor == False:
@@ -193,15 +236,48 @@ def complete_profile(request):
     if request.method == "POST":
         form = VendorProfileForm(request.POST,request.FILES)
         if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.user = request.user
+            new_form         = form.save(commit=False)
+            new_form.user    = request.user
+            new_form.store_setup    = True
             new_form.save()
-            user=User.objects.get(id=request.user.id)
-            user.store_setup=True
+            user = User.objects.get(id=request.user.id)
+            from django.contrib.auth.models import Permission
+            
+            user.user_permissions.add(
+
+                Permission.objects.get(codename='add_product'),
+                Permission.objects.get(codename='change_product'),
+                Permission.objects.get(codename='view_product'),
+
+                Permission.objects.get(codename='add_productimage'),
+                Permission.objects.get(codename='change_productimage'),
+                Permission.objects.get(codename='view_productimage'),
+                Permission.objects.get(codename='delete_productimage'),
+                
+                Permission.objects.get(codename='add_variationgroup'),
+                Permission.objects.get(codename='change_variationgroup'),
+                Permission.objects.get(codename='view_variationgroup'),
+                Permission.objects.get(codename='delete_variationgroup'),
+
+                Permission.objects.get(codename='add_productdescription'),
+                Permission.objects.get(codename='change_productdescription'),
+                Permission.objects.get(codename='view_productdescription'),
+
+                Permission.objects.get(codename='add_variation'),
+                Permission.objects.get(codename='change_variation'),
+                Permission.objects.get(codename='view_variation'),
+                Permission.objects.get(codename='delete_variation'),
+                )
+
             user.save()
             return HttpResponseRedirect(reverse('veregood_vendor:dashboard'))
 
+    
+
+
     return HttpResponse(render(request,'veregood/vendor/screens/complete-profile.html',{'form':form}))
+
+
 
 
 
@@ -212,7 +288,9 @@ def dashboard(request):
     if request.user.is_vendor == False:
         return HttpResponseRedirect(reverse('veregood:index'))
 
-    if request.user.store_setup == False:
+
+    if request.user.store.store_setup == False:
         return HttpResponseRedirect(reverse('veregood_vendor:complete_profile'))
+
 
     return HttpResponse(render(request,'veregood/vendor/screens/dashboard.html'))
