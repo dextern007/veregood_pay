@@ -7,8 +7,6 @@ from pages.views import page_view
 app_name = "veregood"
 
 urlpatterns = [
-
-
     # API VERSION 1.0 DIWAHAR
     path('', index,name="index"),
     path('home/',index,name="home"),
