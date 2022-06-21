@@ -81,7 +81,7 @@ class VendorProductAdmin(nested_admin.NestedModelAdmin):
     list_display  = ["sku","title","short_description","in_stock","is_approved"]
     list_filter   = ["is_approved"]
     search_fields = ["sku"]
-    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand", "price","quantity","in_stock","has_variation","page_layout","tag"]
+    fields        = ["image","thumbnail","product_type","title","sku", "short_description","brand", "price","quantity","in_stock","has_variation","page_layout"]
     view_on_site = False
     class Meta:
         model = Product
