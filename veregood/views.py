@@ -1,10 +1,10 @@
-from django.shortcuts import render
+
 from django.conf import settings
-from numpy import product
 import stripe
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework.views import APIView
+from account.models import User
 from veregood.serializer import *
 from veregood.models import*
 from rest_framework.response import Response
@@ -226,13 +226,59 @@ class AddressView(APIView):
 
 
 class SearchView(APIView):
+
     def post(self,request,format=None):
         keyword = request.data["keyword"]
         products = Product.objects.filter(title__icontains = keyword)
         serializer = ProductSerializer(products,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+class UserView(APIView):
+    def get(self,request,format=None):
+        mobile_number = self.request.query_params.get("mobile_number")
+        try:
+            user=User.objects.get(username=mobile_number)
+            token ,created = Token.objects.get_or_create(user=user)
 
+
+            data = {
+                "profile": {
+                    "name" : user.first_name,
+                    "email" : user.email,
+                    "mobile_number" : user.mobile_number,
+                    "country_code" : user.country_code,
+                },
+                "token":token.key
+            }
+            return Response(data,status=status.HTTP_200_OK)
+
+        except:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        
+       
+
+    def post(self,request,format=None):
+        import random
+        username = request.data["username"]
+        name = request.data["name"]
+        email = request.data["email"]
+        country_code = request.data["country_code"]
+        user=User(first_name=name,username=username,mobile_number=username,email=email,country_code=country_code)
+        user.set_password(str(random.randint(1000000000000,9999999999999999)))
+        user.save()
+        token ,created = Token.objects.get_or_create(user=user)
+
+
+        data = {
+            "profile": {
+                "name" : user.first_name,
+                "email" : user.email,
+                "mobile_number" : user.mobile_number,
+                "country_code" : user.country_code,
+            },
+            "token":token.key
+        }
+        return Response(data,status=status.HTTP_200_OK)
 
 @csrf_exempt
 def stripe_webhook(request):

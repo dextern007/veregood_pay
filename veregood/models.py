@@ -6,6 +6,7 @@ from django.contrib.gis.db import models
 
 from mptt.models import MPTTModel, TreeForeignKey
 from tinymce.models import HTMLField
+from taggit.managers import TaggableManager
 
 # Create your models here.
 DELIVERY_TYPE =(
@@ -108,11 +109,11 @@ PRODUCT_TYPE = (
 
 
 LAYOUT = (
-    ("layout_1","Layout 1 - Supports 3D Sliders"),
+    ("layout_1","Layout 1"),
     ("layout_2","Layout 2"),
     ("layout_3","Layout 3"),
     ("layout_4","Layout 4"),
-    ("layout_5","Layout 5"),
+    ("layout_5","Layout 5 - Supports 3D Sliders"),
 
 )
 
@@ -136,6 +137,7 @@ class Product(models.Model):
     quantity                =  models.BigIntegerField(default=0)
     page_layout             =  models.CharField(choices=LAYOUT,default="layout_1",max_length=100)
     is_approved             =  models.BooleanField(default=False)
+    tag = TaggableManager()
 
 
 class ProductReview(models.Model):
@@ -172,6 +174,16 @@ class ProductGuide(models.Model):
     class Meta:
         # Add verbose name
         verbose_name = 'Guide'
+
+
+class ProductTab(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True,related_name="product_tab")
+    title                   =  models.CharField(max_length=255,blank=True,null=True)
+    content                 =  HTMLField()
+
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Tab'
 
 class ProductMeta(models.Model):
     product                 =  models.OneToOneField(Product,on_delete=models.CASCADE,blank=True,null=True)

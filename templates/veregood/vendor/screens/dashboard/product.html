@@ -1,0 +1,81 @@
+{% extends 'veregood/vendor/screens/dashboard.html' %}
+{% load static %}
+
+{% block js-plugin %}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+{% endblock %}
+
+{% block nav-tab %}
+<div class="home-tab">
+    <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Product</a>
+        </li>      
+    </div>
+{% endblock %}
+
+
+{% block dashboard-content %}
+<table id="example" class="display" style="width:100%">
+  <thead>
+      <tr>
+          <th>Product Title</th>
+          <th>Category</th>
+          <th>Sku</th>
+          <th>Description</th>
+          <th>price</th>
+          <th>Quantity</th>
+          <th>In Stock</th>
+          <th>Approved</th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+      <tr>
+          <td>{{ product.title }}</td>
+          <td>{{ product.category.name }}</td>
+          <td>{{ product.sku }}</td>
+          <td>{{ product.short_description }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.in_stock }}</td>
+          <td>{{ product.is_approved }}</td>
+          <td><a class="button" href="{% url 'vendor_admin:veregood_product_change' product.id %}">Edit</a></td>
+          <td><a target="_blank" class="button" href="{% url 'veregood:product' pk=product.id %}">View</a></td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+  <!-- <tfoot>
+     <tr>
+          <th>Product Title</th>
+          <th>Category</th>
+          <th>Sku</th>
+          <th>Description</th>
+          <th>price</th>
+          <th>Quantity</th>
+          <th>In Stock</th>
+          <th>Approved</th>
+          <th></th>
+          <th></th>
+      </tr>
+  </tfoot> -->
+</table>
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function () {
+  $('#example').DataTable();
+});
+</script>
+{% endblock %}

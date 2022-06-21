@@ -1,0 +1,12 @@
+
+{% for group in product.varation_group.all %}
+<div class="product-single-filter">
+    <span>{{ group.title }} :</span>
+    <select>
+        {% for variation in group.group_varation.all %}
+        <option value="{{ variation.id }}">{{ variation.text }} {% if group.has_price %} ---> $ {{ variation.price }}{% endif %} </option>
+        {% endfor %}
+    </select>
+</div>
+<br>
+{% endfor %}

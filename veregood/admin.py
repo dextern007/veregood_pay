@@ -39,8 +39,12 @@ class GuideInline(admin.StackedInline):
 class MetaInline(admin.StackedInline):
     model = ProductMeta
 
+class TabInline(admin.StackedInline):
+    model = ProductTab
+    extra = 0
+
 class ProductAdmin(nested_admin.NestedModelAdmin):
-    inlines       = [DescriptionInline,GuideInline,VariationGroupInline,ImageInline,MetaInline]
+    inlines       = [DescriptionInline,GuideInline,VariationGroupInline,ImageInline,MetaInline,TabInline]
     list_display  = ["sku","title","short_description","in_stock","is_approved"]
     list_filter   = ["is_approved"]
     search_fields = ["sku"]
@@ -73,11 +77,11 @@ admin.site.register(Payment)
 from django.urls import reverse
 from django.shortcuts import redirect
 class VendorProductAdmin(nested_admin.NestedModelAdmin):
-    inlines       = [DescriptionInline,GuideInline,VariationGroupInline,ImageInline,MetaInline]
+    inlines       = [DescriptionInline,TabInline,VariationGroupInline,ImageInline,MetaInline]
     list_display  = ["sku","title","short_description","in_stock","is_approved"]
     list_filter   = ["is_approved"]
     search_fields = ["sku"]
-    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand","category", "price","quantity","in_stock","has_variation","page_layout",]
+    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand", "price","quantity","in_stock","has_variation","page_layout","tag"]
     view_on_site = False
     class Meta:
         model = Product
@@ -91,7 +95,7 @@ class VendorProductAdmin(nested_admin.NestedModelAdmin):
         return redirect('/veregood/vendor/dashboard')
 
     def response_change(self, request, obj):
-        return redirect('/veregood/vendor/dashboard')    
+        return redirect('/veregood/vendor/dashboard/product/?filter=unapproved')    
 
 
 

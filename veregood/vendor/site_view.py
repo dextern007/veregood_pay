@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from account.models import User
+from veregood.models import Category, Product, Store
 from veregood.vendor.forms import VendorProfileForm
 
 
@@ -267,6 +268,11 @@ def complete_profile(request):
                 Permission.objects.get(codename='change_variation'),
                 Permission.objects.get(codename='view_variation'),
                 Permission.objects.get(codename='delete_variation'),
+
+                Permission.objects.get(codename='add_producttab'),
+                Permission.objects.get(codename='change_producttab'),
+                Permission.objects.get(codename='view_producttab'),
+                Permission.objects.get(codename='delete_producttab'),
                 )
 
             user.save()
@@ -276,10 +282,6 @@ def complete_profile(request):
 
 
     return HttpResponse(render(request,'veregood/vendor/screens/complete-profile.html',{'form':form}))
-
-
-
-
 
 
 
@@ -294,3 +296,48 @@ def dashboard(request):
 
 
     return HttpResponse(render(request,'veregood/vendor/screens/dashboard.html'))
+
+
+
+
+@login_required(login_url="veregood_vendor:login")
+def select_category(request):
+
+    """
+    Selecting a category Before Adding Product
+    """
+
+    id = request.GET["category_id"]
+
+    if id == "0":
+        categories = Category.objects.filter(parent=None)
+
+    else:
+        category = Category.objects.get(id=id)
+        categories = Category.objects.filter(parent=category)
+        if len(categories) == 0:
+            product=Product(store=Store.objects.get(user=request.user),category=category)
+            product.save()
+
+
+            return HttpResponseRedirect(reverse('vendor_admin:veregood_product_change',args=[product.id]))
+
+
+    return HttpResponse(render(request,'veregood/vendor/screens/dashboard/select-category.html',{"categories":categories}))
+
+
+@login_required(login_url="veregood_vendor:login")
+def product_view(request):
+
+    """
+    List of products with filters of approved and un_approved
+    """
+
+    filter_q = request.GET["filter"]
+
+    if filter_q == "approved":
+        products = Product.objects.filter(store=Store.objects.get(user=request.user),is_approved=True)
+    else:
+        products = Product.objects.filter(store=Store.objects.get(user=request.user),is_approved=False)
+
+    return HttpResponse(render(request,'veregood/vendor/screens/dashboard/product.html',{"products":products}))

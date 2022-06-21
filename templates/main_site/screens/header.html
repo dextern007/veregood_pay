@@ -5,8 +5,10 @@
                 <!--<a href="demo37-shop.html" class="category">MEN</a>
                 <a href="demo37-shop.html" class="category ml-1 mr-3">WOMEN</a>
                 <small>* Limited time only.</small> -->
+     
                 <a class="category"><i class="icon-phone"></i> +1 800-881-1707</a>
                 <a class="category"><i class="icon-envolope"></i> help@veregood.com</a>
+                <div class="category" id="google_translate_element" style="padding: 0.2em 0.8em"></div>
                 
                 <!-- <button title="Close (Esc)" type="button" class="mfp-close">×</button> -->
                 
@@ -242,164 +244,28 @@
                         <nav class="main-nav w-100">
                             <ul class="menu">
                                 <li>
-                                    <a href="#">Home</a>
+                                    <a href="{% url 'veregood:index' %}">Home</a> 
+                                    <!-- class= active -->
                                 </li>
                                 <li>
-                                    <a href="#">Categories</a>
-                                    <div class="megamenu megamenu-fixed-width megamenu-3cols">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <a href="#" class="nolink">VARIATION 1</a>
-                                                <ul class="submenu">
-                                                    <li><a href="#">Fullwidth Banner</a></li>
-                                                    <li><a href="#">Boxed Slider
-                                                            Banner</a>
-                                                    </li>
-                                                    <li><a href="#">Boxed Image
-                                                            Banner</a>
-                                                    </li>
-                                                    <li><a href="#">Left Sidebar</a></li>
-                                                    <li><a href="#">Right Sidebar</a></li>
-                                                    <li><a href="#">Off Canvas Filter</a></li>
-                                                    <li><a href="#">Horizontal
-                                                            Filter1</a>
-                                                    </li>
-                                                    <li><a href="#">Horizontal
-                                                            Filter2</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <a href="#" class="nolink">VARIATION 2</a>
-                                                <ul class="submenu">
-                                                    <li><a href="category-list.html">List Types</a></li>
-                                                    <li><a href="category-infinite-scroll.html">Ajax Infinite Scroll</a>
-                                                    </li>
-                                                    <li><a href="#">3 Columns Products</a></li>
-                                                    <li><a href="#">4 Columns Products</a></li>
-                                                    <li><a href="#">5 Columns Products</a></li>
-                                                    <li><a href="#">6 Columns Products</a></li>
-                                                    <li><a href="#">7 Columns Products</a></li>
-                                                    <li><a href="#">8 Columns Products</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-4 p-0">
-                                                <div class="menu-banner">
-                                                    <figure>
-                                                        <img src="{% static 'main_site/assets/images/menu-banner.jpg' %}" alt="Menu banner" width="300" height="300">
-                                                    </figure>
-                                                    <div class="banner-content">
-                                                        <h4>
-                                                            <span class="">UP TO</span><br />
-                                                            <b class="">50%</b>
-                                                            <i>OFF</i>
-                                                        </h4>
-                                                        <a href="#" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End .megamenu -->
-                                </li>
-                                <li class="active">
-                                    <a href="#">Products</a>
-                                    <div class="megamenu megamenu-fixed-width">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <a href="#" class="nolink">PRODUCT PAGES</a>
-                                                <ul class="submenu">
-                                                    <li><a href="#">SIMPLE PRODUCT</a></li>
-                                                    <li><a href="#">VARIABLE PRODUCT</a></li>
-                                                    <li><a href="#">SALE PRODUCT</a></li>
-                                                    <li><a href="#">FEATURED & ON SALE</a></li>
-                                                    <li><a href="#">WITH CUSTOM TAB</a></li>
-                                                    <li><a href="#">WITH LEFT SIDEBAR</a></li>
-                                                    <li><a href="#">WITH RIGHT SIDEBAR</a></li>
-                                                    <li><a href="#">ADD CART STICKY</a></li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .col-lg-4 -->
-
-                                            <div class="col-lg-4">
-                                                <a href="#" class="nolink">PRODUCT LAYOUTS</a>
-                                                <ul class="submenu">
-                                                    <li><a href="#">EXTENDED LAYOUT</a></li>
-                                                    <li><a href="#">GRID IMAGE</a></li>
-                                                    <li><a href="#">FULL WIDTH LAYOUT</a></li>
-                                                    <li><a href="#">STICKY INFO</a></li>
-                                                    <li><a href="#">LEFT & RIGHT STICKY</a></li>
-                                                    <li><a href="#">TRANSPARENT IMAGE</a>
-                                                    </li>
-                                                    <li><a href="#">CENTER VERTICAL</a></li>
-                                                    <li><a href="#">BUILD YOUR OWN</a></li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .col-lg-4 -->
-
-                                            <div class="col-lg-4 p-0">
-                                                <div class="menu-banner menu-banner-2">
-                                                    <figure>
-                                                        <img src="{% static 'main_site/assets/images/menu-banner-1.jpg' %}" alt="Menu banner" class="product-promo" width="380" height="790">
-                                                    </figure>
-                                                    <i>OFF</i>
-                                                    <div class="banner-content">
-                                                        <h4>
-                                                            <span class="">UP TO</span><br />
-                                                            <b class="">50%</b>
-                                                        </h4>
-                                                    </div>
-                                                    <a href="#" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                                </div>
-                                            </div>
-                                            <!-- End .col-lg-4 -->
-                                        </div>
-                                        <!-- End .row -->
-                                    </div>
-                                    <!-- End .megamenu -->
+                                    <a href="#">Products</a> 
                                 </li>
                                 <li>
-                                    <a href="#">Pages</a>
-                                    <ul>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Shopping Cart</a></li>
-                                        <li><a href="#">Checkout</a></li>
-                                        <li><a href="#">Dashboard</a></li>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Blog</a>
-                                            <ul>
-                                                <li><a href="blog.html">Blog</a></li>
-                                                <li><a href="single.html">Blog Post</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Contact Us</a></li>
-                                        <li><a href="#">Login</a></li>
-                                        <li><a href="#">Forgot Password</a></li>
-                                    </ul>
+                                    <a href="#">BodyGuard Booking</a> 
                                 </li>
-                                <li><a href="#">Blog</a></li>
                                 <li>
-                                    <a href="#">Elements</a>
-                                    <ul class="custom-scrollbar">
-                                        <li><a href="#">Accordion</a></li>
-                                        <li><a href="#">Alerts</a></li>
-                                        <li><a href="#">Animations</a></li>
-                                        <li><a href="#">Banners</a></li>
-                                        <li><a href="#">Buttons</a></li>
-                                        <li><a href="#">Call to Action</a></li>
-                                        <li><a href="#">Count Down</a></li>
-                                        <li><a href="#">Counters</a></li>
-                                        <li><a href="#">Headings</a></li>
-                                        <li><a href="#">Icons</a></li>
-                                        <li><a href="#">Info box</a></li>
-                                        <li><a href="#">Posts</a></li>
-                                        <li><a href="#">Products</a></li>
-                                        <li><a href="#">Product Categories</a></li>
-                                        <li><a href="#">Tabs</a></li>
-                                        <li><a href="#">Testimonials</a></li>
-                                    </ul>
+                                    <a href="#">Storage Rent</a> 
                                 </li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li>
+                                    <a href="#">Parking Rent</a> 
+                                </li>
+                                <li>
+                                    <a href="#">Good Epay</a> 
+                                </li>
+                                <li>
+                                    <a href="#">New Release</a> 
+                                </li>
+                              
                                 
                             </ul>
                         </nav>

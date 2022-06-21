@@ -1,0 +1,45 @@
+{% extends 'main_site/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ product.meta.title }}</title>
+{% endblock %}
+
+{% block meta %}
+<meta name="keywords" content="{{ product.meta.keywords }}" />
+<meta name="description" content="{{ product.meta.describtion }}">
+{% endblock %}
+
+{% block header %}
+{% include 'main_site/screens/header.html' %}
+{% endblock %}
+
+{% block content %}
+
+{% if product.page_layout == "layout_1" %}
+{% include 'main_site/screens/product/layout-1.html' with prod=product only %}
+
+{% elif product.page_layout == "layout_2" %}
+{% include 'main_site/screens/product/layout-2.html' with prod=product only %}
+
+{% elif product.page_layout == "layout_3" %}
+{% include 'main_site/screens/product/layout-3.html' with prod=product only %}
+
+{% elif product.page_layout == "layout_4" %}
+{% include 'main_site/screens/product/layout-4.html' with prod=product only %}
+
+{% else  %}
+<!-- 3d Layout -->
+{% include 'main_site/screens/product/layout-5-3d.html' with prod=product only %}
+
+
+{% endif  %}
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'main_site/screens/footer.html' %}
+{% endblock %}
+
+

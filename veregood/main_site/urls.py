@@ -16,5 +16,6 @@ urlpatterns = [
     path('cart/',cart,name="shopping-cart"),
     path('dashboard/',dashboard,name="my-account"),
     path('category/',category,name="product-listing"),
+    path('product/<int:pk>/',product,name="product"),
     path('page/<str:page_key>/',page_view,name="page"),
 ]

@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     # TextEditor
     "tinymce",
     'pages',
+    'taggit',
 ]
 
 # TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'

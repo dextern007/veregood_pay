@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from veregood.models import Product
+
 
 def index(request):
     return HttpResponse(render(request,'main_site/screens/home.html'))
@@ -22,3 +24,9 @@ def dashboard(request):
 
 def category(request):
     return HttpResponse(render(request,'main_site/screens/category.html'))
+
+
+def product(request,pk):
+    product = Product.objects.get(id=pk)
+    print(product.page_layout)
+    return HttpResponse(render(request,'main_site/screens/product.html',{"product":product}))

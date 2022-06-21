@@ -1,0 +1,200 @@
+<main class="main product-extended-page">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="demo4.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Products</a></li>
+            </ol>
+        </div>
+        <!-- End .container -->
+    </nav>
+
+    <div class="product-single-container  product-single-extended product-page">
+        <div class="cart-message d-none">
+            <strong class="single-cart-notice">“{{ product.title }}”</strong>
+            <span>has been added to your cart.</span>
+        </div>
+
+        <div class="container product-slider-container">
+            <div class="product-single-gallery">
+                <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
+                    {% for image in prod.product_image.all %}
+                    <img class="product-single-image" src="{{ image.image.url }}" data-zoom-image="{{ image.image.url }}" alt="product" />
+                    {% endfor %}
+                </div>
+                <!-- End .product-single-carousel -->
+                <span class="prod-full-screen">
+                    <i class="icon-plus"></i>
+                </span>
+            </div>
+            <!-- End .product-single-gallery -->
+            <div class="product-single-details">
+                <div class="product-single-header position-relative">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h1 class="product-title ">{{ prod.title }}</h1>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class=" product-single-share pb-4 pb-lg-0 align-items-start justify-content-lg-end">
+                                <label class="sr-only">Share:</label>
+
+                                <div class="social-icons mt-0">
+                                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+                                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                                    <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
+                                    <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
+                                    <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
+                                </div>
+                                <!-- End .social-icons -->
+                            </div>
+                        </div>
+                        <!-- End .product single-share -->
+                    </div>
+
+                    <div class="product-nav">
+                        <div class="product-prev">
+                            <a href="#">
+                                <span class="product-link"></span>
+
+                                <!-- <span class="product-popup">
+                                    <span class="box-content">
+                                        <img alt="product" width="150" height="150"
+                                            src="assets/images/products/product-3.jpg"
+                                            style="padding-top: 0px;">
+
+                                        <span>Circled Ultimate 3D Speaker</span>
+                                </span>
+                                </span> -->
+                            </a>
+                        </div>
+
+                        <div class="product-next">
+                            <a href="#">
+                                <span class="product-link"></span>
+
+                                <!-- <span class="product-popup">
+                                    <span class="box-content">
+                                        <img alt="product" width="150" height="150"
+                                            src="assets/images/products/product-4.jpg"
+                                            style="padding-top: 0px;">
+
+                                        <span>Blue Backpack for the Young</span>
+                                </span>
+                                </span> -->
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="ratings-container">
+                        <div class="product-ratings">
+                            <span class="ratings" style="width:60%"></span>
+                            <!-- End .ratings -->
+                            <span class="tooltiptext tooltip-top"></span>
+                        </div>
+                        <!-- End .product-ratings -->
+
+                        <a href="#" class="rating-link">( 6 Reviews )</a>
+                    </div>
+                    <!-- End .ratings-container -->
+
+                    <hr class="short-divider">
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="price-box pb-4 pb-xl-0">
+                                <span class="product-price">${{ prod.price }}</span>
+                            </div>
+                            <!-- End .price-box -->
+                        </div>
+                        <!-- End .col-xl-6 -->
+
+                        <div class="col-xl-6 d-flex flex-column align-items-xl-end">
+                            <div class="widget-area">
+                                <div class="widget widget-info">
+                                    <ul class="promote">
+                                        <li>
+                                            <i class="icon-shipped"></i>
+                                            <h4>FREE<br>SHIPPING</h4>
+                                        </li>
+                                        <li>
+                                            <i class="icon-us-dollar"></i>
+                                            <h4>100% MONEY<br>BACK GUARANTEE</h4>
+                                        </li>
+                                        <li>
+                                            <i class="icon-online-support"></i>
+                                            <h4>ONLINE<br>SUPPORT 24/7</h4>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- End .widget -->
+                            </div>
+                            <!-- End .widget-area -->
+                        </div>
+                        <!-- End .col-xl-6 -->
+                    </div>
+                    <!-- End .row -->
+                </div>
+                <!-- End .product-single-header -->
+
+                <div class="product-desc">
+                    <p>{{ product.short_description }}
+                    </p>
+                </div>
+                <!-- End .product-desc -->
+
+                <ul class="single-info-list">
+                    <!---->
+                    <li>
+                        SKU: <strong>{{ prod.sku }}</strong>
+                    </li>
+
+                    <li>
+                        CATEGORY: <strong><a href="#" class="product-category">{{ prod.category.name }}</a></strong>
+                    </li>
+                </ul>
+                {% include 'main_site/screens/product/variation.html' with product=prod only %}
+
+
+                <div class="product-filters-container d-flex flex-wrap align-items-center justify-content-xl-end mb-0 border-bottom-0">
+                  
+                    <!-- End .product-single-filter -->
+
+                    
+                    <div class="product-action mb-2 d-flex align-items-center flex-wrap p-0 border-0">
+                        <div class="single-qty-wrapper mr-md-4">
+                            <label>QTY:</label>
+                            <div class="product-single-qty">
+                                <input class="horizontal-quantity form-control" type="text">
+                            </div>
+                            <!-- End .product-single-qty -->
+                        </div>
+                        <!-- End .single-qty-wrapper -->
+
+                        <a href="cart.html" class="btn btn-dark add-cart icon-shopping-cart mr-3" title="Add to Cart">Add to Cart</a>
+                        <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
+
+                        <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
+                                class="icon-wishlist-2"></i><span>Add to
+                                Wishlist</span></a>
+                    </div>
+                    <!-- End .product-action -->
+                </div>
+                <!-- End .product-filters-container -->
+
+                <!-- <div class="price-box text-lg-right product-filtered-price">
+                    <del class="old-price"><span>$286.00</span></del>
+                    <span class="product-price">${{ prod.price }}</span>
+                </div> -->
+            </div>
+            <!-- End .product-single-details -->
+        </div>
+        <!-- End .container -->
+    </div>
+    <!-- End .product-single-container -->
+    <div class="container container-main">
+    {% include 'main_site/screens/product/tabs.html' with product=prod only %}
+    </div>
+    <!-- End .container -->
+</main>
