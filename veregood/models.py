@@ -6,7 +6,7 @@ from django.contrib.gis.db import models
 
 from mptt.models import MPTTModel, TreeForeignKey
 from tinymce.models import HTMLField
-from taggit.managers import TaggableManager
+# from taggit.managers import TaggableManager
 
 # Create your models here.
 DELIVERY_TYPE =(
@@ -137,7 +137,7 @@ class Product(models.Model):
     quantity                =  models.BigIntegerField(default=0)
     page_layout             =  models.CharField(choices=LAYOUT,default="layout_1",max_length=100)
     is_approved             =  models.BooleanField(default=False)
-    tag = TaggableManager()
+    # tag = TaggableManager()
 
 
 class ProductReview(models.Model):
