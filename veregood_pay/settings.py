@@ -167,9 +167,9 @@ if LIVE_MODE == False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'test1',
-            'USER': 'dexternorman',
-            'PASSWORD': 'Welcome123',
+            'NAME': 'veregood_db',
+            'USER': 'myprojectuser',
+            'PASSWORD': 'password',
             'HOST': 'localhost',
             'PORT': '5432',
         },
