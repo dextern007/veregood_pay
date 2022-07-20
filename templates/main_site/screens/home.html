@@ -31,8 +31,7 @@
                                 data-animation-delay="200">Find the Boundaries. Push Through!</h4>
                             <h2 class="text-transform-none mb-0 appear-animate" data-animation-name="fadeInUpShorter"
                                 data-animation-delay="200">SUNGLASSES</h2>
-                            <img src="{% static 'main_site/assets/images/veregood-images/icon1.png' %}" class="appear-animate"
-                                data-animation-name="fadeInLeftShorter" data-animation-delay="400" width="255"
+                            <img src="{% static 'main_site/assets/images/veregood-images/icon1.png' %}" class="appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="400" width="255"
                                 height="25" alt="Image" />
                             <div class="d-flex">
                                 <a href="#" class="btn btn-dark btn-lg appear-animate"
@@ -119,12 +118,17 @@
     </div>
     <!-- End .container -->
 
+    {% include 'main_site/screens/widget/shop-by-category.html' %}
+
     <!--Start best seller product slider-->
     <section class="sale-products-section">
                 <div class="container">
-                    <h2 class="section-title heading-border ls-n-10 border-0 text-center text-capitalize appear-animate"
-                        data-animation-delay="100" data-animation-name="fadeIn">Best Seller Products
-                    </h2>
+                    <div class="d-flex justify-content-between">
+                        <h2 class="section-title heading-border ls-n-10 border-0 text-center text-capitalize appear-animate"
+                            data-animation-delay="100" data-animation-name="fadeIn">Best Seller Products
+                        </h2>
+                        <a href="" class="btn-see-all">See All</a>
+                   </div>
 
                     <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center appear-animate"
                         data-animation-delay="200" data-animation-name="fadeInUpShorter" data-owl-options="{
@@ -139,37 +143,34 @@
                     }">
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-6.jpg' %}" width="205" height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
                                 <div class="label-group">
                                         <div class="product-label label-number">-20<span>%</span></div>
                                         <div class="product-label label-hot">HOT</div>
                                  </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Man Jeans</a>
+                                    <a href="#">Man Jeans</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -179,34 +180,30 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-4.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple">
-                                        <i class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Main Coat</a>
+                                    <a href="#">Main Coat</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -216,39 +213,35 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-6.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
                                 <div class="label-group">
                                         <div class="product-label label-number">-15<span>%</span></div>
                                         <div class="product-label label-hot">HOT</div>
                                  </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Man Jeans</a>
+                                    <a href="#">Man Jeans</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -258,38 +251,34 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-2.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
                                 <div class="label-group">
                                         <div class="product-label label-number">-10<span>%</span></div>
                                  </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Warm Jacket</a>
+                                    <a href="#">Warm Jacket</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -299,7 +288,7 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-3.jpg' %}" width="205"
                                         height="205" alt="product">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-3-2.jpg' %}" width="205"
@@ -307,32 +296,28 @@
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
                                 <div class="label-group">
                                         <div class="product-label label-number">-10<span>%</span></div>
                                  </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">White Sport Shoes</a>
+                                    <a href="#">White Sport Shoes</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -342,38 +327,34 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-7.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
                                 <div class="label-group">
                                         <div class="product-label label-number">-10<span>%</span></div>
                                  </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Wrist Watch</a>
+                                    <a href="#">Wrist Watch</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -402,7 +383,7 @@
                                     <div class="product-popup-wrap">
                                         <div class="product-default inner-quickview inner-icon">
                                             <figure>
-                                                <a href="demo37-product.html">
+                                                <a href="#">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-9.jpg' %}"
                                                         width="205" height="205" alt="product">
                                                 </a>
@@ -410,11 +391,11 @@
                                             <div class="product-details">
                                                 <div class="category-wrap">
                                                     <div class="category-list">
-                                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                                        <a href="#" class="product-category">category</a>
                                                     </div>
                                                 </div>
                                                 <h3 class="product-title">
-                                                    <a href="demo37-product.html">Blue Tshirt</a>
+                                                    <a href="#">Blue Tshirt</a>
                                                 </h3>
                                                 <div class="ratings-container">
                                                     <div class="product-ratings">
@@ -436,7 +417,7 @@
                                     <div class="product-popup-wrap">
                                         <div class="product-default inner-quickview inner-icon">
                                             <figure>
-                                                <a href="demo37-product.html">
+                                                <a href="#">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-6.jpg' %}"
                                                         width="205" height="205" alt="product">
                                                 </a>
@@ -444,11 +425,11 @@
                                             <div class="product-details">
                                                 <div class="category-wrap">
                                                     <div class="category-list">
-                                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                                        <a href="#" class="product-category">category</a>
                                                     </div>
                                                 </div>
                                                 <h3 class="product-title">
-                                                    <a href="demo37-product.html">Man Jeans</a>
+                                                    <a href="#">Man Jeans</a>
                                                 </h3>
                                                 <div class="ratings-container">
                                                     <div class="product-ratings">
@@ -472,7 +453,7 @@
                                     <div class="product-popup-wrap">
                                         <div class="product-default inner-quickview inner-icon">
                                             <figure>
-                                                <a href="demo37-product.html">
+                                                <a href="#">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-3.jpg' %}"
                                                         width="205" height="205" alt="product">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-3-2.jpg' %}"
@@ -482,11 +463,11 @@
                                             <div class="product-details">
                                                 <div class="category-wrap">
                                                     <div class="category-list">
-                                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                                        <a href="#" class="product-category">category</a>
                                                     </div>
                                                 </div>
                                                 <h3 class="product-title">
-                                                    <a href="demo37-product.html">White Sport Shoes</a>
+                                                    <a href="#">White Sport Shoes</a>
                                                 </h3>
                                                 <div class="ratings-container">
                                                     <div class="product-ratings">
@@ -510,7 +491,7 @@
                                     <div class="product-popup-wrap">
                                         <div class="product-default inner-quickview inner-icon">
                                             <figure>
-                                                <a href="demo37-product.html">
+                                                <a href="#">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-10.jpg' %}"
                                                         width="205" height="205" alt="product">
                                                 </a>
@@ -518,11 +499,11 @@
                                             <div class="product-details">
                                                 <div class="category-wrap">
                                                     <div class="category-list">
-                                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                                        <a href="#" class="product-category">category</a>
                                                     </div>
                                                 </div>
                                                 <h3 class="product-title">
-                                                    <a href="demo37-product.html">Lingerie</a>
+                                                    <a href="#">Lingerie</a>
                                                 </h3>
                                                 <div class="ratings-container">
                                                     <div class="product-ratings">
@@ -546,7 +527,7 @@
                                     <div class="product-popup-wrap">
                                         <div class="product-default inner-quickview inner-icon">
                                             <figure>
-                                                <a href="demo37-product.html">
+                                                <a href="#">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-5.jpg' %}"
                                                         width="205" height="205" alt="product">
                                                 </a>
@@ -554,11 +535,11 @@
                                             <div class="product-details">
                                                 <div class="category-wrap">
                                                     <div class="category-list">
-                                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                                        <a href="#" class="product-category">category</a>
                                                     </div>
                                                 </div>
                                                 <h3 class="product-title">
-                                                    <a href="demo37-product.html">Blue Jeans</a>
+                                                    <a href="#">Blue Jeans</a>
                                                 </h3>
                                                 <div class="ratings-container">
                                                     <div class="product-ratings">
@@ -582,7 +563,7 @@
                                     <div class="product-popup-wrap">
                                         <div class="product-default inner-quickview inner-icon">
                                             <figure>
-                                                <a href="demo37-product.html">
+                                                <a href="#">
                                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-3-2.jpg' %}"
                                                         width="205" height="205" alt="product">
                                                 </a>
@@ -590,11 +571,11 @@
                                             <div class="product-details">
                                                 <div class="category-wrap">
                                                     <div class="category-list">
-                                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                                        <a href="#" class="product-category">category</a>
                                                     </div>
                                                 </div>
                                                 <h3 class="product-title">
-                                                    <a href="demo37-product.html">Sport Shoes</a>
+                                                    <a href="#">Sport Shoes</a>
                                                 </h3>
                                                 <div class="ratings-container">
                                                     <div class="product-ratings">
@@ -619,8 +600,8 @@
                         <div class="col-12 col-sm-8 col-md-6 col-lg-2 d-flex align-items-center">
                             <div class=" btn-group flex-column mt-0 mt-md-3 mt-lg-0 appear-animate"
                                 data-animation-name="fadeInLeftShorter" data-animation-delay="700">
-                                <a href="demo37-shop.html" class="btn btn-blue btn-shop m-b-3">SHOP MEN</a>
-                                <a href="demo37-shop.html" class="btn btn-pink btn-shop">SHOP WOMEN</a>
+                                <a href="#" class="btn btn-blue btn-shop m-b-3">SHOP MEN</a>
+                                <a href="#" class="btn btn-pink btn-shop">SHOP WOMEN</a>
                             </div>
                         </div>
                         <div class="col-12 col-md-12 col-lg-6 abt-home">
@@ -688,9 +669,12 @@
     <!--Start Extra savings with coupons slider-->
     <section class="sale-products-section">
                 <div class="container">
-                    <h2 class="section-title heading-border ls-n-10 border-0 text-center text-capitalize appear-animate"
-                        data-animation-delay="100" data-animation-name="fadeIn">Extra savings with coupons
-                    </h2>
+                    <div class="d-flex justify-content-between">
+                        <h2 class="section-title heading-border ls-n-10 border-0 text-center text-capitalize appear-animate"
+                            data-animation-delay="100" data-animation-name="fadeIn">Extra savings with coupons
+                        </h2>
+                        <a href="" class="btn-see-all">See All</a>
+                    </div>
 
                     <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center appear-animate"
                         data-animation-delay="200" data-animation-name="fadeInUpShorter" data-owl-options="{
@@ -705,33 +689,30 @@
                     }">
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-6.jpg' %}" width="205" height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Man Jeans</a>
+                                    <a href="#">Man Jeans</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -741,34 +722,30 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-4.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple">
-                                        <i class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Main Coat</a>
+                                    <a href="#">Main Coat</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -778,35 +755,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-6.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Man Jeans</a>
+                                    <a href="#">Man Jeans</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -816,35 +789,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-2.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Warm Jacket</a>
+                                    <a href="#">Warm Jacket</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -854,7 +823,7 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-3.jpg' %}" width="205"
                                         height="205" alt="product">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-3-2.jpg' %}" width="205"
@@ -862,29 +831,25 @@
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">White Sport Shoes</a>
+                                    <a href="#">White Sport Shoes</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -894,35 +859,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/veregood-images/products/product-7.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="view-poduct.html" class="btn-quickview" title="View Product">View Product
-                                </a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Wrist Watch</a>
+                                    <a href="#">Wrist Watch</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -945,7 +906,7 @@
                                 </h2>
                             </div>
                             <div class="col-md-3 col-sm-4 text-center text-sm-right">
-                                <a class="btn btn-light btn-white btn-lg" href="demo37-shop.html">View Sale</a>
+                                <a class="btn btn-light btn-white btn-lg" href="#">View Sale</a>
                             </div>
                         </div>
                     </div>
@@ -957,9 +918,12 @@
     <!--Start New Arrivals section-->
     <section class="new-products-section">
                 <div class="container">
-                    <h2 class="section-title heading-border ls-n-10 border-0 text-center text-capitalize appear-animate"
-                        data-animation-delay="100" data-animation-name="fadeIn">New Arrivals
-                    </h2>
+                    <div class="d-flex justify-content-between">
+                        <h2 class="section-title heading-border ls-n-10 border-0 text-center text-capitalize appear-animate"
+                            data-animation-delay="100" data-animation-name="fadeIn">New Arrivals
+                        </h2>
+                        <a href="" class="btn-see-all">See All</a>
+                    </div>
 
                     <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center mb-2 appear-animate"
                         data-animation-delay="200" data-animation-name="fadeInUpShorter" data-owl-options="{
@@ -977,34 +941,31 @@
                     }">
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-7.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Wrist Watch</a>
+                                    <a href="#">Wrist Watch</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1014,34 +975,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-8.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Belt</a>
+                                    <a href="#">Belt</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1051,34 +1009,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-4.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Man Shaggy Coat</a>
+                                    <a href="#">Man Shaggy Coat</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1088,34 +1043,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-9.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Blue Tshirt</a>
+                                    <a href="#">Blue Tshirt</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1125,34 +1077,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-10.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Lingerie</a>
+                                    <a href="#">Lingerie</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1162,34 +1111,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-11.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Black Handbag</a>
+                                    <a href="#">Black Handbag</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1199,34 +1145,31 @@
                         </div>
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
-                                <a href="demo37-product.html">
+                                <a href="#">
                                     <img src="{% static 'main_site/assets/images/demoes/demo37/products/product-4.jpg' %}" width="205"
                                         height="205" alt="product">
                                 </a>
 
                                 <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                            class="icon-shopping-cart"></i></a>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
                                 </div>
-                                <a href="#" class="btn-quickview" title="Quick View">Add to Cart</a>
                             </figure>
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="demo37-shop.html" class="product-category">category</a>
+                                        <a href="#" class="product-category">category</a>
                                     </div>
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
                                 </div>
                                 <h3 class="product-title">
-                                    <a href="demo37-product.html">Man Shaggy Coat</a>
+                                    <a href="#">Man Shaggy Coat</a>
                                 </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="old-price">$90.00</span>
@@ -1255,6 +1198,8 @@
         </div>
     </div><!--newsletter-->
 </main>
+
+
 {% endblock %}
 
 

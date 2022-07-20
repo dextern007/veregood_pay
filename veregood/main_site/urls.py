@@ -10,7 +10,7 @@ urlpatterns = [
     # API VERSION 1.0 DIWAHAR
     path('', index,name="index"),
     path('home/',index,name="home"),
-    path('login/',login,name="login"),
+    path('login/',main_login,name="login"),
     path('register/',signup,name="register"),
     path('otp-verification/',verification,name="otp-verification"),
     path('cart/',cart,name="shopping-cart"),
@@ -18,4 +18,6 @@ urlpatterns = [
     path('category/',category,name="product-listing"),
     path('product/<int:pk>/',product,name="product"),
     path('page/<str:page_key>/',page_view,name="page"),
+    path('checkout/',checkout,name="checkout"),
+    path('wishlist/',wishlist,name="wishlist"),
 ]

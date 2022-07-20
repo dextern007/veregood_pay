@@ -1,0 +1,97 @@
+{% extends 'veregood/vendor/screens/dashboard.html' %}
+{% load static %}
+{% block form-media %}{{ form.media }}{% endblock %}
+{% block css %}
+<style>
+
+
+
+.frame{
+  background: rgba(0,0,0,.125);
+  width: 25%;
+  margin: 0;
+  border-radius: 0.25rem;
+  padding-bottom: 2px;
+  box-shadow: 0 2px 14px 0 rgb(41 41 41 / 11%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.frame h2{
+  font-size: 1.2rem;
+  text-align: left;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.list {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  border-radius: 0.25rem;
+  list-style: none;
+  height: 40vh;
+  overflow-y: auto;
+}
+.list li a:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.list li a{
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: #fff;
+  font-size: 14px;
+  border: 1px solid rgba(0,0,0,.125);
+}
+.list li a{
+  text-decoration: none;
+  color: #555;
+}
+.list li a:hover{
+  background: #eee;
+  color: #555;
+  transition: 0.3s;
+}
+/*******scroll bar************/
+/* width */
+::-webkit-scrollbar {
+width: 3px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #e2e2e2; opacity: 0.7;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #e2e2e2; opacity: 0.7;
+}
+
+</style>
+
+{% endblock %}
+
+{% block nav-tab %}
+<div class="home-tab">
+    <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Store Settings</a>
+        </li>      
+    </div>
+{% endblock %}
+
+{% block dashboard-content %}
+{{ form.media }}
+   {{ form.as_p }}
+
+{% endblock %}

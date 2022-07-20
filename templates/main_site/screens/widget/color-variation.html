@@ -1,0 +1,61 @@
+            <style type="text/css">
+                .layout{
+                        border: 1px solid #d8dce5;
+                        border-radius: 50%;
+                        height: 30px;
+                        width: 30px;
+                        background: transparent;
+                        cursor: pointer;
+                 }
+                 .yellow{background: yellow; }
+                 .green{background: green; }
+                 .red{ background: red; }
+                 .black{background: black; }
+                 .white{background: white;}
+                 .blue{background: blue; }
+                 .pink{ background: pink; }
+                .popover { /*border: 2px dotted red;*/ top: -18px!important;}
+                .popover-header {
+                    padding: 0.5rem 0.75rem; margin-bottom: 0; font-size: 1.3rem; color: #555!important;
+                    background-color: #f7f7f7; border-bottom: 1px solid #ebebeb;
+                    border-top-left-radius: calc(0.3rem - 1px); border-top-right-radius: calc(0.3rem - 1px);
+                }
+                .popover-body {
+                    padding: 0.5rem 0.75rem;
+                    color: #212529;
+                    font-size: 2rem;
+                }
+            </style>
+
+            <div>
+              <a href="#" title="Color : Yellow" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout yellow">
+              </a>
+              <a href="#" title="Color : Green" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout green">
+              </a>
+              <a href="#" title="Color : Red" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout red">
+              </a>
+              <a href="#" title="Color : Black" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout black">
+              </a>
+              <a href="#" title="Color : White" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout white">
+              </a>
+              <a href="#" title="Color : Blue" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout blue">
+              </a>
+              <a href="#" title="Color : Pink" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="$200">
+                <input type="button" name="" class="layout pink">
+              </a>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+            <script>
+            $(document).ready(function(){
+              $('[data-toggle="popover"]').popover();   
+            });
+            </script>

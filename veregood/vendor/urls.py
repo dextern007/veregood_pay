@@ -21,5 +21,6 @@ urlpatterns = [
     path('complete-profile/',          complete_profile,name="complete_profile"),
     path('add/product/select-category/',          select_category,name="select_category"),
     path('dashboard/product/',          product_view,name="product"),
+    path('dashboard/store-settings/',   store_setting,name="store_setting"),
 
 ]

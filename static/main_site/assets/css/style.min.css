@@ -9192,7 +9192,7 @@ tbody .product-col {
     color: #222529;
 }
 .table-mini-cart td, .table-mini-cart th {
-    padding: 1rem;
+    /*padding: 1rem;*/
 }
 .table-mini-cart td:last-child {
     text-align: right;
@@ -9201,7 +9201,7 @@ tbody .product-col {
     border-bottom: 1px solid #e7e7e7;
 }
 .table-mini-cart .price-col, .table-mini-cart .product-col {
-    padding: 1.3rem 1rem 1.4rem;
+    padding: 0.5rem 1rem 0.4rem;
 }
 .table-mini-cart .product-col .product-image-container {
     max-width: 75px;
@@ -9220,7 +9220,7 @@ tbody .product-col {
     font-weight: 400;
 }
 .table-mini-cart .cart-subtotal td, .table-mini-cart .cart-subtotal th, .table-mini-cart .cart-tax td, .table-mini-cart .cart-tax th {
-    padding-top: 3rem;
+    padding-top: 2rem;
     padding-bottom: 1.3rem;
 }
 .table-mini-cart .order-shipping td {
@@ -9253,8 +9253,8 @@ tbody .product-col {
     padding-bottom: 1.6rem;
 }
 .table-mini-cart .order-total td {
-    padding-top: 1.8rem;
-    padding-bottom: 2.3rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
 }
 .table-mini-cart .order-total h4 {
     font-size: 1.6rem;
@@ -9265,7 +9265,7 @@ tbody .product-col {
 }
 .payment-methods {
     padding: 2rem 0.8rem 0;
-    margin-bottom: 4.6rem;
+    margin-bottom: 1.6rem;
     border-bottom: 1px solid #e7e7e7;
 }
 .payment-methods h4 {
@@ -9404,10 +9404,10 @@ tbody .product-col {
 }
 .checkout-container label {
     margin-bottom: 0.6rem;
-    color: #777;
+    color: #555;
     font-family: "Open Sans", sans-serif;
     font-size: 1.4rem;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.01em;
 }
 .checkout-container .checkout-discount .form-control {
@@ -9422,7 +9422,7 @@ tbody .product-col {
     letter-spacing: -0.01em;
 }
 .checkout-container .form-control, .checkout-container select.form-control:not([size]):not([multiple]) {
-    height: 49px;
+    height: 36px;
 }
 .checkout-container .form-group, .checkout-container .select-custom {
     margin-bottom: 1.7rem;
@@ -9433,8 +9433,8 @@ tbody .product-col {
 .checkout-container .checkout-steps .select-custom:after {
     top: 66%}
 .checkout-container .custom-control {
-    margin-top: 3.3rem;
-    margin-bottom: 14px;
+    margin-top: 2.3rem;
+        margin-bottom: 0px;
 }
 .checkout-container .order-comments {
     padding-top: 6px;
@@ -9443,7 +9443,7 @@ tbody .product-col {
     min-height: 125px;
 }
 .checkout-container .order-summary {
-    padding: 2.8rem 3.2rem 3.1rem;
+    padding: 1.8rem 1.5rem 1.8rem;
     margin-top: 1px;
 }
 .order-complete-container .address .title, .order-complete-container h4 {

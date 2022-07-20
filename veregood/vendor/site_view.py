@@ -6,13 +6,13 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from account.models import User
 from veregood.models import Category, Product, Store
-from veregood.vendor.forms import VendorProfileForm
+from veregood.vendor.forms import VendorProfileEditForm, VendorProfileForm
+from django.views.generic.edit import *
 
-
-@login_required(login_url="veregood_vendor:login")
+@login_required(login_url="veregood:login")
 def logout_vendor(request):
     logout(request)
-    return HttpResponseRedirect(reverse('veregood_vendor:login'))
+    return HttpResponseRedirect(reverse('veregood:login'))
 
 
 def login_vendor(request):
@@ -280,18 +280,21 @@ def complete_profile(request):
 
     
 
-
     return HttpResponse(render(request,'veregood/vendor/screens/complete-profile.html',{'form':form}))
 
 
 
-@login_required(login_url="veregood_vendor:login")
+@login_required(login_url="veregood:login")
 def dashboard(request):
     if request.user.is_vendor == False:
         return HttpResponseRedirect(reverse('veregood:index'))
 
-
-    if request.user.store.store_setup == False:
+    try:
+        request.user.store 
+    except:
+        return HttpResponseRedirect(reverse('veregood_vendor:complete_profile'))
+    
+    if request.user.store.store_setup == None:
         return HttpResponseRedirect(reverse('veregood_vendor:complete_profile'))
 
 
@@ -300,7 +303,7 @@ def dashboard(request):
 
 
 
-@login_required(login_url="veregood_vendor:login")
+@login_required(login_url="veregood:login")
 def select_category(request):
 
     """
@@ -308,6 +311,7 @@ def select_category(request):
     """
 
     id = request.GET["category_id"]
+    prod_type = request.GET["type"]
 
     if id == "0":
         categories = Category.objects.filter(parent=None)
@@ -316,28 +320,49 @@ def select_category(request):
         category = Category.objects.get(id=id)
         categories = Category.objects.filter(parent=category)
         if len(categories) == 0:
-            product=Product(store=Store.objects.get(user=request.user),category=category)
+            product=Product(store=Store.objects.get(user=request.user),category=category,product_type=prod_type)
             product.save()
 
 
             return HttpResponseRedirect(reverse('vendor_admin:veregood_product_change',args=[product.id]))
 
 
-    return HttpResponse(render(request,'veregood/vendor/screens/dashboard/select-category.html',{"categories":categories}))
+    return HttpResponse(render(request,'veregood/vendor/screens/dashboard/select-category.html',{"categories":categories,"type":prod_type}))
 
 
-@login_required(login_url="veregood_vendor:login")
+@login_required(login_url="veregood:login")
 def product_view(request):
+
 
     """
     List of products with filters of approved and un_approved
     """
+    try:
 
-    filter_q = request.GET["filter"]
+        filter_q = request.GET["filter"]
 
-    if filter_q == "approved":
-        products = Product.objects.filter(store=Store.objects.get(user=request.user),is_approved=True)
-    else:
-        products = Product.objects.filter(store=Store.objects.get(user=request.user),is_approved=False)
+        if filter_q == "approved":
+            products = Product.objects.filter(store=Store.objects.get(user=request.user),is_approved=True)
+        elif filter_q == "unapproved":
+            products = Product.objects.filter(store=Store.objects.get(user=request.user),is_approved=False)
+        elif filter_q == "draft":
+            products = Product.objects.filter(store=Store.objects.get(user=request.user),draft=True)
+        elif filter_q == "all":
+            products = Product.objects.filter(store=Store.objects.get(user=request.user))
+
+        else:
+            products = Product.objects.filter(store=Store.objects.get(user=request.user))
+            
+    except:
+        products = Product.objects.filter(store=Store.objects.get(user=request.user))
 
     return HttpResponse(render(request,'veregood/vendor/screens/dashboard/product.html',{"products":products}))
+
+
+
+@login_required(login_url="veregood:login")
+def store_setting(request):
+    
+    
+    form = VendorProfileEditForm()
+    return HttpResponse(render(request,'veregood/vendor/screens/dashboard/store.html',{"form":form}))

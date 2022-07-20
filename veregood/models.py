@@ -137,6 +137,7 @@ class Product(models.Model):
     quantity                =  models.BigIntegerField(default=0)
     page_layout             =  models.CharField(choices=LAYOUT,default="layout_1",max_length=100)
     is_approved             =  models.BooleanField(default=False)
+    draft                   =  models.BooleanField(default=True)
     # tag = TaggableManager()
 
 

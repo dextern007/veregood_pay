@@ -16,6 +16,7 @@ from rest_framework.authentication import TokenAuthentication
 
 # Listing all Banners for mobile
 class BannerView(APIView):
+    
     def get(self,request,format=None):
         device = self.request.query_params.get('device',None)
         banners = Banner.objects.filter(is_active=True)

@@ -80,24 +80,21 @@ background: #e2e2e2; opacity: 0.7;
 
 {% endblock %}
 
-{% block nav-tab %}
-<div class="home-tab">
-    <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Select Category</a>
-        </li>      
-    </div>
-{% endblock %}
 
-{% block dashboard-content %}
 
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">STEP 1 | Select a Category</a>
+
+
+  
+</nav>
        <div class="frame">
         
         
            <ul class="list">
             {% for i in categories %}
-            <li><a href="{% url 'veregood_vendor:select_category' %}?category_id={{ i.id }}">{{ i.name }}</a></li>
+            <li><a href="{% url 'veregood_vendor:select_category' %}?type={{ type }}&category_id={{ i.id }}">{{ i.name }}</a></li>
             {% endfor %}
            </ul>
        </div>

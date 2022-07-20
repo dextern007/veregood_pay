@@ -1,17 +1,124 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+import email
+from cv2 import error
+from django.http.response import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from account.models import User
+from veregood.models import Category, Product, Store
+from veregood.vendor.forms import VendorProfileEditForm, VendorProfileForm
+from django.views.generic.edit import *
 
-from veregood.models import Product
 
 
 def index(request):
     return HttpResponse(render(request,'main_site/screens/home.html'))
 
-def login(request):
-    return HttpResponse(render(request,'main_site/screens/login.html'))
+
+
+def main_login(request):
+
+    error = False
+    msg   = ""
+
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        try: 
+            user = User.objects.get(email=username)
+            user = authenticate(username=user.username,password=password)
+        except:
+            try:
+                user = User.objects.get(username=username)
+                user = authenticate(username=user.username,password=password)
+            except:
+                error = True
+                msg = "Email or Mobile Number Not Found"
+                return HttpResponse(render(request,'main_site/screens/login.html',{"error":error,"msg":msg}))
+
+        if user is not None:
+            login(request,user)
+            return HttpResponseRedirect(reverse('veregood:index'))
+        else:
+            error = True
+            msg = "Incorrct Password"
+
+    return HttpResponse(render(request,'main_site/screens/login.html',{"error":error,"msg":msg}))
+
+
 
 def signup(request):
-    return HttpResponse(render(request,'main_site/screens/register.html'))
+    
+    error = False
+    err_message = ""
+    
+    if request.method == 'POST':
+        
+        name         = request.POST["name"]
+        country_code_mobile_number=request.POST["phone"]
+        email        = request.POST["email"]
+        password     = request.POST["password"]
+        try:
+            l= country_code_mobile_number.split(" ")
+            country_code =  l[0]
+            mobile_number = l[1]
+        except:
+            error = True
+            err_message ="Select Country"
+            return HttpResponse(render(request,'main_site/screens/register.html',{"error":error,"msg":err_message}))
+
+        
+
+       
+        #     request.session['mobile_number'] = request.POST['username']
+        #     request.session['country_code'] = str("+")+request.POST['country_code']
+        #     request.session['email'] = request.POST['email']
+        #     request.session['password'] = request.POST['password']
+        #     request.session['first_name'] = request.POST['first_name']
+
+
+        #     # return HttpResponseRedirect(reverse('veregood_vendor:user_verification',kwargs={'redirect':'complete_profile'}))
+        # Direct Access
+        try:
+            user = User(
+                        username=mobile_number,
+                        email=email,
+                        country_code=country_code[1:],
+                        first_name=name,
+                        is_vendor=True,
+                        is_staff  = True,
+                        
+                    )
+            # user.has_perm('veregood.add_product')
+            # user.has_perm('veregood.change_product')
+            # user.has_perm('veregood.view_product')
+            user.set_password(request.session['password'])
+            user.save()
+        
+        
+            login(request,user)
+            return HttpResponseRedirect(reverse('veregood:index'))
+        except:
+            error= True
+            err_message = "Details Already Exsist"
+
+
+    return HttpResponse(render(request,'main_site/screens/register.html',{"error":error,"msg":err_message}))
+
+
+
+
+
+
+
+
+
+
+
+
 
 def verification(request):
     return HttpResponse(render(request,'main_site/screens/otp-verification.html'))
@@ -30,3 +137,11 @@ def product(request,pk):
     product = Product.objects.get(id=pk)
     print(product.page_layout)
     return HttpResponse(render(request,'main_site/screens/product.html',{"product":product}))
+
+
+
+def checkout(request):
+    return HttpResponse(render(request,'main_site/screens/checkout.html'))
+
+def wishlist(request):
+    return HttpResponse(render(request,'main_site/screens/wishlist.html'))
