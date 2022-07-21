@@ -61,14 +61,50 @@ class CartView(APIView):
         serializer = CartSerializer(cart)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+    def add_item_to_cart(self,data):
+        user = self.request.user
+        cart , created = Cart.objects.get_or_create(user=user)
+        cart_item = CartItem(cart=cart,
+        product = Product.objects.get(id=data["product_id"]),
+        has_variation = data["has_variation"],
+        quantity = int(data["quantity"])
+        )
+        if data["has_variation"]==True:
+            cart_item.variation.add(Variation.objects.filter(id__in=data["variations"]))
 
+        cart_item.save()
+
+        return {"message":"Item Added Successfully","cart_item":CartItemSerializer(cart_item).data}
+
+
+    def remove_item_from_cart(self,data):
+        CartItem.objects.get(id=data["cart_item_id"]).delete()
+        return {"message":"Item Removed Successfully"}
+
+    def update_cart_item_quantity(self,data):
+        user = self.request.user
+        if int(data["quantity"]) == 0:
+            resp = self.remove_item_from_cart(data)
+            return resp
+        else:
+            cart_item = CartItem.objects.get(id=data["cart_item_id"])
+            cart_item.quantity = int(data["quantity"])
+
+            return {"message":"Item Added Successfully","cart_item":CartItemSerializer(cart_item).data}
 
     def put(self,request,format=None):
+        method = self.request.query_params.get('method',None)
         data  = request.data
-        self.calculate_total()
-        self.get(request=request)
+        if method == "add":
+            resp = self.add_item_to_cart(data=data)
 
+        elif method =="remove":
+            resp = self.remove_item_from_cart(data=data)
 
+        else:
+            resp = self.update_cart_item_quantity(data=data)
+
+        return Response(resp,status=status.HTTP_200_OK)
 
 
 
@@ -110,6 +146,18 @@ class CategoryView(APIView):
 
         serializer = CategorySerializer(categories,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+    def put(self,request,format=None): 
+        data = []
+        categories = Category.objects.filter(parent=None)
+        for category in categories:
+            main_cat = CategorySerializer(category).data
+            sub      = Category.objects.filter(parent=category)
+            sub_cat  = CategorySerializer(sub,many=True).data
+            main_cat["sub_category"]=sub_cat
+            data.append(main_cat)
+        return Response(data,status=status.HTTP_200_OK)
+
 
     def post(self,request,format=None):
         category = Category.objects.get(id=request.data["id"])

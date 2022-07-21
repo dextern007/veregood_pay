@@ -1,5 +1,6 @@
 
 from pickletools import read_long1
+from numpy import product
 from rest_framework import serializers
 
 from veregood.models import *
@@ -33,18 +34,6 @@ class AddressSerilaizer(serializers.ModelSerializer):
         model = Address
         fields = "__all__"
 
-# Cart
-
-class CartItemSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = CartItem
-        fields = "__all__"
-
-class CartSerializer(serializers.ModelSerializer):
-    cart_item = CartItemSerializer(many=True)
-    class Meta():
-        model = Cart
-        fields = "__all__"
 
 
 
@@ -130,25 +119,27 @@ class ProductDetail(serializers.ModelSerializer):
 
 
 
-# Order and Payment
 
-class PaymentSerilaizer(serializers.ModelSerializer):
+
+
+
+
+
+
+# Cart
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product =ProductSerializer()
+    variation = VariationSerailizer(many=True)
     class Meta():
-        model = Payment
+        model = CartItem
         fields = "__all__"
 
-class OrderSerializer(serializers.ModelSerializer):
-    cart     = CartSerializer()
-    payment  = PaymentSerilaizer()
+class CartSerializer(serializers.ModelSerializer):
+    cart_item = CartItemSerializer(many=True)
     class Meta():
-        model = Order
+        model = Cart
         fields = "__all__"
-
-
-
-
-
-
 
 
 
@@ -164,4 +155,18 @@ class WishListSerializer(serializers.ModelSerializer):
     wishitem = WishListItemSerializer(many=True,read_only=True)
     class Meta():
         model = Wishlist
+        fields = "__all__"
+
+# Order and Payment
+
+class PaymentSerilaizer(serializers.ModelSerializer):
+    class Meta():
+        model = Payment
+        fields = "__all__"
+
+class OrderSerializer(serializers.ModelSerializer):
+    cart     = CartSerializer()
+    payment  = PaymentSerilaizer()
+    class Meta():
+        model = Order
         fields = "__all__"

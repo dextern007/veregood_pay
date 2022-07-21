@@ -138,6 +138,8 @@ class Product(models.Model):
     page_layout             =  models.CharField(choices=LAYOUT,default="layout_1",max_length=100)
     is_approved             =  models.BooleanField(default=False)
     draft                   =  models.BooleanField(default=True)
+    start_date              = models.DateField(blank=True,null=True)
+    end_date                = models.DateField(blank=True,null=True)
     # tag = TaggableManager()
 
 
@@ -312,7 +314,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart                    = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True,related_name="cart_item")
     product                 = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
-    variation               = models.ForeignKey(Variation,on_delete=models.CASCADE,blank=True,null=True)
+    variation               = models.ManyToManyField(Variation,blank=True)
     has_variation           = models.BooleanField(default=False)
     quantity                = models.IntegerField(default=0)
     line_total              = models.IntegerField(default=0)
@@ -378,14 +380,36 @@ class Order(models.Model):
     payment_type        = models.CharField(choices=PAYMENT_TYPE,max_length=100,default="onprocess")
     coupun_applied      = models.BooleanField(default=False)
     address             = models.TextField(max_length=1500,blank=True,null=True)
-    # vendor_otp          = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
+    # vendor_otp        = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     customer_otp        = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     delivery_status_notes = models.CharField(max_length=255,blank=True,null=True)
+    vendor_status_notes = models.CharField(max_length=255,blank=True,null=True)
+    cancelled           = models.BooleanField(default=False)
+    cancelled_reason    = models.CharField(max_length=255,blank=True,null=True)
 
+
+class VendorOrder(models.Model):
+    vendor              = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    order               = models.ForeignKey(Order,on_delete=models.CASCADE,blank=True,null=True)
+    product             = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    cancelled           = models.BooleanField(default=False)
+    cancelled_reason    = models.CharField(max_length=255,blank=True,null=True)
+
+class Quote(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    contact_mobile = models.CharField(max_length=255,blank=True,null=True)
+    contact_email  = models.CharField(max_length=255,blank=True,null=True)
+
+class Auction(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    bid_amount = models.BigIntegerField(default=0)
 
 
 
 class Payment(models.Model):
+    order               = models.ForeignKey(Order,on_delete=models.CASCADE,blank=True,null=True)
     payment_id          = models.CharField(default=uuid.uuid4,primary_key=True,unique=True,max_length=255)
     status              = models.CharField(max_length=255)
     amount_paid         = models.IntegerField(default=0)
@@ -397,3 +421,4 @@ class Payment(models.Model):
 # 
 # pk_test_51HRl3PHx0vNusgVB3hNqHisqtao9aquG13JrIs2NLaLOg2RvJSqjAwk6fbp1H3OFm7FRWsCWN1QjiN4i63TZAJTX00Fqftv4j2
 # 
+

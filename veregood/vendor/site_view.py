@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from account.models import User
-from veregood.models import Category, Product, Store
+from veregood.models import Category, Order, Product, Store, VendorOrder
 from veregood.vendor.forms import VendorProfileEditForm, VendorProfileForm
 from django.views.generic.edit import *
 
@@ -366,3 +366,9 @@ def store_setting(request):
     
     form = VendorProfileEditForm()
     return HttpResponse(render(request,'veregood/vendor/screens/dashboard/store.html',{"form":form}))
+
+
+@login_required(login_url="veregood:login")
+def order_list(request): 
+    order = VendorOrder.objects.filter(vendor=request.user)
+    return HttpResponse(render(request,'veregood/vendor/screens/dashboard/order.html',{"orders":order}))

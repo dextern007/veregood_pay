@@ -1,0 +1,110 @@
+{% extends 'veregood/vendor/screens/dashboard.html' %}
+{% load static %}
+
+
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block js-plugin %}
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">ORDERS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="">ALL</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">ACCEPTED</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">CANCELLED</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">RETURNED</a>
+      </li>
+      
+    
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search ORDERS" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+    <div class="col-12">
+      <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ORDER ID</th>
+                <th>PRODUCT ID</th>
+                <th>PRODUCT TITLE</th>
+                <th>ORDER STATUS</th>
+                <th>DATE</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          
+      
+        </tbody>
+      
+        <!-- <tfoot>
+           <tr>
+                <th>Product Title</th>
+                <th>Category</th>
+                <th>Sku</th>
+                <th>Description</th>
+                <th>price</th>
+                <th>Quantity</th>
+                <th>In Stock</th>
+                <th>Approved</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot> -->
+      
+      </table>
+    </div>
+  
+
+
+
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'vendor/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'vendor/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+  });
+</script>
+{% endblock %}
