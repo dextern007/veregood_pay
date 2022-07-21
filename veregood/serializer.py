@@ -2,6 +2,7 @@
 from pickletools import read_long1
 from numpy import product
 from rest_framework import serializers
+from account.models import User
 
 from veregood.models import *
 
@@ -46,11 +47,17 @@ class AddressSerilaizer(serializers.ModelSerializer):
 
 
 # Product and Product Listing
+class UserReviewSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = User
+        fields = ["first_name","image"]
 
 class ProductReviewSerializer(serializers.ModelSerializer):
+    user = UserReviewSerializer()
     class Meta():
         model = ProductReview
-        exclude = ["user"]
+        fields = ["__all__"]
+        
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta():
