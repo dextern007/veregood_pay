@@ -56,7 +56,7 @@ class ProductReviewSerializer(serializers.ModelSerializer):
     user = UserReviewSerializer()
     class Meta():
         model = ProductReview
-        fields = ["__all__"]
+        fields = "__all__"
         
 
 class ProductImageSerializer(serializers.ModelSerializer):
