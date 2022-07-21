@@ -53,11 +53,16 @@ class UserReviewSerializer(serializers.ModelSerializer):
         fields = ["first_name","image"]
 
 class ProductReviewSerializer(serializers.ModelSerializer):
+    # user = UserReviewSerializer()
+    class Meta():
+        model = ProductReview
+        exclude =["user"]
+        
+class ProductReviewListSerializer(serializers.ModelSerializer):
     user = UserReviewSerializer()
     class Meta():
         model = ProductReview
         fields = "__all__"
-        
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta():

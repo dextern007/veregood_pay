@@ -184,7 +184,7 @@ class ProductReviewView(APIView):
     def get(self,request,format=None):
         product_id = self.request.query_params.get('product_id',None)
         reviews = ProductReview.objects.filter(product__id = product_id)
-        serializer = ProductReviewSerializer(reviews,many=True)
+        serializer = ProductReviewListSerializer(reviews,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
     def post(self,request,format=None):
