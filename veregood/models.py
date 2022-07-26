@@ -1,10 +1,15 @@
+
+from locale import currency
 import random
+
 
 import uuid
 from django.conf import settings
 from django.contrib.gis.db import models
 
+
 from mptt.models import MPTTModel, TreeForeignKey
+from numpy import product
 from tinymce.models import HTMLField
 # from taggit.managers import TaggableManager
 
@@ -90,6 +95,15 @@ class Address(models.Model):
     location                = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
 
 
+
+
+
+
+
+
+
+
+
 #########
 
 class Brand(models.Model):
@@ -117,6 +131,12 @@ LAYOUT = (
 
 )
 
+CURRENCY = (
+    ("INR","INR"),
+    ("USD","USD"),
+    ("EUR","EUR"),
+)
+
 class Product(models.Model):
     store                   =  models.ForeignKey(Store,on_delete=models.CASCADE,blank=True,null=True)
     title                   =  models.TextField(max_length=1500,blank=True,null=True)
@@ -127,6 +147,7 @@ class Product(models.Model):
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/thumnail/",blank=True,null=True)
     short_description       =  models.TextField(max_length=5500,blank=True,null=True)
+    currency                =  models.CharField(default="USD",choices=CURRENCY,max_length=10)
     price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     rating                  =  models.DecimalField(decimal_places=1,max_digits=3,default=0.0)
     has_color               =  models.BooleanField(default=False)
@@ -138,10 +159,11 @@ class Product(models.Model):
     page_layout             =  models.CharField(choices=LAYOUT,default="layout_1",max_length=100)
     is_approved             =  models.BooleanField(default=False)
     draft                   =  models.BooleanField(default=True)
-    start_date              = models.DateField(blank=True,null=True)
-    end_date                = models.DateField(blank=True,null=True)
-    # tag = TaggableManager()
+    start_date              =  models.DateField(blank=True,null=True)
+    end_date                =  models.DateField(blank=True,null=True)
 
+    
+   
 
 class ProductReview(models.Model):
     product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_review",blank=True,null=True)
@@ -213,6 +235,7 @@ VARIATION_TITLE = (
     ('color','color'),
     ('size','size'),
     ('weight','weight'),
+    ('packaging','packaging'),
 )
 
 class VariationGroup(models.Model):
@@ -227,13 +250,11 @@ class VariationGroup(models.Model):
 
 class Variation(models.Model):
     variation_group         =  models.ForeignKey('VariationGroup',on_delete = models.CASCADE,blank=True,null=True,related_name="group_varation")
-    # product                 =  models.ForeignKey('Product',on_delete = models.CASCADE,blank=True,null=True,related_name="varation")
     image                   =  models.ImageField(upload_to="veregood/product/variation/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/variation/thumnail/",blank=True,null=True)
     text                    =  models.CharField(max_length=255,blank=True,null=True)
     value                   =  models.CharField(max_length=255,blank=True,null=True)
     sub_text                =  models.CharField(max_length=255,blank=True,null=True)
-    # has_price               =  models.BooleanField(default=False)
     price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     is_active               =  models.BooleanField(default=False)
     in_stock                =  models.BooleanField(default=False)
@@ -243,21 +264,35 @@ class Variation(models.Model):
         # Add verbose name
         verbose_name = 'Variation'
 
-
+class CollectionGroup(models.Model):
+    image                   =  models.ImageField(upload_to="veregood/collection/group/icon",blank=True,null=True)
+    title                   =  models.CharField(max_length=255,blank=True,null=True)
+    active                  =  models.BooleanField(default=False)
 
 class Collection(models.Model):
+    collection_group        =  models.ForeignKey(CollectionGroup,on_delete=models.CASCADE,blank=True,null=True,related_name="collections")
     title                   =  models.CharField(max_length=255,blank=True,null=True)
     slug                    =  models.CharField(max_length=255,blank=True,null=True,unique=True)
-    icon                    =  models.ImageField(upload_to="veregood/brands/icon",blank=True,null=True)
-    image                   =  models.ImageField(upload_to="veregood/brands/image",blank=True,null=True)
+    icon                    =  models.ImageField(upload_to="veregood/collection/icon",blank=True,null=True)
+    image                   =  models.ImageField(upload_to="veregood/collection/image",blank=True,null=True)
     is_active               =  models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
 
 
 class ProductListing(models.Model):
     collection              = models.ForeignKey(Collection,on_delete=models.CASCADE,blank=True,null=True,related_name="product_listing")
     product                 = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    
 
 #######
+
+
+
+
+
+
 
 
 
@@ -304,6 +339,13 @@ class Category(MPTTModel):
 
 
 
+
+
+
+
+
+
+
 #########
 
 class Cart(models.Model):
@@ -320,6 +362,13 @@ class CartItem(models.Model):
     line_total              = models.IntegerField(default=0)
 
 #######
+
+
+
+
+
+
+
 
 
 ######
@@ -339,6 +388,15 @@ class WishlistItem(models.Model):
     def __unicode__(self):
         return self.id
 
+
+
+
+
+
+
+
+
+
 ######
 
 
@@ -347,15 +405,12 @@ class WishlistItem(models.Model):
 PROCESS = (
     ('onprocess','onprocess'),
     ('accepted','accepted'),
-    # ('preparing','preparing'),
-    # ('ready_to_pickup','ready_to_pickup'),
     ('picked','picked'),
     ('pending','pending'),
     ('abonded','abonded'),
     ('delivered','delivered'),
     ('recieved ','recieved'),
     ('on_the_way','on_the_way'),
-    # ('preparing','preparing'),
     ('recived_by_delivery','recived_by_delivery'),
     ('delayed','delayed'),
 
@@ -380,7 +435,6 @@ class Order(models.Model):
     payment_type        = models.CharField(choices=PAYMENT_TYPE,max_length=100,default="onprocess")
     coupun_applied      = models.BooleanField(default=False)
     address             = models.TextField(max_length=1500,blank=True,null=True)
-    # vendor_otp        = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     customer_otp        = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     delivery_status_notes = models.CharField(max_length=255,blank=True,null=True)
     vendor_status_notes = models.CharField(max_length=255,blank=True,null=True)
@@ -418,7 +472,10 @@ class Payment(models.Model):
 
 
 
-# 
-# pk_test_51HRl3PHx0vNusgVB3hNqHisqtao9aquG13JrIs2NLaLOg2RvJSqjAwk6fbp1H3OFm7FRWsCWN1QjiN4i63TZAJTX00Fqftv4j2
-# 
 
+class Explore(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    title   = models.CharField(max_length=255)
+    video   = models.FileField(upload_to="veregood/explore/videos",blank=True,null=True)
+    image   = models.ImageField(upload_to="veregood/explore/images",blank=True,null=True)
+    active  = models.BooleanField(default=False)

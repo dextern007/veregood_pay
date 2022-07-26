@@ -103,7 +103,7 @@
                         <div class="header-contact d-none d-lg-flex align-items-center pr-xl-5 mr-5 mr-xl-3 ml-5">
                             <i class="icon-user-2"></i>
                             {% if user.is_authenticated %}
-                            <h6 class="pt-1 line-height-1">Welcome<a href="{% url 'veregood_vendor:logout' %}"  class="d-block text-dark ls-10 pt-1">{{ user.first_name }}</a></h6>
+                            <h6 class="pt-1 line-height-1">Welcome<a href="{% url 'veregood:my-account' %}"  class="d-block text-dark ls-10 pt-1">{{ user.first_name }}</a></h6>
 
                             {% else %}
                             <h6 class="pt-1 line-height-1">Welcome<a href="{% url 'veregood:login' %}"  class="d-block text-dark ls-10 pt-1">Sign In/Sign Up</a></h6>
@@ -114,104 +114,14 @@
                         <a href="#" class="header-icon"><i class="icon-wishlist-2"></i></a>
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="{% url 'veregood:shopping-cart' %}" title="Cart" >
                                 <i class="minicart-icon"></i>
-                                <span class="cart-count badge-circle">3</span>
+                                <span class="cart-count badge-circle">0</span>
                             </a>
 
                             <div class="cart-overlay"></div>
 
-                            <div class="dropdown-menu mobile-cart">
-                                <a href="#" title="Close (Esc)" class="btn-close">×</a>
-
-                                <div class="dropdownmenu-wrapper custom-scrollbar">
-                                    <div class="dropdown-cart-header">Shopping Cart</div>
-                                    <!-- End .dropdown-cart-header -->
-
-                                    <div class="dropdown-cart-products">
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="#">Ultimate 3D Bluetooth Speaker</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $99.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="#" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-1.jpg' %}" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="#">Brown Women Casual HandBag</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="#" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-2.jpg' %}" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="#">Circled Ultimate 3D Speaker</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="#" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-3.jpg' %}" alt="product" width="80" height="80">
-                                                </a>
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-                                    </div>
-                                    <!-- End .cart-product -->
-
-                                    <div class="dropdown-cart-total">
-                                        <span>SUBTOTAL:</span>
-
-                                        <span class="cart-total-price float-right">$134.00</span>
-                                    </div>
-                                    <!-- End .dropdown-cart-total -->
-
-                                    <div class="dropdown-cart-action">
-                                        <a href="#" class="btn btn-gray btn-block view-cart">View
-                                            Cart</a>
-                                        <a href="#" class="btn btn-blue btn-block">Checkout</a>
-                                    </div>
-                                    <!-- End .dropdown-cart-total -->
-                                </div>
-                                <!-- End .dropdownmenu-wrapper -->
-                            </div>
+                          
                             <!-- End .dropdown-menu -->
                         </div>
                         <!-- End .dropdown -->
@@ -239,10 +149,10 @@
                                 <li>
                                     <a href="#">Services</a>
                                     <ul>
-                                        <li><a href="#">Bodyguard</a></li>
-                                        <li><a href="#">Rent Storage Space</a></li>
-                                        <li><a href="#">Rent Parking Space</a></li>
-                                        <li><a href="#">Rent House Space</a></li>
+                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Bodyguard</a></li>
+                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Rent Storage Space</a></li>
+                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Rent Parking Space</a></li>
+                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Rent House Space</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">GoodePay</a></li>
@@ -261,104 +171,14 @@
                         <a href="#" class="header-icon"><i class="icon-wishlist-2"></i></a>
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="{% url 'veregood:shopping-cart' %}" title="Cart">
                                 <i class="minicart-icon"></i>
                                 <span class="cart-count badge-circle">3</span>
                             </a>
 
                             <div class="cart-overlay"></div>
 
-                            <div class="dropdown-menu mobile-cart">
-                                <a href="#" title="Close (Esc)" class="btn-close">×</a>
-
-                                <div class="dropdownmenu-wrapper custom-scrollbar">
-                                    <div class="dropdown-cart-header">Shopping Cart</div>
-                                    <!-- End .dropdown-cart-header -->
-
-                                    <div class="dropdown-cart-products">
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="#">Ultimate 3D Bluetooth Speaker</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $99.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="#" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-1.jpg' %}" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="#">Brown Women Casual HandBag</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="#" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-2.jpg' %}" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="#">Circled Ultimate 3D Speaker</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="#" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-3.jpg' %}" alt="product" width="80" height="80">
-                                                </a>
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-                                    </div>
-                                    <!-- End .cart-product -->
-
-                                    <div class="dropdown-cart-total">
-                                        <span>SUBTOTAL:</span>
-
-                                        <span class="cart-total-price float-right">$134.00</span>
-                                    </div>
-                                    <!-- End .dropdown-cart-total -->
-
-                                    <div class="dropdown-cart-action">
-                                        <a href="#" class="btn btn-gray btn-block view-cart">View
-                                            Cart</a>
-                                        <a href="#" class="btn btn-blue btn-block">Checkout</a>
-                                    </div>
-                                    <!-- End .dropdown-cart-total -->
-                                </div>
-                                <!-- End .dropdownmenu-wrapper -->
-                            </div>
+                          
                             <!-- End .dropdown-menu -->
                         </div>
                         <!-- End .dropdown -->

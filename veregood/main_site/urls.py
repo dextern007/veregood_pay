@@ -7,7 +7,7 @@ from pages.views import page_view
 app_name = "veregood"
 
 urlpatterns = [
-    # API VERSION 1.0 DIWAHAR
+    # API VERSION 1.0 ( Nora Spensers ) URL ROUTING & Template Designing
     path('', index,name="index"),
     path('home/',index,name="home"),
     path('login/',main_login,name="login"),
@@ -20,4 +20,5 @@ urlpatterns = [
     path('page/<str:page_key>/',page_view,name="page"),
     path('checkout/',checkout,name="checkout"),
     path('wishlist/',wishlist,name="wishlist"),
+    path('services/',services,name="services"),
 ]

@@ -44,6 +44,7 @@ class CollectionView(APIView):
         serializer = ListingSerializer(products,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+    
 
 
 class CartView(APIView):
@@ -232,9 +233,13 @@ class OrderView(APIView):
         pass
 
 
-    def put():
-        # Update Payment id to the order
-        pass
+    def put(self,request,format=None):
+        data = request.data
+        order = Order.objects.get(id=data["1d"])
+        order.payment_id = data["payment_id"]
+        order.save()
+
+        
 
 
 
@@ -329,32 +334,66 @@ class UserView(APIView):
         }
         return Response(data,status=status.HTTP_200_OK)
 
-@csrf_exempt
-def stripe_webhook(request):
-    stripe.api_key = settings.STRIPE_SECRECT
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRECT
-    payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    event = None
 
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
-        )
-    except ValueError as e:
-        # Invalid payload
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-        return HttpResponse(status=400)
+class Quote(APIView):
 
-    # Handle the checkout.session.completed event
-    if event['type'] == 'checkout.session.completed':
-        order = Order.objects.get(payment_id=payload["payment_id"])
-        order.paid = True
-        order.save()
-        cart = Cart.objects.get(user=order.user)
-        cart.user = None
-        cart.save()
+    def get(self,request,format=None):
+        quotes= Quote.objects.filter(user=request.user)
+        serializer = QuoteSerializer(quotes,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
-    return HttpResponse(status=200)
+    def post(self,request,format=None):
+        data = request.data
+        try:
+            quote = Quote(
+                product=Product.objects.get(id=data["product_id"]),
+                user = request.user,
+                contact_email = data["contact_email"],
+                contact_mobile = data["contact_mobile"],  
+                )
+            quote.save()
+            serializer=QuoteSerializer(quote)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+            
+
+
+
+
+class Auction(APIView):
+    def get(self,request,format=None):
+        auctions= Auction.objects.filter(user=request.user)
+        serializer = AuctionSerializer(auctions,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+    def post(self,request,format=None):
+        data = request.data
+        try:
+            auction = Auction(
+                product=Product.objects.get(id=data["product_id"]),
+                user = request.user,
+                bid_amount = data["bid_amount"]
+                )
+            auction.save()
+            serializer=QuoteSerializer(auction)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class Explore(APIView):
+    def get(self,request,format=None):
+        explores = Explore.objects.filter(active=True)
+        serializer = ExploreSerializer(explores,many=True) 
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+
+
+class CollectionGroupView(APIView):
+    def get(self,request,format=None):
+        collection_groups = CollectionGroup.objects.filter(active=True)
+        serializer = CollectionGroupSerializer(collection_groups,many=True) 
+        return Response(serializer.data,status=status.HTTP_200_OK)

@@ -1,5 +1,6 @@
 
 from pickletools import read_long1
+from pyexpat import model
 from numpy import product
 from rest_framework import serializers
 from account.models import User
@@ -181,4 +182,36 @@ class OrderSerializer(serializers.ModelSerializer):
     payment  = PaymentSerilaizer()
     class Meta():
         model = Order
+        fields = "__all__"
+
+
+class QuoteSerializer(serializers.ModelSerializer):
+    user = UserReviewSerializer()
+    class Meta():
+        model = Quote
+        fields = "__all__"
+
+
+class AuctionSerializer(serializers.ModelSerializer):
+    user = UserReviewSerializer()
+    class Meta():
+        model = Auction
+        fields = "__all__"
+
+
+class ExploreSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Explore
+        fields = "__all__"
+
+
+class CollectionInline(serializers.ModelSerializer):
+    class Meta():
+        model = Collection
+        fields = "__all__"
+
+class CollectionGroupSerializer(serializers.ModelSerializer):
+    collections = CollectionInline(many=True)
+    class Meta():
+        model = CollectionGroup
         fields = "__all__"

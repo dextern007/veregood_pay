@@ -1,0 +1,254 @@
+{% extends 'main_site/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Services</title>
+{% endblock %}
+
+{% block meta %}
+<meta name="keywords" content="" />
+<meta name="description" content="">
+{% endblock %}
+
+{% block style %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style type="text/css">
+
+        .wishlist-popup {
+            display: none;
+        }
+      html, body{width: 100%; height: 100%; margin: 0; font-family: Poppins, sans-serif;}
+      .img-responsive {max-width: 100%; height: auto;}
+      .header-top{background: #333; padding: 0.5rem 0;}
+      .header-top a{text-decoration: none; color: #fff; padding: 0 1rem;}
+      #basicMap {width: 63%;height: 100%;margin: 0;float: left;}
+      #right-side{width: 37%;height: 100vh;margin: 0;float: left;overflow-y: auto;}
+      .map-services{display: flex;padding: 0 1rem 0 0;border-bottom: 2px solid #f5f5f5; border-top: 2px solid #f5f5f5;}
+      .map-services .left{width: 28%;}
+      .map-services .center{width: 50%; padding-left: 1rem;}
+      .map-services .right{width: 22%;text-align: right;}
+      .map-services .left img{background: #f5f5f5;padding: 0;border-radius: 0px;}
+      .map-services .center a{text-decoration: none;}
+      .map-services .center h6{ margin: 0;font-size: 18px;padding: 0.4rem 0; color: #333;   font-weight: 500; }
+      .map-services .center div{ font-size: 14px; color: #494949;}
+      .map-services .center div img{ width: 4.5%; }
+      .map-services .center p.distance{margin: 0; color: #53B175; font-size: 14px;padding: 0.5rem 0;}
+      .map-services .center p.price{margin: 0; color: #333; font-size: 22px;font-weight: 600;padding: 0 0 0.5rem 0;}
+      .map-services .right a{text-decoration: none;}
+      .map-services .right div{margin-top: 0.5rem;}
+      .map-services .right span{font-size: 12px; background: #53B175; text-decoration: none; color: #fff; padding: 0.2rem 1rem; border-radius: 20px; }
+      .map-services .right div.click-icon{margin-top: 4.6rem;}
+      .map-services .right div.click-icon i{font-size: 2rem; color: #333;}
+      /* width */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      /* Track */
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #dadada; 
+        border-radius: 10px;
+      }
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #f5f5f5; 
+        border-radius: 10px;
+      }
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #d8dce5; 
+        opacity: 0.9;
+      }
+    </style>
+    <script src="{% static 'main_site/assets/OpenLayers/OpenLayers.js' %}"></script>
+    <script>
+      function init() {
+        map = new OpenLayers.Map("basicMap");
+        var mapnik         = new OpenLayers.Layer.OSM();
+        var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+        var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+        var position       = new OpenLayers.LonLat(13.41,52.52).transform( fromProjection, toProjection);
+        var zoom           = 15; 
+
+        map.addLayer(mapnik);
+        map.setCenter(position, zoom );
+      }
+    </script>
+ {% endblock %}
+
+{% block content-service %}
+<body onload="init();">
+    <div class="header-top">
+      <a href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp; Back</a>
+    </div>
+
+    <div id="basicMap"></div>
+    <div id="right-side" class="">
+      <!--1-->
+      <div class="map-services">
+        <div class="left">
+          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+        </div>
+        <div class="center">
+          <a href="">
+            <h6>Bodyguard Name</h6>
+            <div>
+              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
+            </div>
+            <p class="distance">5km away</p>
+            <p class="price">$10/Hour</p>
+          </a>
+        </div>
+        <div class="right">
+          <a href="#">
+            <div>
+              <span> 4.3 <i class="fa fa-star checked"></i></span>
+            </div>
+            <div class="click-icon">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--2-->
+      <div class="map-services">
+        <div class="left">
+          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+        </div>
+        <div class="center">
+          <a href="">
+            <h6>Bodyguard Name</h6>
+            <div>
+              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
+            </div>
+            <p class="distance">5km away</p>
+            <p class="price">$10/Hour</p>
+          </a>
+        </div>
+        <div class="right">
+          <a href="#">
+            <div>
+              <span> 4.3 <i class="fa fa-star checked"></i></span>
+            </div>
+            <div class="click-icon">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--3-->
+      <div class="map-services">
+        <div class="left">
+          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+        </div>
+        <div class="center">
+          <a href="">
+            <h6>Bodyguard Name</h6>
+            <div>
+              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
+            </div>
+            <p class="distance">5km away</p>
+            <p class="price">$10/Hour</p>
+          </a>
+        </div>
+        <div class="right">
+          <a href="#">
+            <div>
+              <span> 4.3 <i class="fa fa-star checked"></i></span>
+            </div>
+            <div class="click-icon">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--1-->
+      <div class="map-services">
+        <div class="left">
+          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+        </div>
+        <div class="center">
+          <a href="">
+            <h6>Bodyguard Name</h6>
+            <div>
+              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
+            </div>
+            <p class="distance">5km away</p>
+            <p class="price">$10/Hour</p>
+          </a>
+        </div>
+        <div class="right">
+          <a href="#">
+            <div>
+              <span> 4.3 <i class="fa fa-star checked"></i></span>
+            </div>
+            <div class="click-icon">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--2-->
+      <div class="map-services">
+        <div class="left">
+          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+        </div>
+        <div class="center">
+          <a href="">
+            <h6>Bodyguard Name</h6>
+            <div>
+              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
+            </div>
+            <p class="distance">5km away</p>
+            <p class="price">$10/Hour</p>
+          </a>
+        </div>
+        <div class="right">
+          <a href="#">
+            <div>
+              <span> 4.3 <i class="fa fa-star checked"></i></span>
+            </div>
+            <div class="click-icon">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--3-->
+      <div class="map-services">
+        <div class="left">
+          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+        </div>
+        <div class="center">
+          <a href="">
+            <h6>Bodyguard Name</h6>
+            <div>
+              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
+            </div>
+            <p class="distance">5km away</p>
+            <p class="price">$10/Hour</p>
+          </a>
+        </div>
+        <div class="right">
+          <a href="#">
+            <div>
+              <span> 4.3 <i class="fa fa-star checked"></i></span>
+            </div>
+            <div class="click-icon">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+</body>
+{% endblock %}
+
+
+
+
+

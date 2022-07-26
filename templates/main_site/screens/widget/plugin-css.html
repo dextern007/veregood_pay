@@ -1,0 +1,25 @@
+{% load static %}
+<script>
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700,800', 'Oswald:300,400,500,600,700,800', 'Lato:300,400,500,600,700,800' ] }
+        };
+        ( function ( d ) {
+            var wf = d.createElement( 'script' ), s = d.scripts[ 0 ];
+            wf.src = 'assets/js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore( wf, s );
+        } )( document );
+    </script>
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="{% static 'main_site/assets/css/bootstrap.min.css' %}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'main_site/assets/css/demo37.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_site/assets/vendor/simple-line-icons/css/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_site/assets/vendor/fontawesome-free/css/all.min.css' %}">
+    <style type="text/css">
+        .goog-te-gadget img{display: none;}
+        .goog-te-gadget-simple{border: none!important; background: #17519e!important; padding: 0!important; font-size: 1rem!important;    display: inline-block;}
+        .goog-te-gadget-simple .goog-te-menu-value span, .goog-te-gadget-simple .goog-te-menu-value {
+        color: #fff!important; border-left: none!important; padding: 0 0.1rem!important; font-size: 1rem; font-family: Poppins, sans-serif;
+         }
+    </style>

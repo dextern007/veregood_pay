@@ -567,7 +567,7 @@
 }
 .owl-carousel .owl-item img {
     display: block;
-    width: 100%}
+    width: 100%; }
 .owl-carousel .owl-dots.disabled, .owl-carousel .owl-nav.disabled {
     display: none;
 }
@@ -11504,7 +11504,7 @@ span.toggle:before {
     color: #999;
 }
 .product-single-details .ratings-container .ratings:before {
-    color: #FD5B5A;
+    color: #f7b718;
 }
 .product-single-details .rating-link {
     color: #999;
@@ -11889,7 +11889,7 @@ main .sticky-header .product-ratings:before {
     cursor: pointer;
 }
 .prod-thumbnail .owl-dot.active img, .prod-thumbnail img:hover {
-    border: 2px solid #21293c;
+    border: 1px solid #f7b718;
 }
 .transparent-dots {
     position: absolute;
@@ -11952,14 +11952,14 @@ main .sticky-header .product-ratings:before {
     color: #818692;
 }
 .product-single-tabs .nav.nav-tabs .nav-link.active {
-    color: #222529;
+    color: #ec1b3f;
 }
 .product-single-tabs .nav.nav-tabs .nav-link {
     font-family: "Open Sans", sans-serif;
     font-size: 1.3rem;
 }
 .product-single-tabs .nav.nav-tabs .nav-link.active, .product-single-tabs .nav.nav-tabs .nav-link:hover {
-    border-bottom-color: #222529;
+    border-bottom-color: #ec1b3f;
 }
 .product-single-tabs .nav-item {
     font-size: 1.3rem;
@@ -12029,7 +12029,7 @@ main .sticky-header .product-ratings:before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 1.8rem;
-    color: #21293c;
+    color: #ec1b3f;
     font-size: 1.6rem;
 }
 .product-desc-content img.float-left, .product-desc-content img.float-right {

@@ -18,7 +18,6 @@ from django.urls import path,include
 from django.conf.urls.static import static
 
 from django.conf import settings
-from veregood.views import stripe_webhook
 from veregood.admin import vendor_admin_site
 
 

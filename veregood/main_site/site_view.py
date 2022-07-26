@@ -7,14 +7,27 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from account.models import User
-from veregood.models import Category, Product, Store
+from veregood.models import Category, Collection, Product, Store
 from veregood.vendor.forms import VendorProfileEditForm, VendorProfileForm
 from django.views.generic.edit import *
 
 
 
 def index(request):
-    return HttpResponse(render(request,'main_site/screens/home.html'))
+    new_products = Collection.objects.get(slug="new-products")
+    on_sale_products = Collection.objects.get(slug="on-sale")
+    best_selling_products = Collection.objects.get(slug="best-selling")
+    return HttpResponse(
+        render(
+            request,
+            'main_site/screens/home.html',
+                {
+                'new_products':new_products,
+                'on_sale':on_sale_products,
+                'best_selling':best_selling_products,
+                }
+            )
+        )
 
 
 
@@ -145,3 +158,6 @@ def checkout(request):
 
 def wishlist(request):
     return HttpResponse(render(request,'main_site/screens/wishlist.html'))
+
+def services(request):
+    return HttpResponse(render(request,'main_site/screens/services.html'))

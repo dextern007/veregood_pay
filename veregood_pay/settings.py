@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'mptt',
     'veregood',
     'veregood_service',
+    'goodepay',
 
     # TextEditor
     "tinymce",
@@ -283,8 +284,9 @@ MAP_WIDGETS = {
 }
 
 
-STRIPE_WEBHOOK_SECRECT = "we_1KyIhtSHEdoMqgR5RzBYz8M5"
-STRIPE_SECRECT         = "sk_test_51KPDPESHEdoMqgR5GfM94tXGSv1d09rc4KURnLDF3ETL0hZtYJbp89D1JMMd6jSEgQew29j6j7pj2vYKnuioVbb4004nbAp1vm"
+STRIPE_WEBHOOK_SECRECT     = "we_1KyIhtSHEdoMqgR5RzBYz8M5"
+STRIPE_SECRECT_KEY         = "sk_test_51KPDPESHEdoMqgR5GfM94tXGSv1d09rc4KURnLDF3ETL0hZtYJbp89D1JMMd6jSEgQew29j6j7pj2vYKnuioVbb4004nbAp1vm"
+STRIPE_PUBLIC_KEY          = "pk_test_51KPDPESHEdoMqgR5GxG1o3zzw3YypjgUXudHNKkmvQwz3uPkbBXMqfMwBqMcWfllMQJgKerqc27jisA8nZJWUGnB00rhpAEMty"
 
 TINYMCE_JS_ROOT = os.path.join(os.path.join(BASE_DIR,"static"), "tinymce")
 

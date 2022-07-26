@@ -52,8 +52,18 @@ class ProductAdmin(nested_admin.NestedModelAdmin):
 
     class Meta:
         model = Product
-        
 
+
+class ProductListingInline(admin.TabularInline):
+    model = ProductListing
+    extra = 0     
+
+class CollectionAdmin(nested_admin.NestedModelAdmin):
+    inlines       = [ProductListingInline]
+
+
+    class Meta:
+        model = Collection
 
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Address)
@@ -62,7 +72,7 @@ admin.site.register(Brand)
 admin.site.register(ProductReview)
 admin.site.register(ProductImage)
 admin.site.register(Variation)
-admin.site.register(Collection)
+admin.site.register(Collection,CollectionAdmin)
 admin.site.register(ProductListing)
 admin.site.register(Category)
 admin.site.register(Cart)
