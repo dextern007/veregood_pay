@@ -124,7 +124,28 @@
                             </li>
                         </ul>
 
+                        {% if prod.has_color %}
+                        {% include 'main_site/screens/widget/color-variation.html' with product=prod only %}
+                        {% endif %}
+    
+                        {% if prod.has_weight %}
+                        {% include 'main_site/screens/widget/weight-variation.html' with product=prod only %}
+                        {% endif %}
+    
+                        {% if prod.has_length %}
+                        {% include 'main_site/screens/widget/length-variation.html' with product=prod only %}
+                        {% endif %}
+    
+                        {% if prod.has_package %}
+                        {% include 'main_site/screens/widget/package-variation.html' with product=prod only %}
+                        {% endif %}
+    
+                        {% if prod.has_variation %}
                         {% include 'main_site/screens/product/variation.html' with product=prod only %}
+                        {% endif %}
+    
+    
+
 
                         <br>
                         <div class="product-single-qty">

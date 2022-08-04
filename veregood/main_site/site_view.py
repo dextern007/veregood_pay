@@ -69,6 +69,7 @@ def signup(request):
     err_message = ""
     
     if request.method == 'POST':
+        # print(request.POST)
         
         name         = request.POST["name"]
         country_code_mobile_number=request.POST["phone"]
@@ -108,7 +109,7 @@ def signup(request):
             # user.has_perm('veregood.add_product')
             # user.has_perm('veregood.change_product')
             # user.has_perm('veregood.view_product')
-            user.set_password(request.session['password'])
+            user.set_password(request.POST['password'])
             user.save()
         
         

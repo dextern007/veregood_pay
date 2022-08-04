@@ -154,7 +154,29 @@
                         CATEGORY: <strong><a href="#" class="product-category">{{ prod.category.name }}</a></strong>
                     </li>
                 </ul>
-                {% include 'main_site/screens/product/variation.html' with product=prod only %}
+
+                     {% if prod.has_color %}
+                    {% include 'main_site/screens/widget/color-variation.html' with product=prod only %}
+                    {% endif %}
+
+                    {% if prod.has_weight %}
+                    {% include 'main_site/screens/widget/weight-variation.html' with product=prod only %}
+                    {% endif %}
+
+                    {% if prod.has_length %}
+                    {% include 'main_site/screens/widget/length-variation.html' with product=prod only %}
+                    {% endif %}
+
+                    {% if prod.has_package %}
+                    {% include 'main_site/screens/widget/package-variation.html' with product=prod only %}
+                    {% endif %}
+
+                    {% if prod.has_variation %}
+                    {% include 'main_site/screens/product/variation.html' with product=prod only %}
+                    {% endif %}
+
+
+
 
 
                 <div class="product-filters-container d-flex flex-wrap align-items-center justify-content-xl-end mb-0 border-bottom-0">

@@ -1,0 +1,12 @@
+
+
+<div class="product-single-filter">
+    <span>Select weight :</span>
+    <select name="{{ group.title }}" required>
+        <option value="">Select</option>
+        {% for i in product.weight.all %}
+        <option value="{{ i.id }}">{{ i.weight }} ( {{ i.measurement }} ) </option>
+        {% endfor %}
+    </select>
+</div>
+<br>

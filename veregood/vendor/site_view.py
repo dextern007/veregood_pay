@@ -273,6 +273,28 @@ def complete_profile(request):
                 Permission.objects.get(codename='change_producttab'),
                 Permission.objects.get(codename='view_producttab'),
                 Permission.objects.get(codename='delete_producttab'),
+
+                Permission.objects.get(codename='add_colorvariation'),
+                Permission.objects.get(codename='change_colorvariation'),
+                Permission.objects.get(codename='view_colorvariation'),
+                Permission.objects.get(codename='delete_colorvariation'),
+
+                Permission.objects.get(codename='add_weightvariation'),
+                Permission.objects.get(codename='change_weightvariation'),
+                Permission.objects.get(codename='view_weightvariation'),
+                Permission.objects.get(codename='delete_weightvariation'),
+
+                Permission.objects.get(codename='add_lengthvariation'),
+                Permission.objects.get(codename='change_lengthvariation'),
+                Permission.objects.get(codename='view_lengthvariation'),
+                Permission.objects.get(codename='delete_lengthvariation'),
+
+                Permission.objects.get(codename='add_packagingvariation'),
+                Permission.objects.get(codename='change_packagingvariation'),
+                Permission.objects.get(codename='view_packagingvariation'),
+                Permission.objects.get(codename='delete_packagingvariation'),
+
+
                 )
 
             user.save()

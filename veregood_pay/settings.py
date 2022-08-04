@@ -73,6 +73,9 @@ INSTALLED_APPS = [
     "tinymce",
     'pages',
     # 'taggit',
+
+    "country",
+    "currency",
 ]
 
 # TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'

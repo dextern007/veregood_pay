@@ -56,7 +56,7 @@ class VendorForm(forms.ModelForm):
 class VendorProfileForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields =['logo','store_name','store_describtion','contact_mobile_number','contact_email','address','city','state','country']
+        fields =['logo','store_name','store_describtion','contact_mobile_number','contact_email','address','city','state','country',"available_regions","base_currency"]
         labels = {
             'logo' : ' Your Store Logo',
             'store_name' : 'Enter the store name',
@@ -67,6 +67,8 @@ class VendorProfileForm(forms.ModelForm):
             'city': 'Your City',
             'state':'Your State',
             'country' : ' Your Country',
+            'available_regions' : 'Availanlity Region',
+            'base_currency' : 'Store Base Currency',
 
          }
         help_texts = {
@@ -87,6 +89,8 @@ class VendorProfileForm(forms.ModelForm):
         self.fields['city'].widget.attrs.update({'class': 'form-control form-control-lg'})
         self.fields['state'].widget.attrs.update({'class': 'form-control form-control-lg'})
         self.fields['country'].widget.attrs.update({'class': 'form-control form-control-lg'})
+        self.fields['available_regions'].widget.attrs.update({'class': 'form-control form-control-lg'})
+        self.fields['base_currency'].widget.attrs.update({'class': 'form-control form-control-lg'})
         
         # Required fields
         self.fields['logo'].required = False
@@ -98,6 +102,9 @@ class VendorProfileForm(forms.ModelForm):
         self.fields['city'].required = True
         self.fields['state'].required = True
         self.fields['country'].required = True
+        self.fields['country'].required = True
+        self.fields['base_currency'].required = True
+        self.fields['available_regions'].required = True
 
 from mapwidgets.widgets import GooglePointFieldWidget
 

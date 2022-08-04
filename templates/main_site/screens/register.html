@@ -108,6 +108,10 @@
 </footer>
 {% endblock %}
 
+{% block js %}
+{% include 'main_site/screens/widget/plugin-js.html' %}
+{% endblock %}
+
 {% block mainjs %}
   <script src="{% static 'main_site/assets/phone-code/js/intlTelInput.js' %}"></script>
     <script>
@@ -127,6 +131,7 @@
     });
   </script>
   {% endblock %}
+
 
 
 

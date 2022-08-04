@@ -1,0 +1,10 @@
+<div class="product-single-filter">
+    <span>Select package :</span>
+    <select name="{{ group.title }}" required>
+        <option value="">Select</option>
+        {% for i in product.length.all %}
+        <option value="{{ i.id }}">{{ i.length }} ( {{ i.measurement }} ) </option>
+        {% endfor %}
+    </select>
+</div>
+<br>

@@ -29,7 +29,23 @@ class VariationGroupInline(nested_admin.NestedTabularInline):
 class ImageInline(nested_admin.NestedTabularInline):
     model = ProductImage
     extra = 0
-        
+
+class ColorInline(nested_admin.NestedTabularInline):
+    model = ColorVariation
+    extra = 0
+
+class WeighInline(nested_admin.NestedTabularInline):
+    model = WeightVariation
+    extra = 0
+
+class LengthInline(nested_admin.NestedTabularInline):
+    model = LengthVariation
+    extra = 0
+
+class PackageInline(nested_admin.NestedTabularInline):
+    model = PackagingVariation
+    extra = 0
+
 class DescriptionInline(admin.StackedInline):
     model = ProductDescription
 
@@ -44,11 +60,11 @@ class TabInline(admin.StackedInline):
     extra = 0
 
 class ProductAdmin(nested_admin.NestedModelAdmin):
-    inlines       = [DescriptionInline,GuideInline,VariationGroupInline,ImageInline,MetaInline,TabInline]
+    inlines       = [DescriptionInline,GuideInline,VariationInline,ColorInline,WeighInline,LengthInline,PackageInline,ImageInline,MetaInline,TabInline]
     list_display  = ["sku","title","short_description","in_stock","is_approved"]
     list_filter   = ["is_approved"]
     search_fields = ["sku"]
-    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand","category", "price","quantity","in_stock","has_variation","page_layout",]
+    fields = ["image","thumbnail","product_type","title",	"sku", "short_description","brand","category", "price","quantity","in_stock","has_variation","has_weight","has_color","has_length","has_package","page_layout",]
 
     class Meta:
         model = Product
@@ -87,11 +103,11 @@ admin.site.register(Payment)
 from django.urls import reverse
 from django.shortcuts import redirect
 class VendorProductAdmin(nested_admin.NestedModelAdmin):
-    inlines       = [DescriptionInline,TabInline,VariationGroupInline,ImageInline,MetaInline]
+    inlines       = [DescriptionInline,TabInline,VariationInline,ColorInline,WeighInline,LengthInline,PackageInline,ImageInline,MetaInline]
     list_display  = ["sku","title","short_description","in_stock","is_approved"]
     list_filter   = ["is_approved"]
     search_fields = ["sku"]
-    fields        = ["image","thumbnail","product_type","title","sku", "short_description","brand", "price","quantity","in_stock","has_variation","page_layout"]
+    fields        = ["image","thumbnail","product_type","title","sku", "short_description","brand", "price","quantity","in_stock","has_variation","has_weight","has_color","has_length","has_package","page_layout"]
     view_on_site = False
     class Meta:
         model = Product

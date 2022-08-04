@@ -1,16 +1,12 @@
 
-from locale import currency
 import random
-
-
 import uuid
 from django.conf import settings
 from django.contrib.gis.db import models
-
-
 from mptt.models import MPTTModel, TreeForeignKey
-from numpy import product
 from tinymce.models import HTMLField
+from country.models import Country,State,City
+from currency.models import Currency
 # from taggit.managers import TaggableManager
 
 # Create your models here.
@@ -39,6 +35,8 @@ class Store(models.Model):
     upi_id                  = models.CharField(max_length=100,blank=True,null=True)
     rating                  = models.DecimalField(default=0.0,max_digits=10,decimal_places=1)
     delivery_type           = models.CharField(max_length=100,choices=DELIVERY_TYPE,default="self")
+    available_regions       = models.ManyToManyField(Country,blank=True)
+    base_currency           = models.ForeignKey(Currency,on_delete=models.CASCADE,blank=True,null=True)
 
     # others
     commision_percentage    = models.DecimalField(default=0.00,max_digits=10,decimal_places=2)
@@ -141,7 +139,7 @@ class Product(models.Model):
     store                   =  models.ForeignKey(Store,on_delete=models.CASCADE,blank=True,null=True)
     title                   =  models.TextField(max_length=1500,blank=True,null=True)
     sku                     =  models.CharField(max_length=255,blank=True,null=True,unique=True)
-    main_category           =  models.ForeignKey('MainCategory',blank=True,null=True,on_delete=models.CASCADE,related_name="main_category_product")
+    # main_category           =  models.ForeignKey('MainCategory',blank=True,null=True,on_delete=models.CASCADE,related_name="main_category_product")
     category                =  models.ForeignKey('Category',blank=True,null=True,on_delete=models.CASCADE,related_name="category_product")
     brand                   =  models.ForeignKey('Brand',blank=True,null=True,on_delete=models.CASCADE)
     image                   =  models.ImageField(upload_to="veregood/product/image/",blank=True,null=True)
@@ -151,6 +149,9 @@ class Product(models.Model):
     price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     rating                  =  models.DecimalField(decimal_places=1,max_digits=3,default=0.0)
     has_color               =  models.BooleanField(default=False)
+    has_length              =  models.BooleanField(default=False)
+    has_weight              =  models.BooleanField(default=False)
+    has_package             =  models.BooleanField(default=False)
     has_variation           =  models.BooleanField(default=False)
     product_type            =  models.CharField(choices=PRODUCT_TYPE,default="simple",max_length=255)
     is_active               =  models.BooleanField(default=False)
@@ -162,8 +163,32 @@ class Product(models.Model):
     start_date              =  models.DateField(blank=True,null=True)
     end_date                =  models.DateField(blank=True,null=True)
 
-    
-   
+
+class ColorVariation(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="color",blank=True,null=True)
+    color_code              =  models.CharField(max_length=255,blank=True,null=True)
+    active                  =  models.BooleanField(default=False)
+
+class WeightVariation(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="weight",blank=True,null=True)
+    weight                  =  models.CharField(max_length=255,blank=True,null=True)
+    measurement             =  models.CharField(max_length=255,blank=True,null=True)
+    active                  =  models.BooleanField(default=False)
+ 
+
+class LengthVariation(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="length",blank=True,null=True)
+    length                  =  models.CharField(max_length=255,blank=True,null=True)
+    measurement             =  models.CharField(max_length=255,blank=True,null=True)
+    active                  =  models.BooleanField(default=False)
+ 
+
+class PackagingVariation(models.Model):
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="package",blank=True,null=True)
+    package                 =  models.CharField(max_length=255,blank=True,null=True)
+    measurement             =  models.CharField(max_length=255,blank=True,null=True)
+    active                  =  models.BooleanField(default=False)
+ 
 
 class ProductReview(models.Model):
     product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_review",blank=True,null=True)
@@ -204,7 +229,7 @@ class ProductGuide(models.Model):
 class ProductTab(models.Model):
     product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True,related_name="product_tab")
     title                   =  models.CharField(max_length=255,blank=True,null=True)
-    content                 =  HTMLField()
+    content                 =  models.TextField(max_length=5000,blank=True,null=True)
 
     class Meta:
         # Add verbose name
@@ -249,12 +274,11 @@ class VariationGroup(models.Model):
         verbose_name = 'Variation Group'
 
 class Variation(models.Model):
+    product                 =  models.ForeignKey('Product',on_delete = models.CASCADE,blank=True,null=True,related_name="variation")
     variation_group         =  models.ForeignKey('VariationGroup',on_delete = models.CASCADE,blank=True,null=True,related_name="group_varation")
     image                   =  models.ImageField(upload_to="veregood/product/variation/image/",blank=True,null=True)
     thumbnail               =  models.ImageField(upload_to="veregood/product/image/variation/thumnail/",blank=True,null=True)
-    text                    =  models.CharField(max_length=255,blank=True,null=True)
-    value                   =  models.CharField(max_length=255,blank=True,null=True)
-    sub_text                =  models.CharField(max_length=255,blank=True,null=True)
+    title                   =  models.CharField(max_length=255,blank=True,null=True)
     price                   =  models.DecimalField(decimal_places=2,max_digits=10,default=0.00)
     is_active               =  models.BooleanField(default=False)
     in_stock                =  models.BooleanField(default=False)
@@ -299,12 +323,6 @@ class ProductListing(models.Model):
 
 
 #######
-class MainCategory(MPTTModel):
-    icon                    =  models.ImageField(upload_to="veregood/category/icon",blank=True,null=True)
-    image                   =  models.ImageField(upload_to="veregood/category/image",blank=True,null=True)
-    is_active               =  models.BooleanField(default=False)              
-    name                    =  models.CharField(max_length=200)
-    slug                    =  models.SlugField(unique=True)
 
 
 class Category(MPTTModel):
@@ -333,6 +351,23 @@ class Category(MPTTModel):
             k = k.parent
 
         return ' -> '.join(full_path[::-1])
+
+ATTRIBUTE_TYPE =(
+    ("text","text"),
+    ("table","table"),
+    ("input","input"),
+    ("popup","popup"),
+    ("link","link"),
+    ("dropdown_selection","dropdown_selection"),
+)
+
+class Attribute(models.Model):
+    title             =  models.CharField(max_length=255,blank=True,null=True)
+    category          =  models.ForeignKey(Category,on_delete=models.CASCADE,blank=True,null=True,related_name="attributes")
+    attribute_type    =  models.CharField(max_length=255,default=ATTRIBUTE_TYPE)
+    sortable          =  models.IntegerField(default=0)
+    is_active         =  models.BooleanField(default=False)
+
 
 
 ########
