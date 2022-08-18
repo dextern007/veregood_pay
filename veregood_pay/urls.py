@@ -30,6 +30,7 @@ urlpatterns = [
     path("socket/",include('chat.urls')),
     path("",include('veregood.main_site.urls')),
     path('veregood/vendor/', include('veregood.vendor.urls'),name="vendor"),
+    path('veregood/payment/', include('veregood.payment.urls'),name="payment"),
 
     # path("stripe/end-point",stripe_webhook,name="stripe_webhook")
 

@@ -7,7 +7,6 @@ from veregood.views import *
 
 urlpatterns = [
 
-
     # API VERSION 1.0 DEXTER
     path('banner/',                BannerView.as_view()),
     path('collection/',            CollectionView.as_view()),

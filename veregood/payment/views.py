@@ -12,32 +12,32 @@ import json
 @csrf_exempt
 def create_checkout_session(request, id):
 
-    request_data = json.loads(request.body)
+    # request_data = json.loads(request.body)
     # product = get_object_or_404(Product, pk=id)
 
-    stripe.api_key = settings.STRIPE_SECRET_KEY
+    stripe.api_key = settings.STRIPE_SECRECT_KEY
     checkout_session = stripe.checkout.Session.create(
         # Customer Email is optional,
         # It is not safe to accept email directly from the client side
-        customer_email = request_data['email'],
+        customer_email = "dextern@aaitpro.com",
         payment_method_types=['card'],
         line_items=[
             {
                 'price_data': {
                     'currency': 'inr',
                     'product_data': {
-                    'name': order_id,
+                    'name': id,
                     },
-                    'unit_amount': int(order.cart.final_amount * 100),
+                    'unit_amount': int(500* 100),
                 },
                 'quantity': 1,
             }
         ],
         mode='payment',
         success_url=request.build_absolute_uri(
-            reverse('success')
+            reverse('payment:success')
         ) + "?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url=request.build_absolute_uri(reverse('failed')),
+        cancel_url=request.build_absolute_uri(reverse('payment:failure')),
     )
 
     # OrderDetail.objects.create(
@@ -49,7 +49,8 @@ def create_checkout_session(request, id):
  
 
     # return JsonResponse({'data': checkout_session})
-    return JsonResponse({'sessionId': checkout_session.id})
+    return render(request,"payment/start.html",{'sessionId': checkout_session.id,"stripe_public_key":settings.STRIPE_PUBLIC_KEY})
+    
 
 
 class PaymentSuccessView(TemplateView):

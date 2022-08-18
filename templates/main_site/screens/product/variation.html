@@ -2,11 +2,17 @@
 
 <div class="product-single-filter">
     <span>Available sizes :</span>
-    <select name="{{ group.title }}" required>
-        <option value="">Select</option>
-        {% for variation in product.varation.all %}
-        <option value="{{ variation.id }}">{{ variation.text }} ---> $ {{ variation.price }} </option>
-        {% endfor %}
-    </select>
+    
+    {% for variation in product.variation.all %}
+    
+    <a href="#" style="padding: 5px;background: antiquewhite;">
+        <div>
+        <b style="color: black;">{{ variation.title }}</b>
+        <br>
+        <p style="color: black;">{{ variation.price }}</p>
+    </div>
+     </a>
+    {% endfor %}
+
 </div>
 <br>

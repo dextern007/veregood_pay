@@ -157,7 +157,7 @@ class CategoryView(APIView):
             sub_cat  = CategorySerializer(sub,many=True).data
             main_cat["sub_category"]=sub_cat
             data.append(main_cat)
-        return Response(data,status=status.HTTP_200_OK)
+        return Response({"categories":data},status=status.HTTP_200_OK)
 
 
     def post(self,request,format=None):

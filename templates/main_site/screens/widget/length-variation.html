@@ -1,6 +1,7 @@
 <div class="product-single-filter">
     <span>Select package :</span>
-    <select name="{{ group.title }}" required>
+    <br/>
+    <select class="form-control" name="length" required>
         <option value="">Select</option>
         {% for i in product.length.all %}
         <option value="{{ i.id }}">{{ i.length }} ( {{ i.measurement }} ) </option>
