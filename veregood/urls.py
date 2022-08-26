@@ -23,6 +23,7 @@ urlpatterns = [
     path('auction/',               Auction.as_view()),
     path('explore/',               Explore.as_view()),
     path('collection-group/',      CollectionGroupView.as_view()),
+    path('order/',                 OrderView.as_view()),
    
 
 ]

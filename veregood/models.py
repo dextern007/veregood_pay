@@ -317,11 +317,6 @@ class ProductListing(models.Model):
 
 
 
-
-
-
-
-
 #######
 
 
@@ -424,14 +419,6 @@ class WishlistItem(models.Model):
         return self.id
 
 
-
-
-
-
-
-
-
-
 ######
 
 
@@ -457,9 +444,10 @@ PAYMENT_TYPE=(
 )
 
 class Order(models.Model):
+    payment             = models.ForeignKey("Payment",on_delete=models.CASCADE,blank=True,null=True)
     user                = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
-    payment_id          = models.CharField(max_length=255,blank=True,null=True,unique=True)
-    cart                = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True)
+    # payment_id          = models.CharField(max_length=255,blank=True,null=True,unique=True)
+    item                = models.ForeignKey(CartItem,on_delete=models.CASCADE,blank=True,null=True)
     location            = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
     total               = models.BigIntegerField(default=0)
     coupoun_discount    = models.BigIntegerField(default=0)
@@ -498,10 +486,11 @@ class Auction(models.Model):
 
 
 class Payment(models.Model):
-    order               = models.ForeignKey(Order,on_delete=models.CASCADE,blank=True,null=True)
     payment_id          = models.CharField(default=uuid.uuid4,primary_key=True,unique=True,max_length=255)
+    payment_reference_id          = models.CharField(blank=True,null=True,max_length=255)
     status              = models.CharField(max_length=255)
     amount_paid         = models.IntegerField(default=0)
+    amount              = models.IntegerField(default=0)
     paid                = models.BooleanField(default=False)
     captured            = models.BooleanField(default=False)
 

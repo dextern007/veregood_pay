@@ -219,22 +219,30 @@ class OrderView(APIView):
     def post(self,request,format=None):
         # Create an Order 
         cart        = Cart.objects.get(user=request.user)
-        order       = Order.objects.create(user=request.user,cart=cart)
-        order.total = cart.total
+        address     = request.data["address"]
+        payment     = Payment.objects.create(amount= cart.total)
 
-        # total+tax+delivery_charge - discount
-        order.final_total = cart.total
-        order.save()
-
+        for item in cart.cart_item.all():
+            order       = Order.objects.create(payment=payment,user=request.user,item=item,address=address)
+            order.total = item.line_total
+            # total+tax+delivery_charge - discount
+            order.final_total = item.line_total
+            order.save()
+        cart.user = None
+        cart.save()
         # Create Payment Intent
-        pass
+        serializer = PaymentSerilaizer(payment)
+        return Response({"message":"order created successfully","payment":serializer.data},status=status.HTTP_200_OK)
 
 
     def put(self,request,format=None):
         data = request.data
-        order = Order.objects.get(id=data["1d"])
-        order.payment_id = data["payment_id"]
-        order.save()
+        payment = Payment.objects.get(payment_id=data["id"])
+        payment.payment_reference_id = data["payment_reference_id"]
+        payment.paid = True
+        payment.save()
+        serializer = PaymentSerilaizer(payment)
+        return Response({"message":"order payment confirmed","payment":serializer.data},status=status.HTTP_200_OK)
 
         
 

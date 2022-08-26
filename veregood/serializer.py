@@ -178,7 +178,7 @@ class PaymentSerilaizer(serializers.ModelSerializer):
         fields = "__all__"
 
 class OrderSerializer(serializers.ModelSerializer):
-    cart     = CartSerializer()
+    item     = CartItemSerializer()
     payment  = PaymentSerilaizer()
     class Meta():
         model = Order
