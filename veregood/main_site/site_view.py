@@ -139,9 +139,12 @@ def signup(request):
 def verification(request):
     return HttpResponse(render(request,'main_site/screens/otp-verification.html'))
 
+@login_required(login_url="veregood:login")
 def cart(request):
+
     cart , created = Cart.objects.get_or_create(user=request.user)
-    return HttpResponse(render(request,'main_site/screens/cart.html',{"cart",cart}))
+
+    return HttpResponse(render(request,'main_site/screens/cart.html',{"cart":cart}))
 
 def dashboard(request):
     return HttpResponse(render(request,'main_site/screens/dashboard.html'))
@@ -165,4 +168,7 @@ def wishlist(request):
     return HttpResponse(render(request,'main_site/screens/wishlist.html',{"wishlist",wishlist}))
 
 def services(request):
-    return HttpResponse(render(request,'main_site/screens/services.html'))
+    from veregood_service.models import VendorService
+    q = request.GET["q"]
+    services = VendorService.objects.filter(service_type__service_name = q)
+    return HttpResponse(render(request,'main_site/screens/services.html',{"services":services}))

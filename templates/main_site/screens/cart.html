@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    {% for item in cart.cart_item.all %}
                                     <tr class="product-row">
                                         <td>
                                             <figure class="product-image-container">
@@ -60,65 +60,19 @@
                                         </td>
                                         <td class="product-col">
                                             <h5 class="product-title">
-                                                <a href="product.html">Men Watch</a>
+                                                <a href="product.html">{{ item.product.title }}</a>
                                             </h5>
                                         </td>
-                                        <td>$17.90</td>
+                                        <td>${{ item.product.price }}</td>
                                         <td>
                                             <div class="product-single-qty">
                                                 <input class="horizontal-quantity form-control" type="text">
                                             </div><!-- End .product-single-qty -->
                                         </td>
-                                        <td class="text-right"><span class="subtotal-price">$17.90</span></td>
+                                        <td class="text-right"><span class="subtotal-price">${% widthratio item.product.price 1 item.quantity %}</span></td>
                                     </tr>
+                                    {% endfor %}
 
-                                    <tr class="product-row">
-                                        <td>
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-3.jpg' %}" alt="product">
-                                                </a>
-
-                                                <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                            </figure>
-                                        </td>
-                                        <td class="product-col">
-                                            <h5 class="product-title">
-                                                <a href="product.html">Men Watch</a>
-                                            </h5>
-                                        </td>
-                                        <td>$17.90</td>
-                                        <td>
-                                            <div class="product-single-qty">
-                                                <input class="horizontal-quantity form-control" type="text">
-                                            </div><!-- End .product-single-qty -->
-                                        </td>
-                                        <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                                    </tr>
-
-                                    <tr class="product-row">
-                                        <td>
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-6.jpg' %}" alt="product">
-                                                </a>
-
-                                                <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                            </figure>
-                                        </td>
-                                        <td class="product-col">
-                                            <h5 class="product-title">
-                                                <a href="product.html">Men Black Gentle Belt</a>
-                                            </h5>
-                                        </td>
-                                        <td>$17.90</td>
-                                        <td>
-                                            <div class="product-single-qty">
-                                                <input class="horizontal-quantity form-control" type="text">
-                                            </div><!-- End .product-single-qty -->
-                                        </td>
-                                        <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                                    </tr>
                                 
                                 </tbody>
 
@@ -161,7 +115,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td>$17.90</td>
+                                        <td>${{ cart.sub_total }}</td>
                                     </tr>
 
                                     <!-- <tr>
@@ -220,7 +174,7 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total</td>
-                                        <td>$17.90</td>
+                                        <td>${{ cart.total }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

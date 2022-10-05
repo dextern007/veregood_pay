@@ -19,11 +19,10 @@ class VendorServiceView(APIView):
         id= self.request.query_params.get("id")
         vendor_service = VendorService.objects.get(id=id)
         vendor_service_serializer = VendorServiceSerializer(vendor_service)
-        return Response( vendor_service_serializer.data, status=status.HTTP_200_OK)
+        return Response(vendor_service_serializer.data, status=status.HTTP_200_OK)
 
 
 class BookingView(APIView):
-    
     def put(self,request,format=None):
         data=request.data
         booking_id = data["booking_id"]
@@ -126,8 +125,7 @@ class CreateVendor(APIView):
             
             arr = []
             for img_name in images:
-                modified_data = modify_input_for_multiple_files(vendor_service.id,
-                                                                img_name)
+                modified_data = modify_input_for_multiple_files(vendor_service.id,img_name)
                 file_serializer = PortfolioSerializer(data=modified_data)
                 if file_serializer.is_valid():
                     file_serializer.save()

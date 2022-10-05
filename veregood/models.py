@@ -381,6 +381,7 @@ class Attribute(models.Model):
 class Cart(models.Model):
     user                    = models.OneToOneField(settings.AUTH_USER_MODEL,blank=True,null=True,on_delete=models.CASCADE)
     total                   = models.BigIntegerField(default=0)
+    sub_total                   = models.BigIntegerField(default=0)
 
 
 class CartItem(models.Model):

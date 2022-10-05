@@ -89,24 +89,25 @@
     <div id="basicMap"></div>
     <div id="right-side" class="">
       <!--1-->
+      {% for service in services %}
       <div class="map-services">
         <div class="left">
-          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
+          <img src="/media/{{ service.profile_image }}" alt="" class="img-responsive">
         </div>
         <div class="center">
           <a href="">
-            <h6>Bodyguard Name</h6>
+            <h6>{{ service.name }}</h6>
             <div>
               <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
             </div>
             <p class="distance">5km away</p>
-            <p class="price">$10/Hour</p>
+            <p class="price">${{ service.charge }}/Hour</p>
           </a>
         </div>
         <div class="right">
           <a href="#">
             <div>
-              <span> 4.3 <i class="fa fa-star checked"></i></span>
+              <span> {{ service.rating }} <i class="fa fa-star checked"></i></span>
             </div>
             <div class="click-icon">
               <i class="fa fa-angle-right"></i>
@@ -114,136 +115,7 @@
           </a>
         </div>
       </div>
-      <!--2-->
-      <div class="map-services">
-        <div class="left">
-          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
-        </div>
-        <div class="center">
-          <a href="">
-            <h6>Bodyguard Name</h6>
-            <div>
-              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
-            </div>
-            <p class="distance">5km away</p>
-            <p class="price">$10/Hour</p>
-          </a>
-        </div>
-        <div class="right">
-          <a href="#">
-            <div>
-              <span> 4.3 <i class="fa fa-star checked"></i></span>
-            </div>
-            <div class="click-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!--3-->
-      <div class="map-services">
-        <div class="left">
-          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
-        </div>
-        <div class="center">
-          <a href="">
-            <h6>Bodyguard Name</h6>
-            <div>
-              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
-            </div>
-            <p class="distance">5km away</p>
-            <p class="price">$10/Hour</p>
-          </a>
-        </div>
-        <div class="right">
-          <a href="#">
-            <div>
-              <span> 4.3 <i class="fa fa-star checked"></i></span>
-            </div>
-            <div class="click-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!--1-->
-      <div class="map-services">
-        <div class="left">
-          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
-        </div>
-        <div class="center">
-          <a href="">
-            <h6>Bodyguard Name</h6>
-            <div>
-              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
-            </div>
-            <p class="distance">5km away</p>
-            <p class="price">$10/Hour</p>
-          </a>
-        </div>
-        <div class="right">
-          <a href="#">
-            <div>
-              <span> 4.3 <i class="fa fa-star checked"></i></span>
-            </div>
-            <div class="click-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!--2-->
-      <div class="map-services">
-        <div class="left">
-          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
-        </div>
-        <div class="center">
-          <a href="">
-            <h6>Bodyguard Name</h6>
-            <div>
-              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
-            </div>
-            <p class="distance">5km away</p>
-            <p class="price">$10/Hour</p>
-          </a>
-        </div>
-        <div class="right">
-          <a href="#">
-            <div>
-              <span> 4.3 <i class="fa fa-star checked"></i></span>
-            </div>
-            <div class="click-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!--3-->
-      <div class="map-services">
-        <div class="left">
-          <img src="{% static 'main_site/assets/OpenLayers/img/service/profile.png' %}" alt="" class="img-responsive">
-        </div>
-        <div class="center">
-          <a href="">
-            <h6>Bodyguard Name</h6>
-            <div>
-              <img src="{% static 'main_site/assets/OpenLayers/img/service/navigation-icon.png' %}" alt="" class="img-responsive"> Huston,TX
-            </div>
-            <p class="distance">5km away</p>
-            <p class="price">$10/Hour</p>
-          </a>
-        </div>
-        <div class="right">
-          <a href="#">
-            <div>
-              <span> 4.3 <i class="fa fa-star checked"></i></span>
-            </div>
-            <div class="click-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-          </a>
-        </div>
-      </div>
+      {% endfor %}
     </div>
 </body>
 {% endblock %}

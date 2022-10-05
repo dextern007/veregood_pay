@@ -19,9 +19,10 @@
                 }
             }
         }">
+            {% for product in collection.product_listing.all %}
             <div class="product-default inner-quickview inner-icon">
                 <figure>
-                    <a href="#">
+                    <a href="{% url 'veregood:product' pk=product.product.id %}">
                         <img src="{% static 'main_site/assets/images/veregood-images/products/product-6.jpg' %}" width="205" height="205" alt="product">
                     </a>
 
@@ -41,205 +42,22 @@
                 <div class="product-details">
                     <div class="category-wrap">
                         <div class="category-list">
-                            <a href="#" class="product-category">category</a>
+                            <a href="#" class="product-category">{{ product.product.category.title }}</a>
                         </div>
-                        <a href="#" title="Wishlist" class="btn-icon-wish"><i
-                                class="icon-heart"></i></a>
+<!--                        <a href="#" title="Wishlist" class="btn-icon-wish"><i-->
+<!--                                class="icon-heart"></i></a>-->
                     </div>
                     <h3 class="product-title">
-                        <a href="#">Man Jeans</a>
+                        <a href="#">{{ product.product.title }}</a>
                     </h3>
 
                     <div class="price-box">
                         <span class="old-price">$90.00</span>
-                        <span class="product-price">$70.00</span>
+                        <span class="product-price">${{ product.product.price }}</span>
                     </div><!-- End .price-box -->
                 </div><!-- End .product-details -->
             </div>
-            <div class="product-default inner-quickview inner-icon">
-                <figure>
-                    <a href="#">
-                        <img src="{% static 'main_site/assets/images/veregood-images/products/product-4.jpg' %}" width="205"
-                            height="205" alt="product">
-                    </a>
-                    <div class="btn-icon-group">
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                    </div>
-                </figure>
-                <div class="product-details">
-                    <div class="category-wrap">
-                        <div class="category-list">
-                            <a href="#" class="product-category">category</a>
-                        </div>
-                        <a href="#" title="Wishlist" class="btn-icon-wish"><i
-                                class="icon-heart"></i></a>
-                    </div>
-                    <h3 class="product-title">
-                        <a href="#">Main Coat</a>
-                    </h3>
-
-                    <div class="price-box">
-                        <span class="old-price">$90.00</span>
-                        <span class="product-price">$70.00</span>
-                    </div><!-- End .price-box -->
-                </div><!-- End .product-details -->
-            </div>
-            <div class="product-default inner-quickview inner-icon">
-                <figure>
-                    <a href="#">
-                        <img src="{% static 'main_site/assets/images/veregood-images/products/product-6.jpg' %}" width="205"
-                            height="205" alt="product">
-                    </a>
-
-                    <div class="btn-icon-group">
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                    </div>
-                    <div class="label-group">
-                            <div class="product-label label-number">-15<span>%</span></div>
-                            <div class="product-label label-hot">HOT</div>
-                     </div>
-                </figure>
-                <div class="product-details">
-                    <div class="category-wrap">
-                        <div class="category-list">
-                            <a href="#" class="product-category">category</a>
-                        </div>
-                        <a href="#" title="Wishlist" class="btn-icon-wish"><i
-                                class="icon-heart"></i></a>
-                    </div>
-                    <h3 class="product-title">
-                        <a href="#">Man Jeans</a>
-                    </h3>
-
-                    <div class="price-box">
-                        <span class="old-price">$90.00</span>
-                        <span class="product-price">$70.00</span>
-                    </div><!-- End .price-box -->
-                </div><!-- End .product-details -->
-            </div>
-            <div class="product-default inner-quickview inner-icon">
-                <figure>
-                    <a href="#">
-                        <img src="{% static 'main_site/assets/images/veregood-images/products/product-2.jpg' %}" width="205"
-                            height="205" alt="product">
-                    </a>
-
-                    <div class="btn-icon-group">
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                    </div>
-                    <div class="label-group">
-                            <div class="product-label label-number">-10<span>%</span></div>
-                     </div>
-                </figure>
-                <div class="product-details">
-                    <div class="category-wrap">
-                        <div class="category-list">
-                            <a href="#" class="product-category">category</a>
-                        </div>
-                        <a href="#" title="Wishlist" class="btn-icon-wish"><i
-                                class="icon-heart"></i></a>
-                    </div>
-                    <h3 class="product-title">
-                        <a href="#">Warm Jacket</a>
-                    </h3>
-
-                    <div class="price-box">
-                        <span class="old-price">$90.00</span>
-                        <span class="product-price">$70.00</span>
-                    </div><!-- End .price-box -->
-                </div><!-- End .product-details -->
-            </div>
-            <div class="product-default inner-quickview inner-icon">
-                <figure>
-                    <a href="#">
-                        <img src="{% static 'main_site/assets/images/veregood-images/products/product-3.jpg' %}" width="205"
-                            height="205" alt="product">
-                        <img src="{% static 'main_site/assets/images/veregood-images/products/product-3-2.jpg' %}" width="205"
-                            height="205" alt="product">
-                    </a>
-
-                    <div class="btn-icon-group">
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                    </div>
-                    <div class="label-group">
-                            <div class="product-label label-number">-10<span>%</span></div>
-                     </div>
-                </figure>
-                <div class="product-details">
-                    <div class="category-wrap">
-                        <div class="category-list">
-                            <a href="#" class="product-category">category</a>
-                        </div>
-                        <a href="#" title="Wishlist" class="btn-icon-wish"><i
-                                class="icon-heart"></i></a>
-                    </div>
-                    <h3 class="product-title">
-                        <a href="#">White Sport Shoes</a>
-                    </h3>
-
-                    <div class="price-box">
-                        <span class="old-price">$90.00</span>
-                        <span class="product-price">$70.00</span>
-                    </div><!-- End .price-box -->
-                </div><!-- End .product-details -->
-            </div>
-            <div class="product-default inner-quickview inner-icon">
-                <figure>
-                    <a href="#">
-                        <img src="{% static 'main_site/assets/images/veregood-images/products/product-7.jpg' %}" width="205"
-                            height="205" alt="product">
-                    </a>
-
-                    <div class="btn-icon-group">
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                    </div>
-                    <div class="label-group">
-                            <div class="product-label label-number">-10<span>%</span></div>
-                     </div>
-                </figure>
-                <div class="product-details">
-                    <div class="category-wrap">
-                        <div class="category-list">
-                            <a href="#" class="product-category">category</a>
-                        </div>
-                        <a href="#" title="Wishlist" class="btn-icon-wish"><i
-                                class="icon-heart"></i></a>
-                    </div>
-                    <h3 class="product-title">
-                        <a href="#">Wrist Watch</a>
-                    </h3>
-
-                    <div class="price-box">
-                        <span class="old-price">$90.00</span>
-                        <span class="product-price">$70.00</span>
-                    </div><!-- End .price-box -->
-                </div><!-- End .product-details -->
-            </div>
+            {% endfor %}
         </div><!-- End .featured-proucts -->
     </div>
 </section>

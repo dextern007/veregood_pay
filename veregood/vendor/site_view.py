@@ -293,9 +293,8 @@ def complete_profile(request):
                 Permission.objects.get(codename='change_packagingvariation'),
                 Permission.objects.get(codename='view_packagingvariation'),
                 Permission.objects.get(codename='delete_packagingvariation'),
-
-
                 )
+
 
             user.save()
             return HttpResponseRedirect(reverse('veregood_vendor:dashboard'))
@@ -327,7 +326,6 @@ def dashboard(request):
 
 @login_required(login_url="veregood:login")
 def select_category(request):
-
     """
     Selecting a category Before Adding Product
     """
@@ -384,8 +382,6 @@ def product_view(request):
 
 @login_required(login_url="veregood:login")
 def store_setting(request):
-    
-    
     form = VendorProfileEditForm()
     return HttpResponse(render(request,'veregood/vendor/screens/dashboard/store.html',{"form":form}))
 

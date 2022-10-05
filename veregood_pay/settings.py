@@ -76,6 +76,9 @@ INSTALLED_APPS = [
 
     "country",
     "currency",
+    "dopplegangers",
+
+    'corsheaders',
 ]
 
 # TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
@@ -118,6 +121,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

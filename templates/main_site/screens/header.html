@@ -72,7 +72,7 @@
                         <button class="mobile-menu-toggler mr-2" type="button">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <a href="#" class="logo">
+                        <a href="{% url 'veregood:index' %}" class="logo">
                             <img src="{% static 'main_site/assets/images/veregood-images/logo.png' %}" alt="Logo">
                         </a>
                     </div>
@@ -149,14 +149,15 @@
                                 <li>
                                     <a href="#">Services</a>
                                     <ul>
-                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Bodyguard</a></li>
-                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Rent Storage Space</a></li>
-                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Rent Parking Space</a></li>
-                                        <li><a href="{% url 'veregood:services' %}" target="_blank">Rent House Space</a></li>
+                                        <li><a href="{% url 'veregood:services' %}?q=bodyguard" target="_blank">Bodyguard</a></li>
+                                        <li><a href="{% url 'veregood:services' %}?q=storage" target="_blank">Rent Storage Space</a></li>
+                                        <li><a href="{% url 'veregood:services' %}?q=parking" target="_blank">Rent Parking Space</a></li>
+                                        <li><a href="{% url 'veregood:services' %}?q=house" target="_blank">Rent House Space</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">GoodePay</a></li>
-                                <li><a href="#">New Release</a></li>
+                                <li><a href="#">GoodePay</a></li>
+                                <li><a href="#">Doppel Gangers</a></li>
                                 <li><a href="#">Contact Us</a></li>
                                 
                             </ul>
