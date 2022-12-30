@@ -45,14 +45,16 @@ class JavaScript(models.Model):
 
 class Api(models.Model):
     key = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    headers = models.TextField(blank=True, null=True)
     content =      models.TextField(max_length=2500,blank=True,null=True)
 
 
 class JsonSerializer(models.Model):
+    headers = models.TextField(blank=True,null=True)
     api     = models.ManyToManyField('Api', blank=True,related_name="serializer")
     title   = models.CharField(max_length=255, unique=True, blank=True, null=True)
     key     = models.CharField(max_length=255, unique=True, blank=True, null=True)
-    content =      models.TextField(max_length=2500,blank=True,null=True)
+    content =      models.TextField(blank=True,null=True)
 
 
 class View(models.Model):

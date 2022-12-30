@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from rest_framework.authentication import TokenAuthentication
+
 from website.models import Page,JsonSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -37,7 +39,7 @@ def PageView(request,key):
 
 
 class ApiRequest(APIView):
-
+    authentication_classes = [TokenAuthentication]
 
     def get(self,request,format=None):
         response = dict()
@@ -46,10 +48,20 @@ class ApiRequest(APIView):
         api = Api.objects.get(key=api_key)
         serializer_class = JsonSerializer.objects.filter(api__id= api.id)
 
-        for data in serializer_class:
-            exec(data.content)
 
+
+        serializer_content =[]
+        serializer_header =[]
+        for data in serializer_class:
+            serializer_content.append(data.content)
+            serializer_header.append(data.header)
+
+        exec(api.headers)
+        exec("\n".join(serializer_header),locals())
+        exec("\n".join(serializer_content),locals())
         exec(api.content)
+
+
         return Response(response,status=resp_code)
 
     def post(self, request, format=None):
@@ -59,9 +71,15 @@ class ApiRequest(APIView):
         api = Api.objects.get(key=api_key)
         serializer_class = JsonSerializer.objects.filter(api__id=api.id)
 
+        serializer_content = []
+        serializer_header = []
         for data in serializer_class:
-            exec(data.content)
+            serializer_content.append(data.content)
+            serializer_header.append(data.header)
 
+        exec(api.headers)
+        exec("\n".join(serializer_header), locals())
+        exec("\n".join(serializer_content), locals())
         exec(api.content)
         return Response(response, status=resp_code)
 
@@ -72,9 +90,15 @@ class ApiRequest(APIView):
         api = Api.objects.get(key=api_key)
         serializer_class = JsonSerializer.objects.filter(api__id=api.id)
 
+        serializer_content = []
+        serializer_header = []
         for data in serializer_class:
-            exec(data.content)
+            serializer_content.append(data.content)
+            serializer_header.append(data.header)
 
+        exec(api.headers)
+        exec("\n".join(serializer_header), locals())
+        exec("\n".join(serializer_content), locals())
         exec(api.content)
         return Response(response,status=resp_code)
 
@@ -85,8 +109,14 @@ class ApiRequest(APIView):
         api = Api.objects.get(key=api_key)
         serializer_class = JsonSerializer.objects.filter(api__id=api.id)
 
+        serializer_content = []
+        serializer_header = []
         for data in serializer_class:
-            exec(data.content)
+            serializer_content.append(data.content)
+            serializer_header.append(data.header)
 
+        exec(api.headers)
+        exec("\n".join(serializer_header), locals())
+        exec("\n".join(serializer_content), locals())
         exec(api.content)
         return Response(response,status=resp_code)
