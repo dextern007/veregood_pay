@@ -49,7 +49,7 @@ class Api(models.Model):
 
 
 class JsonSerializer(models.Model):
-    api     = models.ManyToManyField('Api', blank=True)
+    api     = models.ManyToManyField('Api', blank=True,related_name="serializer")
     title   = models.CharField(max_length=255, unique=True, blank=True, null=True)
     key     = models.CharField(max_length=255, unique=True, blank=True, null=True)
     content =      models.TextField(max_length=2500,blank=True,null=True)
