@@ -1,4 +1,5 @@
 <main class="main">
+
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <ol class="breadcrumb">
@@ -122,72 +123,53 @@
                             CATEGORY: <strong><a href="#" class="product-category">{{ prod.category.name }}</a></strong>
                         </li>
 
-                        <li>
-                            TAGs: 
-                  
-                            <!-- <strong><a href="#" class="product-category">{{ tag.name }}</a></strong> -->
-                     
-                            
-                        </li>
+
                     </ul>
-                    {% if prod.has_color %}
-                    {% include 'main_site/screens/widget/color-variation.html' with product=prod only %}
-                    {% endif %}
 
-                    {% if prod.has_weight %}
-                    {% include 'main_site/screens/widget/weight-variation.html' with product=prod only %}
-                    {% endif %}
+                        {% if prod.has_color %}
+                        {% include 'main_site/screens/widget/color-variation.html' with product=prod only %}
+                        {% endif %}
 
-                    {% if prod.has_length %}
-                    {% include 'main_site/screens/widget/length-variation.html' with product=prod only %}
-                    {% endif %}
+                        {% if prod.has_weight %}
+                        {% include 'main_site/screens/widget/weight-variation.html' with product=prod only %}
+                        {% endif %}
 
-                    {% if prod.has_package %}
-                    {% include 'main_site/screens/widget/package-variation.html' with product=prod only %}
-                    {% endif %}
+                        {% if prod.has_length %}
+                        {% include 'main_site/screens/widget/length-variation.html' with product=prod only %}
+                        {% endif %}
 
-                    {% if prod.has_variation %}
-                    {% include 'main_site/screens/product/variation.html' with product=prod only %}
-                    {% endif %}
+                        {% if prod.has_package %}
+                        {% include 'main_site/screens/widget/package-variation.html' with product=prod only %}
+                        {% endif %}
+
+                        {% if prod.has_variation %}
+                        {% include 'main_site/screens/product/variation.html' with product=prod only %}
+                        {% endif %}
 
 
                     <div class="product-action">
                         <div class="product-single-qty">
-                            <input class="horizontal-quantity form-control" type="text">
+                            <input id="quantity" name="quantity" class="horizontal-quantity form-control" type="text">
                         </div>
                         <!-- End .product-single-qty -->
 
-                        <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
-                            Cart</a>
+                        <button  type="submit" class="btn btn-dark mr-2" title="Add to Cart">Add to Cart</button>
 
-                        <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
+                        <a href="{% url 'veregood:shopping-cart' %}" class="btn btn-gray view-cart d-none">View cart</a>
                     </div>
+                    </form>
                     <!-- End .product-action -->
 
                     <hr class="divider mb-0 mt-0">
 
-                    <div class="product-single-share mb-3">
-                        <label class="sr-only">Share:</label>
 
-                        <div class="social-icons mr-2">
-                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
-                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
-                            <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
-                            <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
-                            <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
-                        </div>
-                        <!-- End .social-icons -->
-
-                        <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
-                                class="icon-wishlist-2"></i><span>Add to
-                                Wishlist</span></a>
-                    </div>
                     <!-- End .product single-share -->
                 </div>
                 <!-- End .product-single-details -->
             </div>
             <!-- End .row -->
         </div>
+
         <!-- End .product-single-container -->
 
         {% include 'main_site/screens/product/tabs.html' with product=prod only %}
@@ -200,5 +182,6 @@
  
         <!-- End .row -->
     </div>
+
     <!-- End .container -->
 </main>

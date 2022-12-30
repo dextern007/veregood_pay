@@ -55,7 +55,7 @@
                                                     <img src="{% static 'main_site/assets/images/products/product-4.jpg' %}" alt="product">
                                                 </a>
 
-                                                <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
+                                                <a href="{% url 'veregood:delete_cart_item' pk=item.id %}" class="btn-remove icon-cancel" title="Remove Product"></a>
                                             </figure>
                                         </td>
                                         <td class="product-col">
@@ -65,9 +65,14 @@
                                         </td>
                                         <td>${{ item.product.price }}</td>
                                         <td>
-                                            <div class="product-single-qty">
-                                                <input class="horizontal-quantity form-control" type="text">
-                                            </div><!-- End .product-single-qty -->
+                                         <a href="{% url 'veregood:remove_quantity' pk=item.id %}"><i class="fa fa-minus"></i></a>
+                                        </td>
+                                        <td>
+                                            <p>{{ item.quantity }}</p>
+                                        </td>
+                                        <td>
+
+                                             <a href="{% url 'veregood:add_quantity' pk=item.id %}"><i class="fa fa-plus"></i></a>
                                         </td>
                                         <td class="text-right"><span class="subtotal-price">${% widthratio item.product.price 1 item.quantity %}</span></td>
                                     </tr>
@@ -180,7 +185,7 @@
                             </table>
 
                             <div class="checkout-methods">
-                                <a href="cart.html" class="btn btn-block btn-blue">Proceed to Checkout
+                                <a href="{% url 'veregood:checkout' %}" class="btn btn-block btn-blue">Proceed to Checkout
                                     <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div><!-- End .cart-summary -->

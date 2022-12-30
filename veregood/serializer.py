@@ -1,7 +1,6 @@
 
 from pickletools import read_long1
 from pyexpat import model
-from numpy import product
 from rest_framework import serializers
 from account.models import User
 

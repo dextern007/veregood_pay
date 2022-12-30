@@ -17,7 +17,7 @@
 {% block header %}
 {% include 'main_site/screens/header.html' %}
 {% endblock %}
-
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 {% block content %}
 <main class="main main-test">
             <div class="container checkout-container">
@@ -326,31 +326,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for item in user.cart.cart_item.all %}
                                     <tr>
                                         <td class="product-col">
                                             <h3 class="product-title">
-                                                Circled Ultimate 3D Speaker ×
-                                                <span class="product-qty">4</span>
+                                                {{ item.product.title }} ×
+                                                <span class="product-qty">{{ item.product.quantity }}</span>
                                             </h3>
                                         </td>
 
                                         <td class="price-col">
-                                            <span>$1,040.00</span>
+                                            <span>${{ item.line_total }}</span>
                                         </td>
                                     </tr>
+                                   {% endfor %}
 
-                                    <tr>
-                                        <td class="product-col">
-                                            <h3 class="product-title">
-                                                Fashion Computer Bag ×
-                                                <span class="product-qty">2</span>
-                                            </h3>
-                                        </td>
 
-                                        <td class="price-col">
-                                            <span>$418.00</span>
-                                        </td>
-                                    </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr class="cart-subtotal">
@@ -359,7 +350,7 @@
                                         </td>
 
                                         <td class="price-col">
-                                            <span>$1,458.00</span>
+                                            <span>${{ user.cart.sub_total }}</span>
                                         </td>
                                     </tr>
                                     <tr class="order-shipping">
@@ -375,13 +366,13 @@
                                             </div>
                                             <!-- End .form-group -->
 
-                                            <div class="form-group form-group-custom-control mb-0">
-                                                <div class="custom-control custom-radio d-flex mb-0">
-                                                    <input type="radio" name="radio" class="custom-control-input">
-                                                    <label class="custom-control-label">Flat Rate</label>
-                                                </div>
-                                                <!-- End .custom-checkbox -->
-                                            </div>
+<!--                                            <div class="form-group form-group-custom-control mb-0">-->
+<!--                                                <div class="custom-control custom-radio d-flex mb-0">-->
+<!--                                                    <input type="radio" name="radio" class="custom-control-input">-->
+<!--                                                    <label class="custom-control-label">Flat Rate</label>-->
+<!--                                                </div>-->
+<!--                                                &lt;!&ndash; End .custom-checkbox &ndash;&gt;-->
+<!--                                            </div>-->
                                             <!-- End .form-group -->
                                         </td>
 
@@ -392,7 +383,7 @@
                                             <h4>Total</h4>
                                         </td>
                                         <td>
-                                            <b class="total-price"><span>$1,603.80</span></b>
+                                            <b class="total-price"><span>${{ user.cart.total }}</span></b>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -401,9 +392,10 @@
                             <div class="payment-methods">
                                 <h4 class="">Payment methods</h4>
                                 <div class="info-box with-icon p-0">
-                                    <p>
-                                        Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.
-                                    </p>
+                                    <div id="paypal-button-container"></div>
+<!--                                    <p>-->
+<!--                                        Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.-->
+<!--                                    </p>-->
                                 </div>
                             </div>
 
@@ -419,6 +411,25 @@
             </div>
             <!-- End .container -->
 </main>
+
+<script>
+    paypal.Buttons({
+        createOrder : function(data,actions){
+            return actions.order.create({
+                    purchase_units:[{
+                    amount:{
+                        value:'0.1'
+                     }
+                    }]
+             });
+    },
+    onApprove:function(data,actions){
+        return actions.order.capture().then(function(dettails) {
+            alert('Done');
+        });
+       }
+      }).render('#paypal-button-container);
+</script>
         <!-- End .main -->
 {% endblock %}
 

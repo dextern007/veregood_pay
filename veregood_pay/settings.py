@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "dopplegangers",
 
     'corsheaders',
+    "website",
 ]
 
 # TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
@@ -177,8 +178,8 @@ if LIVE_MODE == False:
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'veregood_db',
-            'USER': 'myprojectuser',
-            'PASSWORD': 'password',
+            'USER': 'dexter',
+            'PASSWORD': 'Diwah@r123',
             'HOST': 'localhost',
             'PORT': '5432',
         },
@@ -194,6 +195,8 @@ else:
             'PORT': '5432',
         },
     }
+
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -274,7 +277,7 @@ AUTH_USER_MODEL = 'account.User'
 # https://docs.djangoproject.com/en/4.0/ref/contrib/gis/tutorial/
 # Download URL http://download.osgeo.org  GDAL 2.2.2 , GEOS 3.3.0 , PROJ 4
 
-GDAL_LIBRARY_PATH = "/usr/local/lib/libgdal.so"
+# GDAL_LIBRARY_PATH = "/usr/local/lib/libgdal.so"
 # GEOS_LIBRARY_PATH = "/usr/local/lib/libgeos_c.so"
 
 

@@ -16,24 +16,27 @@
 
 {% block content %}
 
-{% if product.page_layout == "layout_1" %}
-{% include 'main_site/screens/product/layout-1.html' with prod=product only %}
+    <form method="post" action="{% url 'veregood:add_cart' pk=product.id %}">
+        {% csrf_token %}
 
-{% elif product.page_layout == "layout_2" %}
-{% include 'main_site/screens/product/layout-2.html' with prod=product only %}
+    {% if product.page_layout == "layout_1" %}
+    {% include 'main_site/screens/product/layout-1.html' with prod=product only %}
 
-{% elif product.page_layout == "layout_3" %}
-{% include 'main_site/screens/product/layout-3.html' with prod=product only %}
+    {% elif product.page_layout == "layout_2" %}
+    {% include 'main_site/screens/product/layout-2.html' with prod=product only %}
 
-{% elif product.page_layout == "layout_4" %}
-{% include 'main_site/screens/product/layout-4.html' with prod=product only %}
+    {% elif product.page_layout == "layout_3" %}
+    {% include 'main_site/screens/product/layout-3.html' with prod=product only %}
 
-{% else  %}
-<!-- 3d Layout -->
-{% include 'main_site/screens/product/layout-5-3d.html' with prod=product only %}
+    {% elif product.page_layout == "layout_4" %}
+    {% include 'main_site/screens/product/layout-4.html' with prod=product only %}
+
+    {% else  %}
+    <!-- 3d Layout -->
+    {% include 'main_site/screens/product/layout-5-3d.html' with prod=product only %}
 
 
-{% endif  %}
+    {% endif  %}
 
 {% endblock %}
 

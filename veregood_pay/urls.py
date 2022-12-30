@@ -37,5 +37,6 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('_nested_admin/', include('nested_admin.urls')),
     path('grappelli/', include('grappelli.urls')),
-    
-]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    path('web/', include('website.urls')),
+
+              ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

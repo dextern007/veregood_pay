@@ -1,5 +1,4 @@
 import email
-from cv2 import error
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
@@ -7,17 +6,24 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from account.models import User
-from veregood.models import Banner, Cart, Category, Collection, Product, Store, Wishlist
+from veregood.models import Banner, Cart, Category, Collection, Product, Store, Wishlist, CartItem
 from veregood.vendor.forms import VendorProfileEditForm, VendorProfileForm
 from django.views.generic.edit import *
 
 
 
 def index(request):
-    new_products = Collection.objects.get(slug="new-products")
-    on_sale_products = Collection.objects.get(slug="on-sale")
-    best_selling_products = Collection.objects.get(slug="best-selling")
-    banner = Banner.objects.filter(web=True)
+    try:
+        new_products = Collection.objects.get(slug="new-products")
+        on_sale_products = Collection.objects.get(slug="on-sale")
+        best_selling_products = Collection.objects.get(slug="best-selling")
+        banner = Banner.objects.filter(web=True)
+    except:
+        new_products =[]
+        on_sale_products = []
+        best_selling_products = []
+        banner = []
+
     return HttpResponse(
         render(
             request,
@@ -141,8 +147,8 @@ def verification(request):
 
 @login_required(login_url="veregood:login")
 def cart(request):
-
     cart , created = Cart.objects.get_or_create(user=request.user)
+
 
     return HttpResponse(render(request,'main_site/screens/cart.html',{"cart":cart}))
 
@@ -152,13 +158,73 @@ def dashboard(request):
 def category(request):
     return HttpResponse(render(request,'main_site/screens/category.html'))
 
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import requires_csrf_token
 
+@requires_csrf_token
+@csrf_exempt
 def product(request,pk):
-    product = Product.objects.get(id=pk)
-    print(product.page_layout)
-    return HttpResponse(render(request,'main_site/screens/product.html',{"product":product}))
+
+    # print(product.page_layout)
+    if request.method == "POST":
+        print("Hi")
+        return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+    else:
+        product = Product.objects.get(id=pk)
+        return HttpResponse(render(request,'main_site/screens/product.html',context={"product":product}))
 
 
+
+def update_cart(request):
+    cart = Cart.objects.get(user=request.user)
+    from django.db.models import Sum
+    try:
+        sub_total = CartItem.objects.filter(cart__id=cart.id).aggregate(Sum('line_total'))
+
+        cart.sub_total = sub_total["line_total__sum"]
+        cart.total=cart.sub_total
+        cart.save()
+    except:
+        cart.sub_total = 0
+        cart.total = 0
+        cart.save()
+
+
+def add_cart(request,pk):
+    product =Product.objects.get(id=pk)
+    quantity = int(request.POST["quantity"])
+    cart = Cart.objects.get(user=request.user)
+    cart_item = CartItem.objects.create(cart=cart,product=product,quantity=quantity,line_total=int(product.price)*quantity)
+    update_cart(request)
+    return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+
+
+def add_quantity(request,pk):
+    cart_item = CartItem.objects.get(id=pk)
+    cart_item.quantity=cart_item.quantity+1
+    cart_item.line_total = int(cart_item.product.price)*cart_item.quantity
+    cart_item.save()
+    update_cart(request)
+    return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+
+def remove_quantity(request,pk):
+    cart_item = CartItem.objects.get(id=pk)
+    print(cart_item.quantity)
+    if cart_item.quantity == 1:
+
+        CartItem.objects.get(id=pk).delete()
+    else:
+        cart_item.quantity = cart_item.quantity - 1
+        cart_item.line_total = int(cart_item.product.price) * cart_item.quantity
+        cart_item.save()
+
+    update_cart(request)
+
+    return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+def delete_cart_item(request,pk):
+    CartItem.objects.get(id=pk).delete()
+    update_cart(request)
+    return HttpResponseRedirect(reverse("veregood:shopping-cart"))
 
 def checkout(request):
     return HttpResponse(render(request,'main_site/screens/checkout.html'))

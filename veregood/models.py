@@ -459,6 +459,8 @@ class Order(models.Model):
     payment_type        = models.CharField(choices=PAYMENT_TYPE,max_length=100,default="onprocess")
     coupun_applied      = models.BooleanField(default=False)
     address             = models.TextField(max_length=1500,blank=True,null=True)
+    billing_address             = models.TextField(max_length=1500,blank=True,null=True)
+    shipping_address             = models.TextField(max_length=1500,blank=True,null=True)
     customer_otp        = models.CharField(default=str(random.randint(1000,9999)),max_length=255)
     delivery_status_notes = models.CharField(max_length=255,blank=True,null=True)
     vendor_status_notes = models.CharField(max_length=255,blank=True,null=True)
