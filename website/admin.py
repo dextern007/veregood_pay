@@ -53,12 +53,17 @@ class EditorForm(forms.ModelForm):
 
 
 
-
 class WidgetAdmin(admin.ModelAdmin):
     form = EditorForm
+
+class SerializerAdmin(admin.ModelAdmin):
+
+    form    = EditorForm
+    class Meta:
+        model = JsonSerializer
 
 admin.site.register(Page,PageAdmin)
 admin.site.register(Widget,WidgetAdmin)
 admin.site.register(Api,ApiAdmin)
-admin.site.register(JsonSerializer)
+admin.site.register(JsonSerializer,SerializerAdmin)
 admin.site.register(View)
