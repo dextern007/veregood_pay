@@ -23,8 +23,12 @@ class PageAdmin(admin.ModelAdmin):
 
 
 
-class SerializerInline(admin.StackedInline):
+class SerializerInline(admin.TabularInline):
     model = JsonSerializer.api.through
+    extra = 1
+
+class FunctionInline(admin.TabularInline):
+    model = CustomFuction.api.through
     extra = 1
 
 class APIEditorForm(forms.ModelForm):
@@ -37,7 +41,7 @@ class APIEditorForm(forms.ModelForm):
         }
 
 class ApiAdmin(admin.ModelAdmin):
-    inlines = [SerializerInline]
+    inlines = [SerializerInline,FunctionInline]
     form    = APIEditorForm
     class Meta:
         model = Api
@@ -62,8 +66,15 @@ class SerializerAdmin(admin.ModelAdmin):
     class Meta:
         model = JsonSerializer
 
+class FunctionAdmin(admin.ModelAdmin):
+
+    form    = EditorForm
+    class Meta:
+        model = CustomFuction
+
 admin.site.register(Page,PageAdmin)
 admin.site.register(Widget,WidgetAdmin)
 admin.site.register(Api,ApiAdmin)
 admin.site.register(JsonSerializer,SerializerAdmin)
+admin.site.register(CustomFuction,FunctionAdmin)
 admin.site.register(View)

@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from account.models import User
-from veregood.models import Banner, Cart, Category, Collection, Product, Store, Wishlist, CartItem
+from veregood.models import *
 from veregood.vendor.forms import VendorProfileEditForm, VendorProfileForm
 from django.views.generic.edit import *
 
@@ -155,8 +155,22 @@ def cart(request):
 def dashboard(request):
     return HttpResponse(render(request,'main_site/screens/dashboard.html'))
 
-def category(request):
-    return HttpResponse(render(request,'main_site/screens/category.html'))
+def category(request,pk):
+    show = True
+    categories = Category.objects.filter(parent=None)
+    products= Product.objects.filter(category__id=pk)
+    if products.count() == 0:
+        show = False
+    return HttpResponse(render(request,'main_site/screens/category.html',{"categories":categories,"products":products,"p_count":show}))
+
+
+def allproducts(request):
+    show = True
+    categories = Category.objects.filter(parent=None)
+    products= Product.objects.all()
+    if products.count() == 0:
+        show = False
+    return HttpResponse(render(request,'main_site/screens/category.html',{"categories":categories,"products":products,"p_count":show}))
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import requires_csrf_token
@@ -167,7 +181,7 @@ def product(request,pk):
 
     # print(product.page_layout)
     if request.method == "POST":
-        print("Hi")
+        # print("Hi")
         return HttpResponseRedirect(reverse("veregood:shopping-cart"))
     else:
         product = Product.objects.get(id=pk)
@@ -227,11 +241,33 @@ def delete_cart_item(request,pk):
     return HttpResponseRedirect(reverse("veregood:shopping-cart"))
 
 def checkout(request):
-    return HttpResponse(render(request,'main_site/screens/checkout.html'))
+    from veregood.main_site.forms import AddressForm
+    cart = Cart.objects.get(user=request.user)
+    if cart.cart_item.all().count() == 0:
+        return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+    form    = AddressForm()
+    address = Address.objects.filter(user=request.user)
+    return HttpResponse(render(request,'main_site/screens/checkout.html',{"form":form,"address":address}))
 
 def wishlist(request):
     wishlist , created = Wishlist.objects.get_or_create(user=request.user)
     return HttpResponse(render(request,'main_site/screens/wishlist.html',{"wishlist",wishlist}))
+
+
+
+def search(request):
+    show = True
+    products = Product.objects.all()
+    categories = Category.objects.filter(parent=None)
+    if request.GET['cat'] == 'all':
+        products = products.filter(title__contains=request.GET['q'])
+    else:
+        products = products.filter(title__contains=request.GET['q'],category__slug=request.GET['cat'])
+    if products.count() == 0:
+        show = False
+    return HttpResponse(render(request,'main_site/screens/category.html',{"categories":categories,"products":products,"p_count":show}))
+
+
 
 def services(request):
     from veregood_service.models import VendorService

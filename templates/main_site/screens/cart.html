@@ -51,8 +51,8 @@
                                     <tr class="product-row">
                                         <td>
                                             <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="{% static 'main_site/assets/images/products/product-4.jpg' %}" alt="product">
+                                                <a href="{% url 'veregood:product' pk=item.product.id %}" class="product-image">
+                                                    <img src="/media/{{ item.product.image }}" alt="product">
                                                 </a>
 
                                                 <a href="{% url 'veregood:delete_cart_item' pk=item.id %}" class="btn-remove icon-cancel" title="Remove Product"></a>

@@ -85,21 +85,15 @@ class Banner(models.Model):
     
 class Address(models.Model):
     user                    = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True,related_name="useraddress")
+    first_name              =  models.CharField(max_length=255,blank=True,null=True)
+    last_name               =  models.CharField(max_length=255,blank=True,null=True)
+    emai_address            =  models.CharField(max_length=255,blank=True,null=True)
     flat_no                 = models.CharField(max_length=100,blank=True,null=True)
-    address                 =  models.CharField(max_length=255,blank=True,null=True)
+    address                 =  models.TextField(max_length=1500,blank=True,null=True)
     city                    = models.CharField(max_length=100,blank=True,null=True)
     state                   = models.CharField(max_length=100,blank=True,null=True)
     country                 = models.CharField(max_length=100,blank=True,null=True)
     location                = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
-
-
-
-
-
-
-
-
-
 
 
 #########
@@ -365,19 +359,6 @@ class Attribute(models.Model):
 
 
 
-########
-
-
-
-
-
-
-
-
-
-
-#########
-
 class Cart(models.Model):
     user                    = models.OneToOneField(settings.AUTH_USER_MODEL,blank=True,null=True,on_delete=models.CASCADE)
     total                   = models.BigIntegerField(default=0)
@@ -393,18 +374,6 @@ class CartItem(models.Model):
     line_total              = models.IntegerField(default=0)
 
 #######
-
-
-
-
-
-
-
-
-
-######
-
-
 class Wishlist(models.Model):
     user                    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     timestamp               = models.DateTimeField(auto_now_add=True, auto_now=False)
@@ -506,3 +475,10 @@ class Explore(models.Model):
     video   = models.FileField(upload_to="veregood/explore/videos",blank=True,null=True)
     image   = models.ImageField(upload_to="veregood/explore/images",blank=True,null=True)
     active  = models.BooleanField(default=False)
+
+
+class WebSiteLogs(models.Model):
+    # user  = models.ForeignKey(settings.AUTH_USER_MODEL,blank=True,null=True,on_delete=models.CASCADE)
+    count   = models.IntegerField(default=0)
+    date    = models.DateField(blank=True,null=True,unique=True)
+    current_url = models.CharField(max_length=255,blank=True,null=True)

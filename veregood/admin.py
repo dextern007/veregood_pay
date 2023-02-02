@@ -81,23 +81,7 @@ class CollectionAdmin(nested_admin.NestedModelAdmin):
     class Meta:
         model = Collection
 
-admin.site.register(Product,ProductAdmin)
-admin.site.register(Address)
-admin.site.register(Store)
-admin.site.register(Brand)
-admin.site.register(ProductReview)
-admin.site.register(ProductImage)
-admin.site.register(Variation)
-admin.site.register(Collection,CollectionAdmin)
-admin.site.register(ProductListing)
-admin.site.register(Category)
-admin.site.register(Cart)
-admin.site.register(CartItem)
-admin.site.register(Wishlist)
-admin.site.register(WishlistItem)
-admin.site.register(Banner)
-admin.site.register(Order)
-admin.site.register(Payment)
+
 
 
 from django.urls import reverse
@@ -125,5 +109,26 @@ class VendorProductAdmin(nested_admin.NestedModelAdmin):
 
 
 
+
+
+
+
 vendor_admin_site.register(Store)
 vendor_admin_site.register(Product,VendorProductAdmin)
+admin.site.register(Product,ProductAdmin)
+admin.site.register(Address)
+admin.site.register(Store)
+admin.site.register(Brand)
+admin.site.register(ProductReview)
+admin.site.register(ProductImage)
+admin.site.register(Variation)
+admin.site.register(Collection,CollectionAdmin)
+admin.site.register(ProductListing)
+admin.site.register(Category)
+admin.site.register(Cart)
+admin.site.register(CartItem)
+admin.site.register(Wishlist)
+admin.site.register(WishlistItem)
+admin.site.register(Banner)
+admin.site.register(Order)
+admin.site.register(Payment)

@@ -81,7 +81,7 @@
                     <div class="header-right w-lg-max pl-2">
                         <div class="header-search header-icon header-search-inline header-search-category w-lg-max">
                             <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
-                            <form action="#" method="get">
+                            <form action="{{ request.scheme }}://{{ request.get_host }}/search" method="get">
                                 <div class="header-search-wrapper">
                                     <input type="search" class="form-control" name="q" id="qq" placeholder="Search..." required>
                                     <div class="select-custom">
@@ -135,7 +135,7 @@
             <div class="header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
                 <div class="container">
                     <div class="header-left">
-                        <a href="#" class="logo">
+                        <a href="{% url 'veregood:index' %}" class="logo">
                             <img src="{% static 'main_site/assets/images/veregood-images/logo.png' %}" alt="Logo">
                         </a>
                     </div>
@@ -143,9 +143,9 @@
                         <nav class="main-nav w-100">
                             <ul class="menu">
                                 <li>
-                                    <a href="#">Home</a>
+                                    <a href="{% url 'veregood:index' %}">Home</a>
                                 </li>
-                                <li><a href="#">Products</a></li>
+                                <li><a href="{% url 'veregood:all_products' %}">Products</a></li>
                                 <li>
                                     <a href="#">Services</a>
                                     <ul>
@@ -223,7 +223,7 @@
 
             <ul class="mobile-menu menu-with-icon mt-2 mb-2">
                 <li class="border-0">
-                    <a href="#" target="_blank"><i class="sicon-star"></i> &nbsp; Godepay<span
+                    <a href="#" target="_blank"><i class="sicon-star"></i> &nbsp; Goodepay<span
                             class="tip tip-hot">Hot</span></a>
                 </li>
             </ul>
@@ -231,7 +231,7 @@
             <ul class="mobile-menu">
                 <li><a href="#">My Account</a></li>
                 <li><a href="#">Contact Us</a></li>
-                <li><a href="#">My Wishlist</a></li>
+<!--                <li><a href="#">My Wishlist</a></li>-->
                 <li><a href="#">Site Map</a></li>
                 <li><a href="#">Cart</a></li>
                 <li><a href="#" class="login-link">Log In</a></li>

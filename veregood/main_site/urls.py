@@ -19,10 +19,12 @@ urlpatterns = [
     path('add_quantity/<int:pk>',add_quantity,name="add_quantity"),
     path('remove_quantity/<int:pk>',remove_quantity,name="remove_quantity"),
     path('dashboard/',dashboard,name="my-account"),
-    path('category/',category,name="product-listing"),
+    path('category/<int:pk>',category,name="product-listing"),
+    path('search/',search,name="search"),
     path('product/<int:pk>/',product,name="product"),
     path('page/<str:page_key>/',page_view,name="page"),
     path('checkout/',checkout,name="checkout"),
     path('wishlist/',wishlist,name="wishlist"),
     path('services/',services,name="services"),
+    path('products/', allproducts, name="all_products"),
 ]

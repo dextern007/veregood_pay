@@ -42,29 +42,31 @@ class ApiRequest(APIView):
     authentication_classes = [TokenAuthentication]
 
     def get(self,request,format=None):
+        global response
+        global resp_code
         response = dict()
         resp_code = status.HTTP_204_NO_CONTENT
-        api_key = self.request.query_params.get("api_key",None)
+        api_key = self.request.query_params.get("api_key", None)
         api = Api.objects.get(key=api_key)
-        serializer_class = JsonSerializer.objects.filter(api__id= api.id)
+        serializer_class = JsonSerializer.objects.filter(api__id=api.id)
 
-
-
-        serializer_content =[]
-        serializer_header =[]
+        serializer_content = []
+        serializer_header = []
         for data in serializer_class:
             serializer_content.append(data.content)
-            serializer_header.append(data.header)
+            serializer_header.append(data.headers)
 
-        exec(api.headers)
-        exec("\n".join(serializer_header),locals())
-        exec("\n".join(serializer_content),locals())
-        exec(api.content)
+        exec(api.headers, globals())
+        exec("\n".join(serializer_header), globals())
+        exec("\n".join(serializer_content), globals())
+        exec(api.content, locals(), globals())
 
 
         return Response(response,status=resp_code)
 
     def post(self, request, format=None):
+        global response
+        global  resp_code
         response = dict()
         resp_code = status.HTTP_204_NO_CONTENT
         api_key = self.request.query_params.get("api_key", None)
@@ -75,15 +77,17 @@ class ApiRequest(APIView):
         serializer_header = []
         for data in serializer_class:
             serializer_content.append(data.content)
-            serializer_header.append(data.header)
+            serializer_header.append(data.headers)
 
-        exec(api.headers)
-        exec("\n".join(serializer_header), locals())
-        exec("\n".join(serializer_content), locals())
-        exec(api.content)
+        exec(api.headers,globals())
+        exec("\n".join(serializer_header), globals())
+        exec("\n".join(serializer_content), globals())
+        exec(api.content,locals(),globals())
         return Response(response, status=resp_code)
 
     def put(self,request,format=None):
+        global response
+        global resp_code
         response = dict()
         resp_code = status.HTTP_204_NO_CONTENT
         api_key = self.request.query_params.get("api_key", None)
@@ -94,15 +98,17 @@ class ApiRequest(APIView):
         serializer_header = []
         for data in serializer_class:
             serializer_content.append(data.content)
-            serializer_header.append(data.header)
+            serializer_header.append(data.headers)
 
-        exec(api.headers)
-        exec("\n".join(serializer_header), locals())
-        exec("\n".join(serializer_content), locals())
-        exec(api.content)
+        exec(api.headers, globals())
+        exec("\n".join(serializer_header), globals())
+        exec("\n".join(serializer_content), globals())
+        exec(api.content, locals(), globals())
         return Response(response,status=resp_code)
 
     def delete(self,request,format=None):
+        global response
+        global resp_code
         response = dict()
         resp_code = status.HTTP_204_NO_CONTENT
         api_key = self.request.query_params.get("api_key", None)
@@ -113,10 +119,10 @@ class ApiRequest(APIView):
         serializer_header = []
         for data in serializer_class:
             serializer_content.append(data.content)
-            serializer_header.append(data.header)
+            serializer_header.append(data.headers)
 
-        exec(api.headers)
-        exec("\n".join(serializer_header), locals())
-        exec("\n".join(serializer_content), locals())
-        exec(api.content)
+        exec(api.headers, globals())
+        exec("\n".join(serializer_header), globals())
+        exec("\n".join(serializer_content), globals())
+        exec(api.content, locals(), globals())
         return Response(response,status=resp_code)
