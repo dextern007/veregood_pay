@@ -205,12 +205,15 @@ def update_cart(request):
 
 
 def add_cart(request,pk):
-    product =Product.objects.get(id=pk)
-    quantity = int(request.POST["quantity"])
-    cart = Cart.objects.get(user=request.user)
-    cart_item = CartItem.objects.create(cart=cart,product=product,quantity=quantity,line_total=int(product.price)*quantity)
-    update_cart(request)
-    return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+    try:
+        product =Product.objects.get(id=pk)
+        quantity = int(request.POST["quantity"])
+        cart = Cart.objects.get(user=request.user)
+        cart_item = CartItem.objects.create(cart=cart,product=product,quantity=quantity,line_total=int(product.price)*quantity)
+        update_cart(request)
+        return HttpResponseRedirect(reverse("veregood:shopping-cart"))
+    except:
+        return HttpResponseRedirect(reverse("veregood:login"))
 
 
 def add_quantity(request,pk):
