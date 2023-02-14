@@ -1,6 +1,7 @@
 
 from django.conf import settings
 import stripe
+from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework.views import APIView
@@ -294,9 +295,10 @@ class SearchView(APIView):
 
 class UserView(APIView):
     def get(self,request,format=None):
-        mobile_number = self.request.query_params.get("mobile_number")
+        email = self.request.query_params.get("email")
+        password = self.request.query_params.get("password")
         try:
-            user=User.objects.get(username=mobile_number)
+            user=authenticate(username=email,password=password)
             token ,created = Token.objects.get_or_create(user=user)
 
 
@@ -322,8 +324,9 @@ class UserView(APIView):
         name = request.data["name"]
         email = request.data["email"]
         country_code = request.data["country_code"]
+        password = request.data["password"]
         user=User(first_name=name,username=username,mobile_number=username,email=email,country_code=country_code)
-        user.set_password(str(random.randint(1000000000000,9999999999999999)))
+        user.set_password(password)
         user.save()
         token ,created = Token.objects.get_or_create(user=user)
 

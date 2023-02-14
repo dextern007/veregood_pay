@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-LIVE_MODE = False
+LIVE_MODE = True
 
 # Application definition
 
@@ -188,7 +188,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'goodepay',
+            'NAME': 'veregood',
             'USER': 'dextern',
             'PASSWORD': 'Welcome123',
             'HOST': 'localhost',
