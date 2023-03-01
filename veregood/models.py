@@ -204,7 +204,7 @@ class ProductImage(models.Model):
         verbose_name = 'Image'
 
 class ProductDescription(models.Model):
-    product                 =  models.OneToOneField(Product,on_delete=models.CASCADE,blank=True,null=True)
+    product                 =  models.OneToOneField(Product,on_delete=models.CASCADE,blank=True,null=True,related_name="description")
     content                 =  HTMLField()
 
     class Meta:

@@ -19,9 +19,9 @@ urlpatterns = [
     path('address/',               AddressView.as_view()),
     path('check-user/',            UserView.as_view()),
     path('register/',              UserView.as_view()),
-    path('quoute/',                Quote.as_view()),
-    path('auction/',               Auction.as_view()),
-    path('explore/',               Explore.as_view()),
+    path('quoute/',                QuoteView.as_view()),
+    path('auction/',               AuctionView.as_view()),
+    path('explore/',               ExploreView.as_view()),
     path('collection-group/',      CollectionGroupView.as_view()),
     path('order/',                 OrderView.as_view()),
    

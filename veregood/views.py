@@ -59,9 +59,19 @@ class CartView(APIView):
     def get(self,request,format=None):
         user = request.user
         # print(user)
-        cart , created = Cart.objects.get_or_create(user=user)
-        serializer = CartSerializer(cart)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        response = dict()
+        try:
+            cart , created      = Cart.objects.get_or_create(user=request.user)
+            cart_serializer     = CartSerializer(cart)
+            response["message"] = "Success"
+            response["cart"]    = cart_serializer.data
+            resp_code           = status.HTTP_200_OK
+
+        except:
+            response["message"] = "Token Error"
+            resp_code           = status.HTTP_400_BAD_REQUEST
+
+        return Response(response,status=status.HTTP_200_OK)
 
     def add_item_to_cart(self,data):
         user = self.request.user
@@ -343,7 +353,7 @@ class UserView(APIView):
         return Response(data,status=status.HTTP_200_OK)
 
 
-class Quote(APIView):
+class QuoteView(APIView):
 
     def get(self,request,format=None):
         quotes= Quote.objects.filter(user=request.user)
@@ -369,7 +379,7 @@ class Quote(APIView):
 
 
 
-class Auction(APIView):
+class AuctionView(APIView):
     def get(self,request,format=None):
         auctions= Auction.objects.filter(user=request.user)
         serializer = AuctionSerializer(auctions,many=True)
@@ -391,7 +401,7 @@ class Auction(APIView):
 
 
 
-class Explore(APIView):
+class ExploreView(APIView):
     def get(self,request,format=None):
         explores = Explore.objects.filter(active=True)
         serializer = ExploreSerializer(explores,many=True) 
