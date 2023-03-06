@@ -51,9 +51,26 @@ class CollectionView(APIView):
 class CartView(APIView):
     authentication_classes = [TokenAuthentication]
 
-    def calculate_total(data):
-        # saves total and line total
-        pass
+    def calculate_total(self,data):
+        cart = Cart.objects.get(user=self.request.user)
+        cart_total = 0.00
+        for item in cart.cart_item.all():
+            item_total = 0.00
+            product_price = item.product.price
+            cart_item = CartItem.object.get(id=item.id)
+            variation_total = 0.00
+            if item.has_variation:
+                for variation in item.variation.all():
+                    if variation.has_price:
+                        variation_total = variation_total + variation.price
+            item_total = int((variation_total + product_price) * int(item.quantity))
+            cart_item.total = item_total
+            cart_total = cart_total + item_total
+            cart_item.save()
+
+
+        cart.total = cart_total
+        cart.save()
     
 
     def get(self,request,format=None):
@@ -79,12 +96,14 @@ class CartView(APIView):
         cart_item = CartItem(cart=cart,
         product = Product.objects.get(id=data["product_id"]),
         has_variation = data["has_variation"],
-        quantity = int(data["quantity"])
+        quantity = int(data["quantity"]),
+
         )
         if data["has_variation"]==True:
             cart_item.variation.add(Variation.objects.filter(id__in=data["variations"]))
 
         cart_item.save()
+
 
         return {"message":"Item Added Successfully","cart_item":CartItemSerializer(cart_item).data}
 
@@ -115,7 +134,7 @@ class CartView(APIView):
 
         else:
             resp = self.update_cart_item_quantity(data=data)
-
+        self.calculate_total(data)
         return Response(resp,status=status.HTTP_200_OK)
 
 
@@ -146,7 +165,6 @@ class WishlistView(APIView):
 
 
 class CategoryView(APIView):
-
     def get(self,request,format=None):
         flag = self.request.query_params.get('id',None)
 
@@ -186,6 +204,12 @@ class ProductView(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
 
 
+
+class ProductListView(APIView):
+    def get(self,request,format=None):
+        product = Product.objects.all()
+        serializer = ProductDetail(product,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
 
 class ProductReviewView(APIView):
@@ -233,14 +257,17 @@ class OrderView(APIView):
         address     = request.data["address"]
         payment     = Payment.objects.create(amount= cart.total)
 
-        for item in cart.cart_item.all():
-            order       = Order.objects.create(payment=payment,user=request.user,item=item,address=address)
-            order.total = item.line_total
-            # total+tax+delivery_charge - discount
-            order.final_total = item.line_total
-            order.save()
+
+        order       = Order.objects.create(payment=payment,user=request.user,item=cart,address=address)
+        order.total = cart.total
+        # total+tax+delivery_charge - discount
+        order.final_total = cart.total
+        order.save()
         cart.user = None
         cart.save()
+
+        # for item in cart.cart_item.all():
+        #     vendor_order = VendorOrder.objects.create()
         # Create Payment Intent
         serializer = PaymentSerilaizer(payment)
         return Response({"message":"order created successfully","payment":serializer.data},status=status.HTTP_200_OK)
@@ -381,20 +408,20 @@ class QuoteView(APIView):
 
 class AuctionView(APIView):
     def get(self,request,format=None):
-        auctions= Auction.objects.filter(user=request.user)
+        auctions= ProductBid.objects.filter(user=request.user)
         serializer = AuctionSerializer(auctions,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
     def post(self,request,format=None):
         data = request.data
         try:
-            auction = Auction(
+            auction = ProductBid(
                 product=Product.objects.get(id=data["product_id"]),
                 user = request.user,
                 bid_amount = data["bid_amount"]
                 )
             auction.save()
-            serializer=QuoteSerializer(auction)
+            serializer=AuctionSerializer(auction)
             return Response(serializer.data,status=status.HTTP_200_OK)
         except:
             return Response({"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
@@ -415,3 +442,32 @@ class CollectionGroupView(APIView):
         collection_groups = CollectionGroup.objects.filter(active=True)
         serializer = CollectionGroupSerializer(collection_groups,many=True) 
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+class ProductCurd(APIView):
+
+    def get(self,request,format=None):
+        product=Product.objects.filter(store=request.user.store)
+        serializer= ProductDetail(product,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self,request,format=None):
+        data = request.data
+        title = data["title"]
+        sku = data["sku"]
+        short_description = data["short_description"]
+        price = data["price"]
+        product_type = data["product_type"]
+        description = data["description"]
+        thumbnail = data["thumbnail"]
+        category = data["category"]
+        product = Product.objects.create(
+            title=title,store=request.user.store,sku=sku,image=thumbnail,thumbnail=thumbnail,short_description=short_description,price=price,
+            category=Category.objects.get(id=category),product_type=product_type,is_active=True)
+
+        prod_desciption =  ProductDescription.objects.create(content=description,product=product)
+
+        for images in request.FILES.getlist('images'):
+            ProductImage.objects.create(product=product,image=images)
+
+        return Response({"message":"product created successfully"}, status=status.HTTP_200_OK)

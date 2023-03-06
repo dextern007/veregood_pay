@@ -117,6 +117,19 @@ class DescriptionSerailizer(serializers.ModelSerializer):
         model = ProductDescription
         fields = "__all__"
 
+
+class QuoteSerializer(serializers.ModelSerializer):
+    user = UserReviewSerializer()
+    class Meta():
+        model = Quote
+        fields = "__all__"
+
+
+class AuctionSerializer(serializers.ModelSerializer):
+    user = UserReviewSerializer()
+    class Meta():
+        model = ProductBid
+        fields = "__all__"
 class ProductDetail(serializers.ModelSerializer):
     category  = CategorySerializer()
     brand     = BrandSerilaizer()
@@ -125,6 +138,9 @@ class ProductDetail(serializers.ModelSerializer):
     product_image = ProductImageSerializer(many=True)
     product_review   = ProductReviewListSerializer(many=True)
     description   = DescriptionSerailizer()
+    product_quote = QuoteSerializer(many=True)
+    product_bid   = AuctionSerializer(many=True)
+
     
     class Meta():
         model = Product
@@ -178,25 +194,14 @@ class PaymentSerilaizer(serializers.ModelSerializer):
         fields = "__all__"
 
 class OrderSerializer(serializers.ModelSerializer):
-    item     = CartItemSerializer()
+    cart     = CartSerializer()
     payment  = PaymentSerilaizer()
     class Meta():
         model = Order
         fields = "__all__"
 
 
-class QuoteSerializer(serializers.ModelSerializer):
-    user = UserReviewSerializer()
-    class Meta():
-        model = Quote
-        fields = "__all__"
 
-
-class AuctionSerializer(serializers.ModelSerializer):
-    user = UserReviewSerializer()
-    class Meta():
-        model = Auction
-        fields = "__all__"
 
 
 class ExploreSerializer(serializers.ModelSerializer):

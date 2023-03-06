@@ -14,6 +14,8 @@ urlpatterns = [
     path('wishlist/',              WishlistView.as_view()),
     path('category/',              CategoryView.as_view()),
     path('product/',               ProductView.as_view()),
+    path('product-list/',          ProductListView.as_view()),
+    path('product-curd/',          ProductCurd.as_view()),
     path('search/',                SearchView.as_view()),
     path('review/',                ProductReviewView.as_view()),
     path('address/',               AddressView.as_view()),

@@ -240,12 +240,12 @@ class ProductMeta(models.Model):
         verbose_name = 'Meta'
 
 class ProductQuote(models.Model):
-    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True,related_name="product_quote")
     user                    =  models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
     content                 =  models.TextField()
 
 class ProductBid(models.Model):
-    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    product                 =  models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True,related_name="product_bid")
     user                    =  models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
     bid_amount              =  models.BigIntegerField(default=0)
 
@@ -417,7 +417,7 @@ class Order(models.Model):
     payment             = models.ForeignKey("Payment",on_delete=models.CASCADE,blank=True,null=True)
     user                = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
     # payment_id          = models.CharField(max_length=255,blank=True,null=True,unique=True)
-    item                = models.ForeignKey(CartItem,on_delete=models.CASCADE,blank=True,null=True)
+    cart                = models.ForeignKey(Cart,on_delete=models.CASCADE,blank=True,null=True)
     location            = models.PointField(null=True,blank=True,srid=4326,verbose_name='Location')
     total               = models.BigIntegerField(default=0)
     coupoun_discount    = models.BigIntegerField(default=0)

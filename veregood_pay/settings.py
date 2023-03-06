@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-LIVE_MODE = True
+LIVE_MODE = False
 
 # Application definition
 
