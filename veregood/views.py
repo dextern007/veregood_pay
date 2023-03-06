@@ -461,8 +461,16 @@ class ProductCurd(APIView):
         description = data["description"]
         thumbnail = data["thumbnail"]
         category = data["category"]
+
+        if request.user.store == None:
+            store = Store.objects.create(user=request.user)
+        else:
+            store = request.user.store
+
+
+
         product = Product.objects.create(
-            title=title,store=request.user.store,sku=sku,image=thumbnail,thumbnail=thumbnail,short_description=short_description,price=price,
+            title=title,store=store,sku=sku,image=thumbnail,thumbnail=thumbnail,short_description=short_description,price=price,
             category=Category.objects.get(id=category),product_type=product_type,is_active=True)
 
         prod_desciption =  ProductDescription.objects.create(content=description,product=product)
